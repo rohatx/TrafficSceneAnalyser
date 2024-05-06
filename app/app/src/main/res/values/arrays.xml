@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lmm_array">
+        <item>LLaVa</item>
+        <item>BakLLaVa</item>
+        <item>ChatGPT-4V</item>
+        <!-- Fügen Sie zusätzliche Modelle hinzu -->
+    </string-array>
+</resources>

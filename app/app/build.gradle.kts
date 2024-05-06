@@ -29,7 +29,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -37,4 +36,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // Glide-Bibliotheken
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)  // Verwende `annotationProcessor` für Java-Projekte
 }
