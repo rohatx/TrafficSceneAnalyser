@@ -57,12 +57,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/latitude"
         android:layout_width="179dp"
         android:layout_height="54dp"
         android:ems="10"
-        android:inputType="text"
         android:text="Latitude: "
         app:layout_constraintBottom_toTopOf="@+id/longitude"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,12 +69,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_preview" />
 
-    <EditText
+    <TextView
         android:id="@+id/longitude"
         android:layout_width="178dp"
         android:layout_height="57dp"
         android:ems="10"
-        android:inputType="text"
         android:text="Longitude: "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

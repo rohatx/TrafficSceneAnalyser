@@ -1,6 +1,7 @@
 package com.example.trafficsceneanalyser;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,15 +20,18 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 public class UploadConfigActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private Spinner spinnerModelSelector;
     private Button buttonUpload;
     private Intent intent;
-    private String imagePath;
-    private String latitude;
-    private String longitude;
+    private Uri image;
+    private TextView viewLongitude;
+    private TextView viewLatitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +46,28 @@ public class UploadConfigActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Initialisiere Übergabe Parameter
+        // Initialisiere Parameter
         intent = getIntent();
-        imagePath = intent.getStringExtra("imagePath");
-        latitude = intent.getStringExtra("latitude");
-        longitude = intent.getStringExtra("longitude");
+        image = (Uri) intent.getExtras().get("image");
+        viewLatitude = findViewById(R.id.latitude);
+        viewLongitude = findViewById(R.id.longitude);
 
         // Initialisiere Koordinaten
-        EditText longitudeText = findViewById(R.id.longitude);
-        longitudeText.setText("Longitude: " + longitude);
-        EditText latitudeText = findViewById(R.id.latitude);
-        latitudeText.setText("Latitude: " + latitude);
+        InputStream input = null;
+        try {
+            input = getContentResolver().openInputStream(image);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        imageMetaData metaData = new imageMetaData(input);
+
+        viewLatitude.setText("Latitude: " + metaData.getLatitude());
+        viewLongitude.setText("Longitude: " + metaData.getLongitude());
+
 
         // Initialisiere UI Komponente
         imageView = findViewById(R.id.image_preview);
+        imageView.setImageURI(image);
         spinnerModelSelector = findViewById(R.id.spinner_model_selector);
         buttonUpload = findViewById(R.id.button_upload);
 
@@ -69,20 +82,9 @@ public class UploadConfigActivity extends AppCompatActivity {
 
         // Lade ein Beispiel Bild
         // Vorrübergehend, bis Button Funktionalität fertig
-        loadImage();
+
     }
 
-    private void loadImage() {
-        if (imagePath == null) {
-            Log.v("error", "Error loading image");
-        }
-        Glide.with(this)
-                .load(imagePath)
-                .centerCrop()
-                .placeholder(R.drawable.loading_spinner)
-                .error(R.drawable.image_not_found)
-                .into(imageView);
-    }
 
     private void uploadImage() {
         String selectedModel = spinnerModelSelector.getSelectedItem().toString();
