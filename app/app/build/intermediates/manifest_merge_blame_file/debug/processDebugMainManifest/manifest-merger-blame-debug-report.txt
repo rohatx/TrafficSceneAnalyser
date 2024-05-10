@@ -1,0 +1,169 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.trafficsceneanalyser"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Internet-Berechtigung hinzufügen -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:6:5-66
+12-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:6:22-64
+13    <!-- Speicher- Berechtigung hinzufügen -->
+14    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+14-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:8:5-9:46
+14-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:8:22-73
+15    <uses-permission
+15-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:10:5-11:38
+16        android:name="android.permission.READ_EXTERNAL_STORAGE"
+16-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:10:22-77
+17        android:maxSdkVersion="32" />
+17-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:11:9-35
+18
+19    <permission
+19-->[androidx.core:core:1.9.0] /home/lxflk/.gradle/caches/transforms-3/813ce4206bdf6cba41ebf3ee030cc8e3/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+20        android:name="com.example.trafficsceneanalyser.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+20-->[androidx.core:core:1.9.0] /home/lxflk/.gradle/caches/transforms-3/813ce4206bdf6cba41ebf3ee030cc8e3/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+21        android:protectionLevel="signature" />
+21-->[androidx.core:core:1.9.0] /home/lxflk/.gradle/caches/transforms-3/813ce4206bdf6cba41ebf3ee030cc8e3/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+22
+23    <uses-permission android:name="com.example.trafficsceneanalyser.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+23-->[androidx.core:core:1.9.0] /home/lxflk/.gradle/caches/transforms-3/813ce4206bdf6cba41ebf3ee030cc8e3/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+23-->[androidx.core:core:1.9.0] /home/lxflk/.gradle/caches/transforms-3/813ce4206bdf6cba41ebf3ee030cc8e3/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+24
+25    <application
+25-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:13:5-44:19
+26        android:allowBackup="true"
+26-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:14:9-35
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.9.0] /home/lxflk/.gradle/caches/transforms-3/813ce4206bdf6cba41ebf3ee030cc8e3/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+28        android:dataExtractionRules="@xml/data_extraction_rules"
+28-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:15:9-65
+29        android:debuggable="true"
+30        android:extractNativeLibs="false"
+31        android:fullBackupContent="@xml/backup_rules"
+31-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:16:9-54
+32        android:icon="@mipmap/ic_launcher"
+32-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:17:9-43
+33        android:label="@string/app_name"
+33-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:18:9-41
+34        android:roundIcon="@mipmap/ic_launcher_round"
+34-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:19:9-54
+35        android:supportsRtl="true"
+35-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:20:9-35
+36        android:testOnly="true"
+37        android:theme="@style/Theme.TrafficSceneAnalyser" >
+37-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:21:9-58
+38        <activity
+38-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:23:9-25:40
+39            android:name="com.example.trafficsceneanalyser.UploadConfigActivity"
+39-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:24:13-49
+40            android:exported="false" />
+40-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:25:13-37
+41        <activity
+41-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:26:9-28:40
+42            android:name="com.example.trafficsceneanalyser.ProfileActivity"
+42-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:27:13-44
+43            android:exported="false" />
+43-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:28:13-37
+44        <activity
+44-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:29:9-33:58
+45            android:name="com.example.trafficsceneanalyser.SettingsActivity"
+45-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:30:13-45
+46            android:exported="false"
+46-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:31:13-37
+47            android:label="Settings"
+47-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:32:13-37
+48            android:parentActivityName="com.example.trafficsceneanalyser.MainActivity" />
+48-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:33:13-55
+49        <activity
+49-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:34:9-43:20
+50            android:name="com.example.trafficsceneanalyser.MainActivity"
+50-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:35:13-41
+51            android:exported="true"
+51-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:36:13-36
+52            android:label="Test" >
+52-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:37:13-33
+53            <intent-filter>
+53-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:38:13-42:29
+54                <action android:name="android.intent.action.MAIN" />
+54-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:39:17-69
+54-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:39:25-66
+55
+56                <category android:name="android.intent.category.LAUNCHER" />
+56-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:41:17-77
+56-->/home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:41:27-74
+57            </intent-filter>
+58        </activity>
+59
+60        <provider
+60-->[androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+61            android:name="androidx.startup.InitializationProvider"
+61-->[androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+62            android:authorities="com.example.trafficsceneanalyser.androidx-startup"
+62-->[androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+63            android:exported="false" >
+63-->[androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+64            <meta-data
+64-->[androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+65                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+65-->[androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+66                android:value="androidx.startup" />
+66-->[androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+67            <meta-data
+67-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/lxflk/.gradle/caches/transforms-3/cb453ff1e8478a09988a2504949ce2c9/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+68                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+68-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/lxflk/.gradle/caches/transforms-3/cb453ff1e8478a09988a2504949ce2c9/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+69                android:value="androidx.startup" />
+69-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/lxflk/.gradle/caches/transforms-3/cb453ff1e8478a09988a2504949ce2c9/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+70            <meta-data
+70-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+71                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+71-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+72                android:value="androidx.startup" />
+72-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+73        </provider>
+74
+75        <receiver
+75-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+76            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+76-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+77            android:directBootAware="false"
+77-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+78            android:enabled="true"
+78-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+79            android:exported="true"
+79-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+80            android:permission="android.permission.DUMP" >
+80-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+81            <intent-filter>
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+82                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+83            </intent-filter>
+84            <intent-filter>
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+85                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+86            </intent-filter>
+87            <intent-filter>
+87-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+88                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+88-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+88-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+89            </intent-filter>
+90            <intent-filter>
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+91                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/lxflk/.gradle/caches/transforms-3/ef4098c60cc8df22fef4186212337d09/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+92            </intent-filter>
+93        </receiver>
+94    </application>
+95
+96</manifest>

@@ -1,0 +1,118 @@
+[
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_cogwheel.png.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/cogwheel.png"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_settings.jpg.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/settings.jpg"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/layout_activity_main.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_image_not_found.png.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/image_not_found.png"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_rounded_corners.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/rounded_corners.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_test.png.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/test.png"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/layout_activity_profile.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_logo.png.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/logo.png"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/layout_activity_settings.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/xml_backup_rules.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_user.png.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/user.png"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/xml_data_extraction_rules.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/layout_activity_upload_config.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/layout/activity_upload_config.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.trafficsceneanalyser.app-debug-32:/layout_activity_main.xml.flat",
+        "source": "com.example.trafficsceneanalyser.app-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_ic_launcher_background.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-debug-32:/drawable_loading_spinner.png.flat",
+        "source": "/home/lxflk/.gradle/daemon/8.4/com.example.trafficsceneanalyser.app-main-34:/drawable/loading_spinner.png"
+    }
+]
