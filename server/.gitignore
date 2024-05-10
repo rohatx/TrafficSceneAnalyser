@@ -1,0 +1,19 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+
+# Django:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Virtual environment:
+venv/
+.env
+
+# Pytest
+.pytest_cache/
+
+# .DS_Store on macOS
+.DS_Store
