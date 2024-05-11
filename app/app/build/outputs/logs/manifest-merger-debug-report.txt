@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:2:1-46:12
-INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:2:1-46:12
-INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:2:1-46:12
-INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:2:1-46:12
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:2:1-47:12
+INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:2:1-47:12
+INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:2:1-47:12
+INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:2:1-47:12
 MERGED from [com.google.android.material:material:1.11.0] /home/lxflk/.gradle/caches/transforms-3/df04d3ee38a7f20039c53cf43a40436c/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/lxflk/.gradle/caches/transforms-3/cbedd1a90676f1150870a323a67c981b/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /home/lxflk/.gradle/caches/transforms-3/5238f32c161ed19ee557caebbc4a702d/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
@@ -12,6 +12,7 @@ MERGED from [com.github.bumptech.glide:glide:4.14.2] /home/lxflk/.gradle/caches/
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/lxflk/.gradle/caches/transforms-3/bb868930d4cc7f9c3182605788dc633c/transformed/viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.fragment:fragment:1.3.6] /home/lxflk/.gradle/caches/transforms-3/102e6c8bc6554534826384a5a5b1ef58/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.8.0] /home/lxflk/.gradle/caches/transforms-3/c1bc8d4ef12e01ac912729edb0eb7371/transformed/activity-1.8.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.volley:volley:1.2.1] /home/lxflk/.gradle/caches/transforms-3/916afdf9bbef8dba5f6f8cda2e776def/transformed/volley-1.2.1/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /home/lxflk/.gradle/caches/transforms-3/9794f81a6e866ae8299b8b4869a3e159/transformed/emoji2-views-helper-1.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:17:1-35:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /home/lxflk/.gradle/caches/transforms-3/5d91b8367cee656523bdb019bcce5362/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
@@ -75,8 +76,8 @@ ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/a
 	android:name
 		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:10:22-77
 application
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:13:5-44:19
-INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:13:5-44:19
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:13:5-45:19
+INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:13:5-45:19
 MERGED from [com.google.android.material:material:1.11.0] /home/lxflk/.gradle/caches/transforms-3/df04d3ee38a7f20039c53cf43a40436c/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /home/lxflk/.gradle/caches/transforms-3/df04d3ee38a7f20039c53cf43a40436c/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/lxflk/.gradle/caches/transforms-3/cbedd1a90676f1150870a323a67c981b/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -110,7 +111,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/lxflk
 	android:roundIcon
 		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:19:9-54
 	tools:targetApi
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:22:9-29
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:23:9-29
 	android:icon
 		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:17:9-43
 	android:allowBackup
@@ -119,46 +120,48 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/lxflk
 		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:21:9-58
 	android:dataExtractionRules
 		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:15:9-65
+	android:usesCleartextTraffic
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:22:9-44
 activity#com.example.trafficsceneanalyser.UploadConfigActivity
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:23:9-25:40
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:24:9-26:40
 	android:exported
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:25:13-37
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:26:13-37
 	android:name
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:24:13-49
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:25:13-49
 activity#com.example.trafficsceneanalyser.ProfileActivity
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:26:9-28:40
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:27:9-29:40
 	android:exported
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:28:13-37
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:29:13-37
 	android:name
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:27:13-44
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:28:13-44
 activity#com.example.trafficsceneanalyser.SettingsActivity
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:29:9-33:58
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:30:9-34:58
 	android:parentActivityName
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:33:13-55
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:34:13-55
 	android:label
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:33:13-37
+	android:exported
 		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:32:13-37
-	android:exported
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:31:13-37
 	android:name
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:30:13-45
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:31:13-45
 activity#com.example.trafficsceneanalyser.MainActivity
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:34:9-43:20
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:35:9-44:20
 	android:label
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:37:13-33
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:38:13-33
 	android:exported
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:36:13-36
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:37:13-36
 	android:name
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:35:13-41
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:36:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:38:13-42:29
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:39:13-43:29
 action#android.intent.action.MAIN
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:39:17-69
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:40:17-69
 	android:name
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:39:25-66
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:40:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:41:17-77
+ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:42:17-77
 	android:name
-		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:41:27-74
+		ADDED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml:42:27-74
 uses-sdk
 INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/lxflk/Nextcloud/university/6-semester/SE-Praktikum/B-BOSCH-05/app/app/src/main/AndroidManifest.xml
@@ -179,6 +182,8 @@ MERGED from [androidx.fragment:fragment:1.3.6] /home/lxflk/.gradle/caches/transf
 MERGED from [androidx.fragment:fragment:1.3.6] /home/lxflk/.gradle/caches/transforms-3/102e6c8bc6554534826384a5a5b1ef58/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.8.0] /home/lxflk/.gradle/caches/transforms-3/c1bc8d4ef12e01ac912729edb0eb7371/transformed/activity-1.8.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.8.0] /home/lxflk/.gradle/caches/transforms-3/c1bc8d4ef12e01ac912729edb0eb7371/transformed/activity-1.8.0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.volley:volley:1.2.1] /home/lxflk/.gradle/caches/transforms-3/916afdf9bbef8dba5f6f8cda2e776def/transformed/volley-1.2.1/AndroidManifest.xml:5:5-43
+MERGED from [com.android.volley:volley:1.2.1] /home/lxflk/.gradle/caches/transforms-3/916afdf9bbef8dba5f6f8cda2e776def/transformed/volley-1.2.1/AndroidManifest.xml:5:5-43
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /home/lxflk/.gradle/caches/transforms-3/9794f81a6e866ae8299b8b4869a3e159/transformed/emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /home/lxflk/.gradle/caches/transforms-3/9794f81a6e866ae8299b8b4869a3e159/transformed/emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2:1.2.0] /home/lxflk/.gradle/caches/transforms-3/05ee9c0673d1b807a54fafedf205c12e/transformed/emoji2-1.2.0/AndroidManifest.xml:21:5-44

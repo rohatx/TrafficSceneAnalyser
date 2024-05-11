@@ -40,4 +40,7 @@ dependencies {
     // Glide-Bibliotheken
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)  // Verwende `annotationProcessor` für Java-Projekte
+
+    // Volley-Bibliothek
+    implementation("com.android.volley:volley:1.2.1")
 }

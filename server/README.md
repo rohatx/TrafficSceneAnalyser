@@ -10,15 +10,6 @@ Stellen Sie sicher, dass Python und Pip auf Ihrem System installiert sind, um di
 
 Folgen Sie diesen Schritten, um das Projekt lokal einzurichten:
 
-### Klonen des Repositories
-
-Zuerst müssen Sie das Repository klonen:
-
-```bash
-git clone https://github.com/deinUsername/deinRepository.git
-cd deinRepository
-```
-
 ### Erstellen und Aktivieren einer virtuellen Umgebung
 
 Erstellen Sie eine virtuelle Umgebung, um die Abhängigkeiten isoliert vom Rest Ihres Systems zu verwalten:
@@ -46,18 +37,30 @@ python manage.py migrate
 ```
 
 ### Starten des Entwicklungsservers
-
+Zunächst muss .env angepasst werden. Es muss ein API key sowie ALLOWED_HOSTS exportiert werden.
+```env
+export OPENAI_APIKEY="Hier dein API Key"
+export SECRET_KEY = "Your Production Key"
+export ALLOWED_HOSTS="Hier deine ip Adresse",localhost,127.0.0.1,[::1]
+```
 Jetzt können Sie den Entwicklungsserver starten:
 
 ```bash
-python manage.py runserver
+python manage.py runserver 0.0.0.0:8000 #auf allen Netzwerk-Interfaces verfügbar
 ```
 
 Der Server ist jetzt unter `http://127.0.0.1:8000/` erreichbar.
+Um den Server aus der android app zu erreichen, fügen Sie Ihre IP-Adresse ALLOWED_HOSTS in src/settings.py hinzu
 
 ## Verwendung
 
-Noch hinzuzufügen
+Beispiel Post Anfrage: `http://127.0.0.1:8000/api/v1/picture-explain/`<br>
+Body:
+```json
+{
+    "_input": "Hier dein base64 encoded Bild"
+}
+```
 
 ## Lizenz
 
