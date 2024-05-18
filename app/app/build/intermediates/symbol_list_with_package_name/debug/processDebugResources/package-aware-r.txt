@@ -2969,6 +2969,9 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable back1
+drawable back2
+drawable bottomlayout
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -2983,6 +2986,8 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable facebook
+drawable google
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
@@ -2998,6 +3003,7 @@ drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search_black_24
 drawable image_not_found
+drawable layout
 drawable loading_spinner
 drawable logo
 drawable m3_avd_hide_password
@@ -3059,6 +3065,7 @@ drawable mtrl_switch_track
 drawable mtrl_switch_track_decoration
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
+drawable neulayout
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -3071,13 +3078,20 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable obenuntenlayout
 drawable rounded_corners
 drawable settings
 drawable test
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable top_login
+drawable top_signup
+drawable toplayout
+drawable twitter
 drawable user
+drawable user1
+drawable userrr
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3092,6 +3106,7 @@ id SHOW_PROGRESS
 id SYM
 id TOP_END
 id TOP_START
+id Toplayout
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -3278,6 +3293,7 @@ id fitXY
 id fixed
 id flip
 id floating
+id floatingActionButton
 id forever
 id fragment_container_view_tag
 id frost
@@ -3303,7 +3319,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
-id imageView2
+id imageView8
 id image_preview
 id immediateStop
 id included
@@ -3326,7 +3342,6 @@ id line3
 id linear
 id listMode
 id list_item
-id logo
 id longitude
 id m3_side_sheet
 id main
@@ -3541,7 +3556,6 @@ id textStart
 id textTop
 id textView
 id textView2
-id textViewAppName
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
