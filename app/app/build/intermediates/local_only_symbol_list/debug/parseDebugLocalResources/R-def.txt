@@ -5,9 +5,13 @@ color black
 color white
 drawable back1
 drawable back2
+drawable background
 drawable bottomlayout
+drawable cameraicon1
 drawable cogwheel
 drawable facebook
+drawable galerieicon
+drawable galerieicon1
 drawable google
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -15,6 +19,8 @@ drawable image_not_found
 drawable layout
 drawable loading_spinner
 drawable logo
+drawable logoo
+drawable menuuuu
 drawable neulayout
 drawable obenuntenlayout
 drawable rounded_corners
@@ -24,10 +30,9 @@ drawable top_login
 drawable top_signup
 drawable toplayout
 drawable twitter
-drawable user
-drawable user1
 drawable userrr
 id Toplayout
+id background
 id btnBildAufnehmen
 id btnBildHochladen
 id button
@@ -44,6 +49,8 @@ id profile
 id spinner_model_selector
 id textView
 id textView2
+id textView3
+id textView4
 layout activity_main
 layout activity_profile
 layout activity_settings

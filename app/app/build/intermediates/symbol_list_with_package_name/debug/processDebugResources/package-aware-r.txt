@@ -2971,6 +2971,7 @@ drawable avd_hide_password
 drawable avd_show_password
 drawable back1
 drawable back2
+drawable background
 drawable bottomlayout
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
@@ -2980,6 +2981,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable cameraicon1
 drawable cogwheel
 drawable design_fab_background
 drawable design_ic_visibility
@@ -2987,6 +2989,8 @@ drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
 drawable facebook
+drawable galerieicon
+drawable galerieicon1
 drawable google
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
@@ -3006,6 +3010,7 @@ drawable image_not_found
 drawable layout
 drawable loading_spinner
 drawable logo
+drawable logoo
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
 drawable m3_bottom_sheet_drag_handle
@@ -3027,6 +3032,7 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable menuuuu
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -3089,8 +3095,6 @@ drawable top_login
 drawable top_signup
 drawable toplayout
 drawable twitter
-drawable user
-drawable user1
 drawable userrr
 id ALT
 id BOTTOM_END
@@ -3180,6 +3184,7 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
+id background
 id barrier
 id baseline
 id beginOnFirstDraw
@@ -3556,6 +3561,8 @@ id textStart
 id textTop
 id textView
 id textView2
+id textView3
+id textView4
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon

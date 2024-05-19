@@ -2970,6 +2970,7 @@ int drawable avd_hide_password 0x7f080078
 int drawable avd_show_password 0x7f080079
 int drawable back1 0x7f08007a
 int drawable back2 0x7f08007b
+int drawable background 0x7f0800f8
 int drawable bottomlayout 0x7f0800f2
 int drawable btn_checkbox_checked_mtrl 0x7f08007c
 int drawable btn_checkbox_checked_to_unchecked_mtrl_animation 0x7f08007d
@@ -2979,6 +2980,7 @@ int drawable btn_radio_off_mtrl 0x7f080080
 int drawable btn_radio_off_to_on_mtrl_animation 0x7f080081
 int drawable btn_radio_on_mtrl 0x7f080082
 int drawable btn_radio_on_to_off_mtrl_animation 0x7f080083
+int drawable cameraicon1 0x7f0800f9
 int drawable cogwheel 0x7f080084
 int drawable design_fab_background 0x7f080085
 int drawable design_ic_visibility 0x7f080086
@@ -2986,6 +2988,8 @@ int drawable design_ic_visibility_off 0x7f080087
 int drawable design_password_eye 0x7f080088
 int drawable design_snackbar_background 0x7f080089
 int drawable facebook 0x7f08008a
+int drawable galerieicon 0x7f0800f7
+int drawable galerieicon1 0x7f0800fa
 int drawable google 0x7f08008b
 int drawable ic_arrow_back_black_24 0x7f08008c
 int drawable ic_clear_black_24 0x7f08008d
@@ -3005,6 +3009,7 @@ int drawable image_not_found 0x7f08009a
 int drawable layout 0x7f08009b
 int drawable loading_spinner 0x7f08009c
 int drawable logo 0x7f08009d
+int drawable logoo 0x7f0800fb
 int drawable m3_avd_hide_password 0x7f08009e
 int drawable m3_avd_show_password 0x7f08009f
 int drawable m3_bottom_sheet_drag_handle 0x7f0800a0
@@ -3026,6 +3031,7 @@ int drawable material_ic_keyboard_arrow_previous_black_24dp 0x7f0800af
 int drawable material_ic_keyboard_arrow_right_black_24dp 0x7f0800b0
 int drawable material_ic_menu_arrow_down_black_24dp 0x7f0800b1
 int drawable material_ic_menu_arrow_up_black_24dp 0x7f0800b2
+int drawable menuuuu 0x7f0800f6
 int drawable mtrl_bottomsheet_drag_handle 0x7f0800b3
 int drawable mtrl_checkbox_button 0x7f0800b4
 int drawable mtrl_checkbox_button_checked_unchecked 0x7f0800b5
@@ -3088,8 +3094,6 @@ int drawable top_login 0x7f0800ed
 int drawable top_signup 0x7f0800ee
 int drawable toplayout 0x7f0800ef
 int drawable twitter 0x7f0800f0
-int drawable user 0x7f0800f1
-int drawable user1 0x7f0800f3
 int drawable userrr 0x7f0800f4
 int id ALT 0x7f090000
 int id BOTTOM_END 0x7f090001
@@ -3179,6 +3183,7 @@ int id auto 0x7f090053
 int id autoComplete 0x7f090054
 int id autoCompleteToEnd 0x7f090055
 int id autoCompleteToStart 0x7f090056
+int id background 0x7f090202
 int id barrier 0x7f090057
 int id baseline 0x7f090058
 int id beginOnFirstDraw 0x7f090059
@@ -3555,6 +3560,8 @@ int id textStart 0x7f0901cb
 int id textTop 0x7f0901cc
 int id textView 0x7f0901cd
 int id textView2 0x7f0901ce
+int id textView3 0x7f090203
+int id textView4 0x7f090204
 int id text_input_end_icon 0x7f0901cf
 int id text_input_error_icon 0x7f0901d0
 int id text_input_start_icon 0x7f0901d1

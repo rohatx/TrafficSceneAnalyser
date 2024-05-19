@@ -16,20 +16,20 @@
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-xxxhdpi\\logo.png"
     },
     {
-        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable_rounded_corners.xml.flat",
-        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable\\rounded_corners.xml"
-    },
-    {
-        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_layout.jpg.flat",
-        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\layout.jpg"
+        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-mdpi_google.png.flat",
+        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-mdpi\\google.png"
     },
     {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_google.png.flat",
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\google.png"
     },
     {
-        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-mdpi_google.png.flat",
-        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-mdpi\\google.png"
+        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_layout.jpg.flat",
+        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\layout.jpg"
+    },
+    {
+        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable_rounded_corners.xml.flat",
+        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable\\rounded_corners.xml"
     },
     {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\xml_backup_rules.xml.flat",
@@ -100,6 +100,10 @@
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\top_signup.png"
     },
     {
+        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_logoo.png.flat",
+        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\logoo.png"
+    },
+    {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-xhdpi_back1.png.flat",
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-xhdpi\\back1.png"
     },
@@ -160,6 +164,10 @@
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable\\menuuuu.png"
     },
     {
+        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_galerieicon.png.flat",
+        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\galerieicon.png"
+    },
+    {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_bottomlayout.png.flat",
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\bottomlayout.png"
     },
@@ -212,6 +220,10 @@
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
+        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_background.png.flat",
+        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\background.png"
+    },
+    {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-mdpi_logo.png.flat",
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-mdpi\\logo.png"
     },
@@ -256,16 +268,16 @@
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-ldpi\\top_signup.png"
     },
     {
+        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_galerieicon1.png.flat",
+        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\galerieicon1.png"
+    },
+    {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable_userrr.png.flat",
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable\\userrr.png"
     },
     {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\layout_activity_main.xml.flat",
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\layout\\activity_main.xml"
-    },
-    {
-        "merged": "com.example.trafficsceneanalyser.app-debug-32:/drawable-hdpi_galerieicon.png.flat",
-        "source": "com.example.trafficsceneanalyser.app-main-34:/drawable-hdpi/galerieicon.png"
     },
     {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-xhdpi_google.png.flat",
@@ -298,6 +310,10 @@
     {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-ldpi_back2.png.flat",
         "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-ldpi\\back2.png"
+    },
+    {
+        "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\drawable-hdpi_cameraicon1.png.flat",
+        "source": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-main-34:\\drawable-hdpi\\cameraicon1.png"
     },
     {
         "merged": "C:\\Users\\ensar\\.gradle\\daemon\\8.4\\com.example.trafficsceneanalyser.app-debug-32:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
