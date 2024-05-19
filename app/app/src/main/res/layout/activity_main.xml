@@ -24,21 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="252dp"
-            android:backgroundTint="#F60505"
+            android:backgroundTint="#CB0000"
             android:text="@string/take_photo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btnBildHochladen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="172dp"
-            android:layout_marginBottom="332dp"
-            android:backgroundTint="#F80303"
-            android:text="@string/upload_image"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
@@ -51,7 +40,7 @@
             app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@drawable/menuuuu" />
 
         <ImageView
             android:id="@+id/Toplayout"
@@ -68,6 +57,7 @@
             android:id="@+id/imageView8"
             android:layout_width="486dp"
             android:layout_height="689dp"
+            android:layout_marginBottom="4dp"
             android:rotationY="180"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,6 +76,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/userrr" />
+
+        <ImageButton
+            android:id="@+id/btnBildHochladen"
+            android:layout_width="120dp"
+            android:layout_height="115dp"
+            android:backgroundTint="#00F8F6F6"
+            android:scaleType="fitCenter"
+            android:src="@drawable/galerieicon1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.78"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
