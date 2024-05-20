@@ -39,6 +39,7 @@ mipmap ic_launcher_round
 string app_name
 string image_preview
 string profile
+string server_url
 string settings
 string take_photo
 string upload_button

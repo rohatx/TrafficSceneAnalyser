@@ -10,6 +10,7 @@
     <string name="app_name">Traffic Scene Analyser</string>
     <string name="image_preview">Bildvorschau</string>
     <string name="profile">Zum Profil wechseln</string>
+    <string name="server_url">http://192.168.2.58:8000/api/v1/picture-explain/</string>
     <string name="settings">Zu den Einstellungen wechseln</string>
     <string name="take_photo">Neues Bild aufnehmen</string>
     <string name="upload_button">Hochladen</string>
