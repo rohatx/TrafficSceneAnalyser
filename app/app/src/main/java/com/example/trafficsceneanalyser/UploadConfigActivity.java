@@ -107,7 +107,7 @@ public class UploadConfigActivity extends AppCompatActivity {
             String selectedModel = spinnerModelSelector.getSelectedItem().toString();
 
             // Die URL des Endpunkts
-            String url = "http://192.168.2.58:8000/api/v1/picture-explain/";
+            String url = getResources().getString(R.string.server_url);
 
             // Erstelle die Anfragedaten als JSON-Objekt
             JSONObject jsonBody = new JSONObject();

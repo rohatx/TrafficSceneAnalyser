@@ -3946,6 +3946,7 @@ int string search_menu_title 0x7f10009b
 int string searchbar_scrolling_view_behavior 0x7f10009c
 int string searchview_clear_text_content_description 0x7f10009d
 int string searchview_navigation_content_description 0x7f10009e
+int string server_url 0x7f1000a6
 int string settings 0x7f10009f
 int string side_sheet_accessibility_pane_title 0x7f1000a0
 int string side_sheet_behavior 0x7f1000a1
