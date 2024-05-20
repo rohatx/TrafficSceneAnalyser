@@ -3,6 +3,6 @@
     <string-array name="lmm_array">
         <item>LLaVa</item>
         <item>BakLLaVa</item>
-        <item>ChatGPT-4V</item>
+        <item>gpt-4o</item>
     </string-array>
 </resources>

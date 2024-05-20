@@ -111,10 +111,8 @@ public class UploadConfigActivity extends AppCompatActivity {
 
             // Erstelle die Anfragedaten als JSON-Objekt
             JSONObject jsonBody = new JSONObject();
-            //jsonBody.put("_input", "/home/lxflk/Pictures/someday_by_aenami_dd9s1vh.png");
-            //jsonBody.put("_input", "/home/lxflk/Pictures/girl.png");
             jsonBody.put("_input", imageBase64);
-
+            jsonBody.put("model", selectedModel);
 
             // Erstelle eine RequestQueue
             RequestQueue requestQueue = Volley.newRequestQueue(this);
