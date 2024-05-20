@@ -4,19 +4,19 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 #internals
 from api.models import CodeExplainer
-from api.utils import analyze_image_with_openai
+from api.utils import analyze_image_with_lmm
 
 class PictureExplainSerializer(serializers.ModelSerializer):
     class Meta:
         model = CodeExplainer
-        fields = ("id", "_input", "_output")
+        fields = ("id", "_input", "_output", "model")
         extra_kwargs = {
             "_output": {"read_only": True}
         }
         
     def create(self, validated_data):
         ce = CodeExplainer(**validated_data)
-        _output = analyze_image_with_openai(validated_data["_input"])
+        _output = analyze_image_with_lmm(validated_data["_input"], validated_data["model"])
         ce._output = _output
         ce.save()
         return ce
