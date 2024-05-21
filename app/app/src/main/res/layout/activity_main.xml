@@ -138,14 +138,15 @@
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab1"
+            android:id="@+id/historyicon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/historyicon"
             android:visibility="gone"
+            app:backgroundTint="#F6F5F5"
             app:layout_constraintBottom_toTopOf="@+id/main_fab"
             app:layout_constraintEnd_toEndOf="@+id/main_fab"
             app:layout_constraintStart_toStartOf="@+id/main_fab"
@@ -159,11 +160,12 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/settingsicon"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/fab1"
-            app:layout_constraintEnd_toEndOf="@+id/fab1"
-            app:layout_constraintStart_toStartOf="@+id/fab1"
+            app:backgroundTint="#F6F5F5"
+            app:layout_constraintBottom_toTopOf="@+id/historyicon"
+            app:layout_constraintEnd_toEndOf="@+id/historyicon"
+            app:layout_constraintStart_toStartOf="@+id/historyicon"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

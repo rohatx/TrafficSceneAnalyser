@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // menubar
         mainFab = findViewById(R.id.main_fab);
-        fab1 = findViewById(R.id.fab1);
+        fab1 = findViewById(R.id.historyicon);
         fab2 = findViewById(R.id.fab2);
         mainFab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2981,7 +2981,6 @@ int drawable btn_radio_off_to_on_mtrl_animation 0x7f080081
 int drawable btn_radio_on_mtrl 0x7f080082
 int drawable btn_radio_on_to_off_mtrl_animation 0x7f080083
 int drawable cameraicon1 0x7f0800f9
-int drawable cogwheel 0x7f080084
 int drawable design_fab_background 0x7f080085
 int drawable design_ic_visibility 0x7f080086
 int drawable design_ic_visibility_off 0x7f080087
@@ -2991,6 +2990,7 @@ int drawable facebook 0x7f08008a
 int drawable galerieicon 0x7f0800f7
 int drawable galerieicon1 0x7f0800fa
 int drawable google 0x7f08008b
+int drawable historyicon 0x7f0800fc
 int drawable ic_arrow_back_black_24 0x7f08008c
 int drawable ic_clear_black_24 0x7f08008d
 int drawable ic_clock_black_24dp 0x7f08008e
@@ -3086,6 +3086,7 @@ int drawable notify_panel_notification_icon_bg 0x7f0800e5
 int drawable obenuntenlayout 0x7f0800e6
 int drawable rounded_corners 0x7f0800e7
 int drawable settings 0x7f0800e8
+int drawable settingsicon 0x7f0800fd
 int drawable test 0x7f0800e9
 int drawable test_level_drawable 0x7f0800ea
 int drawable tooltip_frame_dark 0x7f0800eb
@@ -3284,7 +3285,6 @@ int id enterAlwaysCollapsed 0x7f0900b7
 int id exitUntilCollapsed 0x7f0900b8
 int id expand_activities_button 0x7f0900b9
 int id expanded_menu 0x7f0900ba
-int id fab1 0x7f090207
 int id fab2 0x7f090208
 int id fade 0x7f0900bb
 int id fill 0x7f0900bc
@@ -3314,6 +3314,7 @@ int id grouping 0x7f0900d4
 int id groups 0x7f0900d5
 int id header_title 0x7f0900d6
 int id hideable 0x7f0900d7
+int id historyicon 0x7f09020a
 int id home 0x7f0900d8
 int id homeAsUp 0x7f0900d9
 int id honorRequest 0x7f0900da

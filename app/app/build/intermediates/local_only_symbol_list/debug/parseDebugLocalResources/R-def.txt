@@ -8,11 +8,11 @@ drawable back2
 drawable background
 drawable bottomlayout
 drawable cameraicon1
-drawable cogwheel
 drawable facebook
 drawable galerieicon
 drawable galerieicon1
 drawable google
+drawable historyicon
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable image_not_found
@@ -25,6 +25,7 @@ drawable neulayout
 drawable obenuntenlayout
 drawable rounded_corners
 drawable settings
+drawable settingsicon
 drawable test
 drawable top_login
 drawable top_signup
@@ -39,8 +40,8 @@ id button
 id button4
 id button6
 id button_upload
-id fab1
 id fab2
+id historyicon
 id imageView8
 id image_preview
 id latitude
