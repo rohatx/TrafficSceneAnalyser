@@ -18,7 +18,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-APIKEY = os.getenv("OPENAI_APIKEY")
+OPENAI_APIKEY = os.getenv("OPENAI_APIKEY")
+OPENROUTER_APIKEY = os.getenv("OPENROUTER_APIKEY")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/

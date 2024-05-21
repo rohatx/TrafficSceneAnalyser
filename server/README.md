@@ -40,6 +40,7 @@ python manage.py migrate
 Zunächst muss .env angepasst werden. Es muss ein API key sowie ALLOWED_HOSTS exportiert werden.
 ```env
 export OPENAI_APIKEY="Hier dein API Key"
+export OPENROUTER_APIKEY="Hier dein API Key"
 export SECRET_KEY = "Your Production Key"
 export ALLOWED_HOSTS="Hier deine ip Adresse",localhost,127.0.0.1,[::1]
 ```
@@ -63,7 +64,7 @@ Body:
 }
 ```
 
-## Hinzufügen von LLaVa-Unterstützung
+## Hinzufügen von LLaVa-Unterstützung (Keine Api Keys notwendig)
 Um auch LLaVa nutzen zu können, muss dieses zunächst auf dem System installiert werden.
 - Ein Tool zur Vereinfachung, welches hier verwendet wird ist [Ollama](https://ollama.com/)
 - Aktuell ist Ollama nur für Linux und MacOS verfügbar. Unter WSL2 sollte es ebenfalls funktionieren.
