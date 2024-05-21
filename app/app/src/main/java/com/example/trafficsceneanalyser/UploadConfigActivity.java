@@ -157,7 +157,7 @@ public class UploadConfigActivity extends AppCompatActivity {
 
             // Setze die RetryPolicy für die Anfrage
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    10000, // 10 Sekunden Timeout
+                    50000, // 30 Sekunden Timeout
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // Maximaler Versuch ist standardmäßig 1
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)); // Standard-Rückwärtsmultiplikator
 

@@ -58,9 +58,16 @@ Beispiel Post Anfrage: `http://127.0.0.1:8000/api/v1/picture-explain/`<br>
 Body:
 ```json
 {
-    "_input": "Hier dein base64 encoded Bild"
+    "_input": "Hier dein base64 encoded Bild",
+    "model": "gpt-4o"
 }
 ```
+
+## Hinzufügen von LLaVa-Unterstützung
+Um auch LLaVa nutzen zu können, muss dieses zunächst auf dem System installiert werden.
+- Ein Tool zur Vereinfachung, welches hier verwendet wird ist [Ollama](https://ollama.com/)
+- Aktuell ist Ollama nur für Linux und MacOS verfügbar. Unter WSL2 sollte es ebenfalls funktionieren.
+- Nun muss noch unser verwendetes Modell gepullt werden `ollama pull llava:7b-v1.6`
 
 ## Lizenz
 
