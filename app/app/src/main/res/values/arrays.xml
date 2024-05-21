@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="lmm_array">
-        <item>LLaVa</item>
-        <item>BakLLaVa</item>
+        <item>LLaVA</item>
+        <item>Claude</item>
         <item>gpt-4o</item>
+        <item>FireLLaVA</item>
+        <item>Gemini Pro 1.5</item>
+        <item>Gemini Pro Vision 1.0</item>
+        <item>Gemini Flash 1.5</item>
     </string-array>
 </resources>

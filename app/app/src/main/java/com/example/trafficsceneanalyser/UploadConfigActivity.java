@@ -37,6 +37,8 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class UploadConfigActivity extends AppCompatActivity {
 
@@ -157,7 +159,7 @@ public class UploadConfigActivity extends AppCompatActivity {
 
             // Setze die RetryPolicy für die Anfrage
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    10000, // 10 Sekunden Timeout
+                    50000, // 30 Sekunden Timeout
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // Maximaler Versuch ist standardmäßig 1
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)); // Standard-Rückwärtsmultiplikator
 
@@ -178,14 +180,16 @@ public class UploadConfigActivity extends AppCompatActivity {
 
     private String encodeImageToBase64(Uri imageUri) {
         try (InputStream inputStream = getContentResolver().openInputStream(imageUri)) {
+            // Bild in Bitmap laden
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+            // Bitmap in PNG konvertieren
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, bytesRead);
-            }
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
-            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+            // In Base64 kodieren
+            return Base64.encodeToString(byteArray, Base64.NO_WRAP);  // Verwende Base64.NO_WRAP, um Zeilenumbrüche zu vermeiden
         } catch (Exception e) {
             e.printStackTrace();
             return null;
