@@ -3285,6 +3285,8 @@ id enterAlwaysCollapsed
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fab1
+id fab2
 id fade
 id fill
 id fill_horizontal
@@ -3298,7 +3300,6 @@ id fitXY
 id fixed
 id flip
 id floating
-id floatingActionButton
 id forever
 id fragment_container_view_tag
 id frost
@@ -3350,6 +3351,7 @@ id list_item
 id longitude
 id m3_side_sheet
 id main
+id main_fab
 id marquee
 id masked
 id match_constraint

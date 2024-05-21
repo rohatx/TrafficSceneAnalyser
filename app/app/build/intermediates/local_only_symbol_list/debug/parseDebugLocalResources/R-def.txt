@@ -39,12 +39,14 @@ id button
 id button4
 id button6
 id button_upload
-id floatingActionButton
+id fab1
+id fab2
 id imageView8
 id image_preview
 id latitude
 id longitude
 id main
+id main_fab
 id profile
 id spinner_model_selector
 id textView

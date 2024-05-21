@@ -3284,6 +3284,8 @@ int id enterAlwaysCollapsed 0x7f0900b7
 int id exitUntilCollapsed 0x7f0900b8
 int id expand_activities_button 0x7f0900b9
 int id expanded_menu 0x7f0900ba
+int id fab1 0x7f090207
+int id fab2 0x7f090208
 int id fade 0x7f0900bb
 int id fill 0x7f0900bc
 int id fill_horizontal 0x7f0900bd
@@ -3297,7 +3299,6 @@ int id fitXY 0x7f0900c4
 int id fixed 0x7f0900c5
 int id flip 0x7f0900c6
 int id floating 0x7f0900c7
-int id floatingActionButton 0x7f0900c8
 int id forever 0x7f0900c9
 int id fragment_container_view_tag 0x7f0900ca
 int id frost 0x7f0900cb
@@ -3349,6 +3350,7 @@ int id list_item 0x7f0900f8
 int id longitude 0x7f0900f9
 int id m3_side_sheet 0x7f0900fa
 int id main 0x7f0900fb
+int id main_fab 0x7f090209
 int id marquee 0x7f0900fc
 int id masked 0x7f0900fd
 int id match_constraint 0x7f0900fe
