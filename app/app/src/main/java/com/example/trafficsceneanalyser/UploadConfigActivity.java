@@ -1,5 +1,6 @@
 package com.example.trafficsceneanalyser;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class UploadConfigActivity extends AppCompatActivity {
     private TextView viewLongitude;
     private TextView viewLatitude;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,27 +68,29 @@ public class UploadConfigActivity extends AppCompatActivity {
         // Initialisiere Parameter
         intent = getIntent();
         image = (Uri) intent.getExtras().get("image");
-        viewLatitude = findViewById(R.id.latitude);
-        viewLongitude = findViewById(R.id.longitude);
-
-        // Initialisiere Koordinaten
-        InputStream input = null;
-        try {
-            input = getContentResolver().openInputStream(image);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        imageMetaData metaData = new imageMetaData(input);
-
-        viewLatitude.setText("Latitude: " + metaData.getLatitude());
-        viewLongitude.setText("Longitude: " + metaData.getLongitude());
-
 
         // Initialisiere UI Komponente
         imageView = findViewById(R.id.image_preview);
         imageView.setImageURI(image);
         spinnerModelSelector = findViewById(R.id.spinner_model_selector);
         buttonUpload = findViewById(R.id.button_upload);
+        viewLatitude = findViewById(R.id.latitude);
+        viewLongitude = findViewById(R.id.longitude);
+
+        // InputStream öffnen für metaData
+        InputStream inputMetaData = null;
+        try {
+            inputMetaData = getContentResolver().openInputStream(image);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Lese Koordinaten aus, Logik in imageMetaData
+        imageMetaData metaData = new imageMetaData(inputMetaData);
+
+        // Koordinaten anzeigen lassen
+        viewLatitude.setText("Latitude: " + metaData.getLatitude());
+        viewLongitude.setText("Longitude: " + metaData.getLongitude());
 
         // Setup Spinner with model selector
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -94,105 +98,25 @@ public class UploadConfigActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerModelSelector.setAdapter(adapter);
 
-        // Testweise onClick event direkt definiert
-        buttonUpload.setOnClickListener(v -> uploadImage());
-
-        // Lade ein Beispiel Bild
-        // Vorrübergehend, bis Button Funktionalität fertig
-
-    }
-
-
-    private void uploadImage() {
+        // InputStream öffnen für imageProcessing
+        InputStream inputProcessing = null;
         try {
-            String imageBase64 = encodeImageToBase64(image);
-            String selectedModel = spinnerModelSelector.getSelectedItem().toString();
-
-            // Die URL des Endpunkts
-            String url = getResources().getString(R.string.server_url);
-
-            // Erstelle die Anfragedaten als JSON-Objekt
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("_input", imageBase64);
-            jsonBody.put("model", selectedModel);
-
-            // Erstelle eine RequestQueue
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-            // Erstelle die POST-Anfrage
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
-                    response -> {
-                        // Verarbeite die Serverantwort hier
-                        Log.v("Response", response.toString());
-                        try {
-                            // Annahme, dass die Antwort ein Objekt mit einem Schlüssel "_output" enthält
-                            String output = response.getString("_output");
-                            Log.v("Output", "Server Output: " + output);
-                            System.out.println("Server Output: " + output);  // Zusätzliche Ausgabe in der Konsole
-                        } catch (JSONException e) {
-                            Log.e("JSON Error", "Error parsing JSON response.");
-                        }
-                    },
-                    error -> {
-                        // Behandle mögliche Fehler hier
-                        if (error.networkResponse != null) {
-                            String body;
-                            //get status code here
-                            final String statusCode = String.valueOf(error.networkResponse.statusCode);
-                            //get response body and parse with appropriate encoding
-                            try {
-                                body = new String(error.networkResponse.data,"UTF-8");
-                                Log.e("Error Body", body);
-                            } catch (UnsupportedEncodingException e) {
-                                // exception
-                            }
-                        }
-                        Log.e("Error", error.toString());
-                    }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<>();
-                    headers.put("Content-Type", "application/json");
-                    return headers;
-                }
-            };
-
-            // Setze die RetryPolicy für die Anfrage
-            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    50000, // 30 Sekunden Timeout
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // Maximaler Versuch ist standardmäßig 1
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)); // Standard-Rückwärtsmultiplikator
-
-            // Füge die Anfrage zur RequestQueue hinzu
-            requestQueue.add(jsonObjectRequest);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e("JSON Error", "Error creating JSON object.");
+            inputProcessing = getContentResolver().openInputStream(image);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
-    }
+        // url mit IP etc zwischenspeichern
+        String url = getResources().getString(R.string.server_url);
+        // Instanz erstellen von imageProcessing, beeinhaltet jegliche Logik und bild zu verarbeiten
+        // und an Server zu senden
+        imageProcessing imageProcessing = new imageProcessing(inputProcessing,image,spinnerModelSelector,url,this);
 
+        // Button mit Fnktion aus imageProcessing verknüpfen und Funktional geben
+        buttonUpload.setOnClickListener(v -> imageProcessing.uploadImage());
+    }
 
     public void goToHome(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
-    }
-
-    private String encodeImageToBase64(Uri imageUri) {
-        try (InputStream inputStream = getContentResolver().openInputStream(imageUri)) {
-            // Bild in Bitmap laden
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
-            // Bitmap in PNG konvertieren
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-            // In Base64 kodieren
-            return Base64.encodeToString(byteArray, Base64.NO_WRAP);  // Verwende Base64.NO_WRAP, um Zeilenumbrüche zu vermeiden
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }
