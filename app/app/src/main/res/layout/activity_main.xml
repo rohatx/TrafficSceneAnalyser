@@ -8,80 +8,167 @@
     android:background="?attr/selectableItemBackgroundBorderless"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="75dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/app_name"
-        android:padding="0dp"
-        android:src="@drawable/test"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/test" />
-
-    <TextView
-        android:id="@+id/textViewAppName"
-        android:layout_width="306dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:text="@string/app_name"
-        android:textSize="24sp"
-        android:textStyle="bold"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/logo"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnBildHochladen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:text="@string/upload_image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAppName"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Button
-        android:id="@+id/btnBildAufnehmen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/take_photo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBildHochladen" />
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="726dp"
+            android:layout_height="801dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.12"
+            app:srcCompat="@drawable/background" />
 
-    <ImageView
-        android:id="@+id/profile"
-        android:layout_width="60dp"
-        android:layout_height="65dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/profile"
-        android:onClick="goToProfile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/user" />
+        <ImageView
+            android:id="@+id/Toplayout"
+            android:layout_width="407dp"
+            android:layout_height="565dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/toplayout" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="63dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/settings"
-        android:onClick="goToSettings"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/cogwheel" />
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="486dp"
+            android:layout_height="689dp"
+            android:rotationY="180"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/bottomlayout" />
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="113dp"
+            android:layout_height="108dp"
+            android:layout_marginStart="4dp"
+            android:contentDescription="@string/profile"
+            android:onClick="goToProfile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/userrr" />
+
+        <ImageButton
+            android:id="@+id/btnBildHochladen"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:backgroundTint="#00F8F6F6"
+            android:scaleType="fitCenter"
+            android:src="@drawable/galerieicon1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.499" />
+
+        <ImageButton
+            android:id="@+id/btnBildAufnehmen"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cameraicon1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bild aufnehmen"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.263"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBildAufnehmen"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bild hochladen"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.757"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBildHochladen"
+            app:layout_constraintVertical_bias="0.037" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:layout_marginTop="300dp"
+            android:src="@drawable/menuuuu"
+            app:backgroundTint="#F6F5F5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.96"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.992"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/historyicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/historyicon"
+            android:visibility="gone"
+            app:backgroundTint="#F6F5F5"
+            app:layout_constraintBottom_toTopOf="@+id/main_fab"
+            app:layout_constraintEnd_toEndOf="@+id/main_fab"
+            app:layout_constraintStart_toStartOf="@+id/main_fab"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="gone"
+            app:backgroundTint="#F6F5F5"
+            app:layout_constraintBottom_toTopOf="@+id/historyicon"
+            app:layout_constraintEnd_toEndOf="@+id/historyicon"
+            app:layout_constraintStart_toStartOf="@+id/historyicon"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

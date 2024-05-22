@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +15,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
 
-    Button btnBildHochladen;
+    ImageButton btnBildHochladen;
     private static final int PICK_IMAGE_REQUEST = 1;
+
+    private FloatingActionButton mainFab, fab1, fab2; // Menu bar funktion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,22 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // menubar
+        mainFab = findViewById(R.id.main_fab);
+        fab1 = findViewById(R.id.historyicon);
+        fab2 = findViewById(R.id.fab2);
+        mainFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (fab1.getVisibility() == View.GONE && fab2.getVisibility() == View.GONE) {
+                    fab1.show();
+                    fab2.show();
+                } else {
+                    fab1.hide();
+                    fab2.hide();
+                }
+            }
+        });
         Log.v("Pfad", "Aktueller Pfad: " + getPackageName());
 
         btnBildHochladen = findViewById(R.id.btnBildHochladen);
