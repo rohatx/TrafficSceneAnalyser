@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -37,6 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import android.graphics.Bitmap;
@@ -49,6 +51,8 @@ public class UploadConfigActivity extends AppCompatActivity {
     private ImageButton buttonUpload;
     private Intent intent;
     private Uri[] images;
+    private ArrayList<Uri> imageList = new ArrayList<Uri>();
+    private ViewPager viewPager;
     private TextView viewLongitude;
     private TextView viewLatitude;
 
@@ -73,11 +77,12 @@ public class UploadConfigActivity extends AppCompatActivity {
         for (int i = 0; i < size; i++) {
             String extraName = "image" + i;
             images[i] = (Uri) intent.getExtras().get(extraName);
+            imageList.add((Uri) intent.getExtras().get(extraName));
         }
 
+
         // Initialisiere UI Komponente
-        imageView = findViewById(R.id.image_preview);
-        imageView.setImageURI(images[0]);
+        viewPager = findViewById(R.id.viewPager);
         spinnerModelSelector = findViewById(R.id.spinner_model_selector);
         buttonUpload = findViewById(R.id.button_upload);
         viewLatitude = findViewById(R.id.latitude);
@@ -113,6 +118,10 @@ public class UploadConfigActivity extends AppCompatActivity {
             uriInfo[i][1] = String.valueOf(metaData.getLatitude());
             uriInfo[i][2] = String.valueOf(metaData.getLongitude());
         }
+
+        ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this,imageList);
+        viewPager.setAdapter(bildAdapter);
+
 
         // Button mit Funktionalität verknüpfen
         buttonUpload.setOnClickListener(v -> {

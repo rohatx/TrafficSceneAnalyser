@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton btnBildHochladen;
     private static final int PICK_IMAGE_REQUEST = 1;
-
     private FloatingActionButton mainFab, fab1, fab2; // Menu bar funktion
 
     @Override
@@ -75,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 Uri image = data.getClipData().getItemAt(i).getUri();
                 intent.putExtra(imgName,image);
             }
-            // Uri imageUri = data.getData();
             intent.putExtra("size",size);
             startActivity(intent);
         }
