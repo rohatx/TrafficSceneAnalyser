@@ -48,7 +48,7 @@ public class UploadConfigActivity extends AppCompatActivity {
     private Spinner spinnerModelSelector;
     private ImageButton buttonUpload;
     private Intent intent;
-    private Uri image;
+    private Uri[] images;
     private TextView viewLongitude;
     private TextView viewLatitude;
 
@@ -68,30 +68,26 @@ public class UploadConfigActivity extends AppCompatActivity {
 
         // Initialisiere Parameter
         intent = getIntent();
-        image = (Uri) intent.getExtras().get("image");
+        int size = (int) intent.getExtras().get("size");
+        images = new Uri[size];
+        for (int i = 0; i < size; i++) {
+            String extraName = "image" + i;
+            images[i] = (Uri) intent.getExtras().get(extraName);
+        }
 
         // Initialisiere UI Komponente
         imageView = findViewById(R.id.image_preview);
-        imageView.setImageURI(image);
+        imageView.setImageURI(images[0]);
         spinnerModelSelector = findViewById(R.id.spinner_model_selector);
         buttonUpload = findViewById(R.id.button_upload);
         viewLatitude = findViewById(R.id.latitude);
         viewLongitude = findViewById(R.id.longitude);
 
-        // InputStream öffnen für metaData
-        InputStream inputMetaData = null;
-        try {
-            inputMetaData = getContentResolver().openInputStream(image);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Lese Koordinaten aus, Logik in imageMetaData
-        imageMetaData metaData = new imageMetaData(inputMetaData);
-
+        /*
         // Koordinaten anzeigen lassen
         viewLatitude.setText("Latitude: " + metaData.getLatitude());
         viewLongitude.setText("Longitude: " + metaData.getLongitude());
+         */
 
         // Setup Spinner with model selector
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -100,24 +96,23 @@ public class UploadConfigActivity extends AppCompatActivity {
         spinnerModelSelector.setAdapter(adapter);
 
         // Erstelle Array von Arrays mit URI, Latitude und Longitude
-        String[][] uriInfo = new String[4][3];
-        uriInfo[0][0] = image.toString();
-        uriInfo[0][1] = String.valueOf(metaData.getLatitude());
-        uriInfo[0][2] = String.valueOf(metaData.getLongitude());
+        String[][] uriInfo = new String[size][3];
 
-        // Mehr Bilder hinzufügen, zum testen der Analysis Info Ansicht
-        // Austauschen, sobald batches von Bilder ausgewählt werden können
-        uriInfo[1][0] = image.toString();
-        uriInfo[1][1] = String.valueOf(metaData.getLatitude());
-        uriInfo[1][2] = String.valueOf(metaData.getLongitude());
+        for (int i = 0; i < size; i++){
+            // InputStream öffnen für metaData
+            InputStream inputMetaData = null;
+            try {
+                inputMetaData = getContentResolver().openInputStream(images[i]);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            // Lese Koordinaten aus, Logik in imageMetaData
+            imageMetaData metaData = new imageMetaData(inputMetaData);
 
-        uriInfo[2][0] = image.toString();
-        uriInfo[2][1] = String.valueOf(metaData.getLatitude());
-        uriInfo[2][2] = String.valueOf(metaData.getLongitude());
-
-        uriInfo[3][0] = image.toString();
-        uriInfo[3][1] = String.valueOf(metaData.getLatitude());
-        uriInfo[3][2] = String.valueOf(metaData.getLongitude());
+            uriInfo[i][0] = images[i].toString();
+            uriInfo[i][1] = String.valueOf(metaData.getLatitude());
+            uriInfo[i][2] = String.valueOf(metaData.getLongitude());
+        }
 
         // Button mit Funktionalität verknüpfen
         buttonUpload.setOnClickListener(v -> {

@@ -60,17 +60,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            Uri imageUri = data.getData();
-            Intent i = new Intent(MainActivity.this, UploadConfigActivity.class);
-            i.putExtra("image",imageUri);
-            startActivity(i);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getClipData() != null) {
+            int size = data.getClipData().getItemCount();
+            Intent intent = new Intent(MainActivity.this, UploadConfigActivity.class);
+            for (int i = 0; i < size; i++) {
+                String imgName = "image" + i;
+                Uri image = data.getClipData().getItemAt(i).getUri();
+                intent.putExtra(imgName,image);
+            }
+            // Uri imageUri = data.getData();
+            intent.putExtra("size",size);
+            startActivity(intent);
         }
     }
 
