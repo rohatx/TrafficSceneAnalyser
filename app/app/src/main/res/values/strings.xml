@@ -6,4 +6,6 @@
     <string name="settings">Zu den Einstellungen wechseln</string>
     <string name="image_preview">Bildvorschau</string>
     <string name="upload_button">Hochladen</string>
+    <string name="boilerplate_text">Waiting for server response...</string>
+    <string name="image_description">Selected Image</string>
 </resources>

@@ -7,10 +7,8 @@
     <uses-sdk
         android:minSdkVersion="24"
         android:targetSdkVersion="34" />
-
     <!-- Internet-Berechtigung hinzufügen -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Speicher- Berechtigung hinzufügen -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Speicher- Berechtigung hinzufügen -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -36,6 +34,9 @@
         android:testOnly="true"
         android:theme="@style/Theme.TrafficSceneAnalyser"
         android:usesCleartextTraffic="true" >
+        <activity
+            android:name="com.example.trafficsceneanalyser.AnalysisInfoActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.trafficsceneanalyser.UploadConfigActivity"
             android:exported="false" />
