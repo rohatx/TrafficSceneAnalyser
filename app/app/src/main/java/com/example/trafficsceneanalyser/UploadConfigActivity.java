@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,7 +46,7 @@ public class UploadConfigActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private Spinner spinnerModelSelector;
-    private Button buttonUpload;
+    private ImageButton buttonUpload;
     private Intent intent;
     private Uri image;
     private TextView viewLongitude;

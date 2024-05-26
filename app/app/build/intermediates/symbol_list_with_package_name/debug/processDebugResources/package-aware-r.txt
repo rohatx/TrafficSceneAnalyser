@@ -2992,6 +2992,7 @@ drawable galerieicon
 drawable galerieicon1
 drawable google
 drawable historyicon
+drawable home1
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
@@ -3085,6 +3086,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable obenuntenlayout
+drawable perfectlayout2
 drawable placeholder_image
 drawable rounded_corners
 drawable settings
@@ -3097,6 +3099,7 @@ drawable top_login
 drawable top_signup
 drawable toplayout
 drawable twitter
+drawable upload
 drawable userrr
 id ALT
 id BOTTOM_END
@@ -3186,6 +3189,7 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
+id backg
 id background
 id barrier
 id baseline
@@ -3328,6 +3332,7 @@ id ignore
 id ignoreRequest
 id image
 id imageView
+id imageView5
 id imageView8
 id image_preview
 id immediateStop

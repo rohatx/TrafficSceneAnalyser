@@ -13,6 +13,7 @@ drawable galerieicon
 drawable galerieicon1
 drawable google
 drawable historyicon
+drawable home1
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable image_not_found
@@ -23,6 +24,7 @@ drawable logoo
 drawable menuuuu
 drawable neulayout
 drawable obenuntenlayout
+drawable perfectlayout2
 drawable placeholder_image
 drawable rounded_corners
 drawable settings
@@ -32,8 +34,10 @@ drawable top_login
 drawable top_signup
 drawable toplayout
 drawable twitter
+drawable upload
 drawable userrr
 id Toplayout
+id backg
 id background
 id btnBildAufnehmen
 id btnBildHochladen
@@ -44,6 +48,7 @@ id button_upload
 id fab2
 id historyicon
 id imageView
+id imageView5
 id imageView8
 id image_preview
 id latitude
