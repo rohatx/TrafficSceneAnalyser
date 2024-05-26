@@ -1,13 +1,11 @@
 package com.example.trafficsceneanalyser;
 
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Spinner;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -26,61 +24,60 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class imageProcessing {
-    private Spinner spinnerModelSelector;
+    private String selectedModel;
     InputStream inputStream;
     Context context;
     String url;
     Uri image;
+    UploadImageCallback callback;
 
-    public imageProcessing(InputStream inputStream, Uri image, Spinner spinner, String url, Context context) {
+    public imageProcessing(InputStream inputStream, Uri image, String selectedModel, String url, Context context, UploadImageCallback callback) {
         this.inputStream = inputStream;
         this.image = image;
-        this.spinnerModelSelector = spinner;
+        this.selectedModel = selectedModel;
         this.context = context;
         this.url = url;
+        this.callback = callback;
     }
+
     public void uploadImage() {
         try {
             String imageBase64 = encodeImageToBase64();
-            String selectedModel = spinnerModelSelector.getSelectedItem().toString();
 
-            // Erstelle die Anfragedaten als JSON-Objekt
+            if (imageBase64 == null) {
+                callback.onError("Failed to encode image");
+                return;
+            }
+
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("_input", imageBase64);
             jsonBody.put("model", selectedModel);
 
-            // Erstelle eine RequestQueue
             RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-            // Erstelle die POST-Anfrage
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                     response -> {
-                        // Verarbeite die Serverantwort hier
-                        Log.v("Response", response.toString());
                         try {
-                            // Annahme, dass die Antwort ein Objekt mit einem Schlüssel "_output" enthält
                             String output = response.getString("_output");
-                            Log.v("Output", "Server Output: " + output);
-                            System.out.println("Server Output: " + output);  // Zusätzliche Ausgabe in der Konsole
+                            callback.onSuccess(output);
                         } catch (JSONException e) {
                             Log.e("JSON Error", "Error parsing JSON response.");
+                            callback.onError("Error parsing JSON response.");
                         }
                     },
                     error -> {
-                        // Behandle mögliche Fehler hier
                         if (error.networkResponse != null) {
                             String body;
-                            //get status code here
-                            final String statusCode = String.valueOf(error.networkResponse.statusCode);
-                            //get response body and parse with appropriate encoding
                             try {
-                                body = new String(error.networkResponse.data,"UTF-8");
+                                body = new String(error.networkResponse.data, "UTF-8");
                                 Log.e("Error Body", body);
+                                callback.onError(body);
                             } catch (UnsupportedEncodingException e) {
-                                // exception
+                                callback.onError("Error decoding error response.");
                             }
                         }
                         Log.e("Error", error.toString());
+                        callback.onError(error.toString());
                     }) {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
@@ -90,29 +87,30 @@ public class imageProcessing {
                 }
             };
 
-            // Setze die RetryPolicy für die Anfrage
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    50000, // 30 Sekunden Timeout
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // Maximaler Versuch ist standardmäßig 1
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)); // Standard-Rückwärtsmultiplikator
+                    50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-            // Füge die Anfrage zur RequestQueue hinzu
             requestQueue.add(jsonObjectRequest);
 
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e("JSON Error", "Error creating JSON object.");
+            callback.onError("Error creating JSON object.");
         }
     }
 
     private String encodeImageToBase64() {
-        // Bild in Bitmap laden
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-        // Bitmap in PNG konvertieren
+        if (bitmap == null) {
+            Log.e("Encode Error", "Failed to decode image from input stream.");
+            return null;
+        }
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
-        // In Base64 kodieren
-        return Base64.encodeToString(byteArray, Base64.NO_WRAP);  // Verwende Base64.NO_WRAP, um Zeilenumbrüche zu vermeiden
+        return Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
 }

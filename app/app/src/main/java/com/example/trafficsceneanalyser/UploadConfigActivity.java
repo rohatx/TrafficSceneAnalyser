@@ -98,21 +98,33 @@ public class UploadConfigActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerModelSelector.setAdapter(adapter);
 
-        // InputStream öffnen für imageProcessing
-        InputStream inputProcessing = null;
-        try {
-            inputProcessing = getContentResolver().openInputStream(image);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        // url mit IP etc zwischenspeichern
-        String url = getResources().getString(R.string.server_url);
-        // Instanz erstellen von imageProcessing, beeinhaltet jegliche Logik und bild zu verarbeiten
-        // und an Server zu senden
-        imageProcessing imageProcessing = new imageProcessing(inputProcessing,image,spinnerModelSelector,url,this);
+        // Erstelle Array von Arrays mit URI, Latitude und Longitude
+        String[][] uriInfo = new String[4][3];
+        uriInfo[0][0] = image.toString();
+        uriInfo[0][1] = String.valueOf(metaData.getLatitude());
+        uriInfo[0][2] = String.valueOf(metaData.getLongitude());
 
-        // Button mit Fnktion aus imageProcessing verknüpfen und Funktional geben
-        buttonUpload.setOnClickListener(v -> imageProcessing.uploadImage());
+        // Mehr Bilder hinzufügen, zum testen der Analysis Info Ansicht
+        // Austauschen, sobald batches von Bilder ausgewählt werden können
+        uriInfo[1][0] = image.toString();
+        uriInfo[1][1] = String.valueOf(metaData.getLatitude());
+        uriInfo[1][2] = String.valueOf(metaData.getLongitude());
+
+        uriInfo[2][0] = image.toString();
+        uriInfo[2][1] = String.valueOf(metaData.getLatitude());
+        uriInfo[2][2] = String.valueOf(metaData.getLongitude());
+
+        uriInfo[3][0] = image.toString();
+        uriInfo[3][1] = String.valueOf(metaData.getLatitude());
+        uriInfo[3][2] = String.valueOf(metaData.getLongitude());
+
+        // Button mit Funktionalität verknüpfen
+        buttonUpload.setOnClickListener(v -> {
+            Intent analysisIntent = new Intent(UploadConfigActivity.this, AnalysisInfoActivity.class);
+            analysisIntent.putExtra("uriInfo", uriInfo);
+            analysisIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
+            startActivity(analysisIntent);
+        });
     }
 
     public void goToHome(View view) {

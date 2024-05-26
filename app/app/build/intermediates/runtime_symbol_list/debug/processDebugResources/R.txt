@@ -3084,6 +3084,7 @@ int drawable notification_template_icon_low_bg 0x7f0800ea
 int drawable notification_tile_bg 0x7f0800eb
 int drawable notify_panel_notification_icon_bg 0x7f0800ec
 int drawable obenuntenlayout 0x7f0800ed
+int drawable placeholder_image 0x7f0800fa
 int drawable rounded_corners 0x7f0800ee
 int drawable settings 0x7f0800ef
 int drawable settingsicon 0x7f0800f0
@@ -3325,6 +3326,7 @@ int id ifRoom 0x7f0900e1
 int id ignore 0x7f0900e2
 int id ignoreRequest 0x7f0900e3
 int id image 0x7f0900e4
+int id imageView 0x7f090207
 int id imageView8 0x7f0900e5
 int id image_preview 0x7f0900e6
 int id immediateStop 0x7f0900e7
@@ -3470,6 +3472,7 @@ int id progress_horizontal 0x7f090172
 int id radio 0x7f090173
 int id ratio 0x7f090174
 int id rectangles 0x7f090175
+int id recyclerView 0x7f090209
 int id report_drawn 0x7f090176
 int id reverseSawtooth 0x7f090177
 int id right 0x7f090178
@@ -3565,6 +3568,7 @@ int id textView 0x7f0901d1
 int id textView2 0x7f0901d2
 int id textView3 0x7f0901d3
 int id textView4 0x7f0901d4
+int id textViewOutput 0x7f090208
 int id text_input_end_icon 0x7f0901d5
 int id text_input_error_icon 0x7f0901d6
 int id text_input_start_icon 0x7f0901d7
@@ -3727,6 +3731,7 @@ int layout abc_search_dropdown_item_icons_2line 0x7f0c0018
 int layout abc_search_view 0x7f0c0019
 int layout abc_select_dialog_material 0x7f0c001a
 int layout abc_tooltip 0x7f0c001b
+int layout activity_analysis_info 0x7f0c006d
 int layout activity_main 0x7f0c001c
 int layout activity_profile 0x7f0c001d
 int layout activity_settings 0x7f0c001e
@@ -3747,6 +3752,7 @@ int layout design_navigation_menu 0x7f0c002c
 int layout design_navigation_menu_item 0x7f0c002d
 int layout design_text_input_end_icon 0x7f0c002e
 int layout design_text_input_start_icon 0x7f0c002f
+int layout item_image_output 0x7f0c006e
 int layout m3_alert_dialog 0x7f0c0030
 int layout m3_alert_dialog_actions 0x7f0c0031
 int layout m3_alert_dialog_title 0x7f0c0032
@@ -3841,6 +3847,7 @@ int string abc_toolbar_collapse_description 0x7f10001a
 int string androidx_startup 0x7f10001b
 int string app_name 0x7f10001c
 int string appbar_scrolling_view_behavior 0x7f10001d
+int string boilerplate_text 0x7f1000a7
 int string bottom_sheet_behavior 0x7f10001e
 int string bottomsheet_action_collapse 0x7f10001f
 int string bottomsheet_action_expand 0x7f100020
@@ -3858,6 +3865,7 @@ int string fab_transformation_scrim_behavior 0x7f10002b
 int string fab_transformation_sheet_behavior 0x7f10002c
 int string hide_bottom_view_on_scroll_behavior 0x7f10002d
 int string icon_content_description 0x7f10002e
+int string image_description 0x7f1000a8
 int string image_preview 0x7f10002f
 int string item_view_role_description 0x7f100030
 int string m3_exceed_max_badge_text_suffix 0x7f100031
