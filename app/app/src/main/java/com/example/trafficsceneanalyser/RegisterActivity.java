@@ -125,4 +125,9 @@ public class RegisterActivity extends AppCompatActivity {
         Intent i = new Intent(this, SignInActivity.class);
         startActivity(i);
     }
+
+    public void goToProfile(View view) {
+        Intent i = new Intent(this, ProfileActivity.class);
+        startActivity(i);
+    }
 }

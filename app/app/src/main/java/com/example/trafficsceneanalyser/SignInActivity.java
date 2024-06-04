@@ -119,4 +119,9 @@ public class SignInActivity extends AppCompatActivity {
         Intent i = new Intent(this, ProfileLoggedInActivity.class);
         startActivity(i);
     }
+
+    public void goToStandardProfile(View view) {
+        Intent i = new Intent(this, ProfileActivity.class);
+        startActivity(i);
+    }
 }
