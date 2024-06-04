@@ -2,19 +2,22 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
-#internals
+# Internals
 from api.models import CodeExplainer
 from api.utils import analyze_image_with_lmm
 
 class PictureExplainSerializer(serializers.ModelSerializer):
     class Meta:
         model = CodeExplainer
-        fields = ("id", "_input", "_output", "model")
+        fields = ("id", "user", "_input", "_output", "model")
         extra_kwargs = {
+            "user": {"read_only": True},
             "_output": {"read_only": True}
         }
         
     def create(self, validated_data):
+        request = self.context.get('request')
+        validated_data['user'] = request.user
         ce = CodeExplainer(**validated_data)
         _output = analyze_image_with_lmm(validated_data["_input"], validated_data["model"])
         ce._output = _output

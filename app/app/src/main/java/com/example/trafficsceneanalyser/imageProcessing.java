@@ -30,6 +30,7 @@ public class imageProcessing {
     String url;
     Uri image;
     UploadImageCallback callback;
+    private static final String TOKEN = "550fd4c2e72d6d1c8e5574b1d03a67fd8120b8f3"; // Hier den Token definieren
 
     public imageProcessing(InputStream inputStream, Uri image, String selectedModel, String url, Context context, UploadImageCallback callback) {
         this.inputStream = inputStream;
@@ -83,6 +84,7 @@ public class imageProcessing {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<>();
                     headers.put("Content-Type", "application/json");
+                    headers.put("Authorization", "Token " + TOKEN); // Token in die Header einfügen
                     return headers;
                 }
             };

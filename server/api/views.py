@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 # Internals
 from api.serializers import PictureExplainSerializer, UserSerializer, TokenSerializer
 from api.models import CodeExplainer
@@ -11,14 +12,15 @@ from api.permissions import AllowAnyForRegistration
 class PictureExplainView(views.APIView):
     serializer_class = PictureExplainSerializer
     authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     
     def get(self, request, format=None):
-        qs = CodeExplainer.objects.all()
+        qs = CodeExplainer.objects.filter(user=request.user)
         serializer = self.serializer_class(qs, many=True)
         return Response(serializer.data)
     
     def post(self, request, format=None):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
