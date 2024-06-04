@@ -1,15 +1,17 @@
 package com.example.trafficsceneanalyser;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnBildHochladen;
     private static final int PICK_IMAGE_REQUEST = 1;
     private FloatingActionButton mainFab, fab1, fab2; // Menu bar funktion
+    private TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,20 +32,19 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        tokenManager = new TokenManager(this);
+
         // menubar
         mainFab = findViewById(R.id.main_fab);
         fab1 = findViewById(R.id.historyicon);
         fab2 = findViewById(R.id.fab2);
-        mainFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (fab1.getVisibility() == View.GONE && fab2.getVisibility() == View.GONE) {
-                    fab1.show();
-                    fab2.show();
-                } else {
-                    fab1.hide();
-                    fab2.hide();
-                }
+        mainFab.setOnClickListener(view -> {
+            if (fab1.getVisibility() == View.GONE && fab2.getVisibility() == View.GONE) {
+                fab1.show();
+                fab2.show();
+            } else {
+                fab1.hide();
+                fab2.hide();
             }
         });
         Log.v("Pfad", "Aktueller Pfad: " + getPackageName());
@@ -58,9 +60,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openImagePicker() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        if (tokenManager.isLoggedIn()) {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        } else {
+            showLoginPrompt();
+        }
     }
 
     @Override
@@ -72,11 +78,22 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < size; i++) {
                 String imgName = "image" + i;
                 Uri image = data.getClipData().getItemAt(i).getUri();
-                intent.putExtra(imgName,image);
+                intent.putExtra(imgName, image);
             }
-            intent.putExtra("size",size);
+            intent.putExtra("size", size);
             startActivity(intent);
         }
+    }
+
+    private void showLoginPrompt() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Sie müssen sich anmelden, um Bilder hochzuladen.")
+                .setPositiveButton("Anmelden", (dialog, id) -> {
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                })
+                .setNegativeButton("Abbrechen", (dialog, id) -> dialog.dismiss());
+        builder.create().show();
     }
 
     public void goToSettings(View view) {
@@ -85,7 +102,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToProfile(View view) {
-        Intent i = new Intent(this, ProfileActivity.class);
-        startActivity(i);
+        if (tokenManager.isLoggedIn()) {
+            Intent i = new Intent(this, ProfileLoggedInActivity.class);
+            startActivity(i);
+        } else {
+            Intent i = new Intent(this, ProfileActivity.class);
+            startActivity(i);
+        }
     }
 }

@@ -30,6 +30,7 @@ public class imageProcessing {
     String url;
     Uri image;
     UploadImageCallback callback;
+    private TokenManager tokenManager;
 
     public imageProcessing(InputStream inputStream, Uri image, String selectedModel, String url, Context context, UploadImageCallback callback) {
         this.inputStream = inputStream;
@@ -38,6 +39,7 @@ public class imageProcessing {
         this.context = context;
         this.url = url;
         this.callback = callback;
+        this.tokenManager = new TokenManager(context);
     }
 
     public void uploadImage() {
@@ -83,6 +85,7 @@ public class imageProcessing {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<>();
                     headers.put("Content-Type", "application/json");
+                    headers.put("Authorization", "Token " + tokenManager.getToken()); // Token in die Header einfügen
                     return headers;
                 }
             };

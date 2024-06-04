@@ -67,7 +67,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
 
                     // Reopen the InputStream for processing
                     inputProcessing = getContentResolver().openInputStream(imageUri);
-                    String url = getResources().getString(R.string.server_url);
+                    String url = getResources().getString(R.string.server_url) + "/api/v1/picture-explain/";
                     imageProcessing = new imageProcessing(inputProcessing, imageUri, selectedModel, url, this, this);
                     imageProcessing.uploadImage();
                 } else {
