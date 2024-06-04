@@ -28,4 +28,14 @@ public class ProfileActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
+    public void goToLogin(View view) {
+        Intent i = new Intent(this, SignInActivity.class);
+        startActivity(i);
+    }
+
+    public void goToRegister(View view) {
+        Intent i = new Intent(this, RegisterActivity.class);
+        startActivity(i);
+    }
 }
