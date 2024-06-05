@@ -19,14 +19,19 @@
         app:layout_constraintVertical_bias="0.12"
         app:srcCompat="@drawable/background" />
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
         android:layout_marginTop="150dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
 
     <Spinner
         android:id="@+id/spinner_model_selector"

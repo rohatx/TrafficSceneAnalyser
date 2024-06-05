@@ -6,46 +6,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ViewPagerAdapter extends PagerAdapter {
+public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewHolder> {
     private Context context;
-    ArrayList<Uri> ImageUrls;
-    LayoutInflater layoutInflater;
+    private ArrayList<Uri> imageUrls;
+    private LayoutInflater layoutInflater;
 
     public ViewPagerAdapter(Context context, ArrayList<Uri> imageUrls) {
         this.context = context;
-        ImageUrls = imageUrls;
-        layoutInflater = LayoutInflater.from(context);
-    }
-
-    @Override
-    public int getCount() {
-        return ImageUrls.size();
+        this.imageUrls = imageUrls;
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = layoutInflater.inflate(R.layout.showimageslayout,container,false);
-        ImageView imageView = view.findViewById(R.id.UploadImage);
-        imageView.setImageURI(ImageUrls.get(position));
-        container.addView(view);
-        return view;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = layoutInflater.inflate(R.layout.showimageslayout, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.imageView.setImageURI(imageUrls.get(position));
     }
 
     @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        ((RelativeLayout)object).removeView(container);
+    public int getItemCount() {
+        return imageUrls.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.UploadImage);
+        }
     }
 }

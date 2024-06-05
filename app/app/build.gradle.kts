@@ -45,5 +45,8 @@ dependencies {
     implementation("com.android.volley:volley:1.2.1")
     // Floatingbutton
     implementation ("com.google.android.material:material:1.3.0")
+    // ViewPager
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+
 
 }

@@ -15,11 +15,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -52,7 +59,7 @@ public class UploadConfigActivity extends AppCompatActivity {
     private Intent intent;
     private Uri[] images;
     private ArrayList<Uri> imageList = new ArrayList<Uri>();
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private TextView viewLongitude;
     private TextView viewLatitude;
 
@@ -122,6 +129,22 @@ public class UploadConfigActivity extends AppCompatActivity {
         ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this,imageList);
         viewPager.setAdapter(bildAdapter);
 
+
+        viewPager.setClipToPadding(false);
+        viewPager.setClipChildren(false);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+        viewPager.setPageTransformer(compositePageTransformer);
 
         // Button mit Funktionalität verknüpfen
         buttonUpload.setOnClickListener(v -> {
