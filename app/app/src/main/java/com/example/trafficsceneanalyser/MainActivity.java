@@ -73,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openImageTaker() {
-        //if (tokenManager.isLoggedIn()) {
+        if (tokenManager.isLoggedIn()) {
             // open cameraPage
             Intent i = new Intent(this, CameraActivity.class);
             startActivity(i);
-        //} else {
-          //  showLoginPrompt();
-        //}
+        } else {
+            showLoginPrompt();
+        }
     }
 
     @Override
