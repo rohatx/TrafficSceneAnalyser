@@ -1,26 +1,21 @@
 package com.example.trafficsceneanalyser;
 
+import java.io.InputStream;
 import android.net.Uri;
 
-import java.io.InputStream;
-
 public class ImageOutput {
-    private InputStream inputStream;
+    private InputStream imageStream;
     private String outputText;
     private Uri imageUri;
 
-    public ImageOutput(InputStream inputStream, String outputText, Uri imageUri) {
-        this.inputStream = inputStream;
+    public ImageOutput(InputStream imageStream, String outputText, Uri imageUri) {
+        this.imageStream = imageStream;
         this.outputText = outputText;
         this.imageUri = imageUri;
     }
 
-    public InputStream getInputStream() {
-        return inputStream;
-    }
-
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
+    public InputStream getImageStream() {
+        return imageStream;
     }
 
     public String getOutputText() {
