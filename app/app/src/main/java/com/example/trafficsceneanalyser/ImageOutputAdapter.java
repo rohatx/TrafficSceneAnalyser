@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
@@ -62,6 +60,10 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                 holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
                 e.printStackTrace();
             }
+        } else if (imageOutput.getImageStream() != null) {
+            Bitmap bitmap = BitmapFactory.decodeStream(imageOutput.getImageStream());
+            holder.imageView.setImageBitmap(bitmap);
+            holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
         } else {
             holder.imageView.setImageResource(R.drawable.placeholder_image); // Placeholder image if bitmap is null
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
