@@ -12,8 +12,6 @@
         android:layout_width="904dp"
         android:layout_height="897dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.12"
@@ -25,7 +23,7 @@
         android:layout_height="773dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.643"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/perfectlayout2" />
@@ -49,19 +47,23 @@
         android:id="@+id/imageView3"
         android:layout_width="255dp"
         android:layout_height="347dp"
-        app:srcCompat="@drawable/profile"
-        tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="70dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/verlauf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:srcCompat="@drawable/profile" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
         android:text="Willkommen zurück!"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="113dp"
-        tools:layout_editor_absoluteY="43dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/showHistoryButton"
@@ -69,6 +71,7 @@
         android:layout_height="118dp"
         android:background="#00FFFFFF"
         android:backgroundTint="#BC0404"
+        android:onClick="showHistory"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.68"
-        app:srcCompat="@drawable/History" />
+        app:srcCompat="@drawable/history" />
 
     <ImageButton
         android:id="@+id/signOutButton"
@@ -113,7 +116,11 @@
         android:layout_height="wrap_content"
         android:text="Abmelden"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="241dp"
-        tools:layout_editor_absoluteY="515dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.696"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signOutButton"
+        app:layout_constraintVertical_bias="0.335" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
