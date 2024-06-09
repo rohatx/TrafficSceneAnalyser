@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             // open cameraPage
             Intent i = new Intent(this, CameraActivity.class);
             startActivity(i);
-            } else {
+        } else {
             showLoginPrompt();
         }
     }

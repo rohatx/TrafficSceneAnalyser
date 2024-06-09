@@ -1,6 +1,5 @@
 package com.example.trafficsceneanalyser;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -16,9 +15,10 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -89,6 +89,7 @@ public class CameraActivity extends AppCompatActivity{
 
     public void takePicture(ImageCapture imageCapture) {
         final File file = new File(getExternalFilesDir(null), System.currentTimeMillis() + ".png");
+        Uri fileUri = Uri.fromFile(file);
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
         imageCapture.takePicture(outputFileOptions, Executors.newCachedThreadPool(), new ImageCapture.OnImageSavedCallback() {
             @Override
