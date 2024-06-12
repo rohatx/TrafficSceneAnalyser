@@ -2,6 +2,7 @@ package com.example.trafficsceneanalyser;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
@@ -41,8 +42,10 @@ import com.bumptech.glide.Glide;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -87,19 +90,12 @@ public class UploadConfigActivity extends AppCompatActivity {
             imageList.add((Uri) intent.getExtras().get(extraName));
         }
 
-
         // Initialisiere UI Komponente
         viewPager = findViewById(R.id.viewPager);
         spinnerModelSelector = findViewById(R.id.spinner_model_selector);
         buttonUpload = findViewById(R.id.button_upload);
         viewLatitude = findViewById(R.id.latitude);
         viewLongitude = findViewById(R.id.longitude);
-
-        /*
-        // Koordinaten anzeigen lassen
-        viewLatitude.setText("Latitude: " + metaData.getLatitude());
-        viewLongitude.setText("Longitude: " + metaData.getLongitude());
-         */
 
         // Setup Spinner with model selector
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -126,15 +122,14 @@ public class UploadConfigActivity extends AppCompatActivity {
             uriInfo[i][2] = String.valueOf(metaData.getLongitude());
         }
 
+        // Adapter für ViewPager, damit mehrere Bilder angezeigt werden können
         ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this,imageList);
         viewPager.setAdapter(bildAdapter);
-
-
+        // ViewPager so einstellen, dass neben dem aktuellen Bild ein ansatz von den anderen gezeigt wird
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
         viewPager.setOffscreenPageLimit(3);
         viewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
@@ -146,6 +141,38 @@ public class UploadConfigActivity extends AppCompatActivity {
         });
         viewPager.setPageTransformer(compositePageTransformer);
 
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                // Hole das ImageView aus dem ViewPager2
+                View currentView = viewPager.findViewWithTag("pos" + position);
+                if (currentView instanceof ImageView) {
+                    ImageView currentImageView = (ImageView) currentView;
+                    Bitmap bitmap = ((BitmapDrawable) currentImageView.getDrawable()).getBitmap();
+
+                    // Konvertiere das Bitmap in einen InputStream
+                    InputStream inputMetaData = getBitmapInputStream(bitmap);
+
+                    if (inputMetaData != null) {
+                        // Lese Koordinaten aus, Logik in imageMetaData
+                        imageMetaData metaData = new imageMetaData(inputMetaData);
+
+                        // Koordinaten anzeigen lassen
+                        viewLatitude.setText("Latitude: " + metaData.getLatitude());
+                        viewLongitude.setText("Longitude: " + metaData.getLongitude());
+
+                        try {
+                            inputMetaData.close(); // Schließe den InputStream, wenn er nicht mehr benötigt wird
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+
         // Button mit Funktionalität verknüpfen
         buttonUpload.setOnClickListener(v -> {
             Intent analysisIntent = new Intent(UploadConfigActivity.this, AnalysisInfoActivity.class);
@@ -153,6 +180,13 @@ public class UploadConfigActivity extends AppCompatActivity {
             analysisIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
             startActivity(analysisIntent);
         });
+    }
+
+    private InputStream getBitmapInputStream(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return new ByteArrayInputStream(byteArray);
     }
 
     public void goToHome(View view) {
