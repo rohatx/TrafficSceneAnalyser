@@ -63,6 +63,8 @@ public class UploadConfigActivity extends AppCompatActivity {
     private TextView viewLongitude;
     private TextView viewLatitude;
 
+    private ImageButton infoButton;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,8 @@ public class UploadConfigActivity extends AppCompatActivity {
         buttonUpload = findViewById(R.id.button_upload);
         viewLatitude = findViewById(R.id.latitude);
         viewLongitude = findViewById(R.id.longitude);
+
+        infoButton = findViewById(R.id.infoButtonTest);
 
         /*
         // Koordinaten anzeigen lassen
@@ -152,6 +156,12 @@ public class UploadConfigActivity extends AppCompatActivity {
             analysisIntent.putExtra("uriInfo", uriInfo);
             analysisIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
             startActivity(analysisIntent);
+        });
+
+        infoButton.setOnClickListener(v -> {
+            Intent infoIntent = new Intent(this, analysisInfoPage.class);
+            infoIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
+            startActivity(infoIntent);
         });
     }
 
