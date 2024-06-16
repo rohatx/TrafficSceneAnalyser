@@ -97,7 +97,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/infoModelSuccessRateTextView"
+        android:id="@+id/modelInfoSuccessRateTextView"
         android:layout_width="329dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
@@ -107,14 +107,14 @@
         app:layout_constraintTop_toBottomOf="@+id/modelInfoDescTextView" />
 
     <TextView
-        android:id="@+id/infoModelBenchmarksTextView"
+        android:id="@+id/modelInfoBenchmarksTextView"
         android:layout_width="328dp"
         android:layout_height="52dp"
         android:layout_marginTop="8dp"
         android:text="Benchmarks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoModelSuccessRateTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/modelInfoSuccessRateTextView" />
 
     <TextView
         android:id="@+id/modelInfoSpeedTextView"
@@ -124,6 +124,6 @@
         android:text="Speed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoModelBenchmarksTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/modelInfoBenchmarksTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,14 @@ public class analysisInfoPage extends AppCompatActivity {
 
     private String selectedModel;
 
+    private TextView headline;
     private TextView description;
+    private TextView successRate;
+    private TextView benchmarks;
+    private TextView speed;
+    private TextView parameters;
+    private TextView costs;
+    private TextView links;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,34 +40,50 @@ public class analysisInfoPage extends AppCompatActivity {
         selectedModel = intent.getStringExtra("selectedModel");
 
         // Initialisiere UI Komponenten
-
+        headline = findViewById(R.id.modelInfoHeadlineTextview);
         description = findViewById(R.id.modelInfoDescTextView);
+        successRate = findViewById(R.id.modelInfoSuccessRateTextView);
+        benchmarks = findViewById(R.id.modelInfoBenchmarksTextView);
+        speed = findViewById(R.id.modelInfoSpeedTextView);
+        parameters = findViewById(R.id.modelInfoParameterTextView);
+        costs = findViewById(R.id.modelInfoCostsTextView);
+        links = findViewById(R.id.modelInfoLinksTextView);
+
+
 
         // Switch Case fuer Model Infoausgabe
 
         switch (selectedModel) {
             case "LLaVA":
+                headline.setText(selectedModel);
                 description.setText("LLaVA");
                 break;
             case "Claude":
+                headline.setText(selectedModel);
                 description.setText("Claude");
                 break;
             case "gpt-4o":
+                headline.setText(selectedModel);
                 description.setText("gpt-4o");
                 break;
             case "FireLLaVA":
+                headline.setText(selectedModel);
                 description.setText("FIRELLaVA");
                 break;
             case "Gemini Pro 1.5":
+                headline.setText(selectedModel);
                 description.setText("Gemini Pro 1.5");
                 break;
             case "Gemini Pro Vision 1.0":
+                headline.setText(selectedModel);
                 description.setText("Gemini Pro Vision 1.0");
                 break;
             case "Gemini Flash 1.5":
+                headline.setText(selectedModel);
                 description.setText("Gemini Flash 1.5");
                 break;
             default:
+                headline.setText("No model found");
                 description.setText("No description found." + "test");
                 break;
         }
