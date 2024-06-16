@@ -34,12 +34,35 @@ public class analysisInfoPage extends AppCompatActivity {
 
         // Initialisiere UI Komponenten
 
+        description = findViewById(R.id.modelInfoDescTextView);
 
+        // Switch Case fuer Model Infoausgabe
+
+        switch (selectedModel) {
+            case "LLaVA":
+                description.setText("LLaVA");
+                break;
+            case "Claude":
+                description.setText("Claude");
+                break;
+            case "gpt-4o":
+                description.setText("gpt-4o");
+                break;
+            case "FireLLaVA":
+                description.setText("FIRELLaVA");
+                break;
+            case "Gemini Pro 1.5":
+                description.setText("Gemini Pro 1.5");
+                break;
+            case "Gemini Pro Vision 1.0":
+                description.setText("Gemini Pro Vision 1.0");
+                break;
+            case "Gemini Flash 1.5":
+                description.setText("Gemini Flash 1.5");
+                break;
+            default:
+                description.setText("No description found.");
+                break;
+        }
     }
-
-
-
-
-
-
 }
