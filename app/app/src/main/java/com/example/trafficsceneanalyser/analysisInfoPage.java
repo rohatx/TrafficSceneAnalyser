@@ -61,7 +61,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText("Gemini Flash 1.5");
                 break;
             default:
-                description.setText("No description found.");
+                description.setText("No description found." + "test");
                 break;
         }
     }
