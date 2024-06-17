@@ -8,5 +8,13 @@
     <string name="upload_button">Hochladen</string>
     <string name="boilerplate_text">Waiting for server response...</string>
     <string name="image_description">Selected Image</string>
+    <string name="modelInfoParametersLLaVA">7 Milliarden Parameter</string>
+    <string name="modelInfoParametersCLAUDE">137 Milliarden Parameter</string>
+    <string name="modelInfoParametersGPT4o">Circa 100 Billionen Parameter </string>
+    <string name="modelInfoParametersFIRELLaVA">13 Milliarden Parameter</string>
+    <string name="modelInfoParametersGeminiPro1.5">47 Milliarden Parameter</string>
+    <string name="modelInfoParametersGeminiProVision1.0">Nicht bekannt</string>
+    <string name="modelInfoParametersGeminiFlash1.5">Nicht bekannt</string>
+
 
 </resources>
