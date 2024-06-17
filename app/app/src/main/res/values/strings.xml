@@ -27,16 +27,25 @@
     <string name="modelInfoParametersGeminiProVision1.0">Nicht bekannt</string>
     <string name="modelInfoParametersGeminiFlash1.5">Nicht bekannt</string>
 
+
+    <!-- TODO: Implement Links as clickables -->
     <!-- Costs -->
-    <string name="modelInfoCostsLLaVA"> Free to use </string>
-    <string name="modelInfoCostsCLAUDE"> Please check: https://www.anthropic.com/api </string>
-    <string name="modelInfoCostsGPT4o"> Please check: https://openai.com/api/pricing/ </string>
-    <string name="modelInfoCostsFIRELLaVA"> Please check: https://fireworks.ai/pricing </string>
-    <string name="modelInfoCostsGeminiPro1.5"> Please check: https://ai.google.dev/pricing </string>
-    <string name="modelInfoCostsGeminiProVision1.0"> Please check: https://ai.google.dev/pricing </string>
-    <string name="modelInfoCostsGeminiFlash1.5"> Please check: https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsLLaVA"> Kostenlos, da es lokal läuft.</string>
+    <string name="modelInfoCostsCLAUDE"> Siehe: https://www.anthropic.com/api </string>
+    <string name="modelInfoCostsGPT4o"> Siehe: https://openai.com/api/pricing/ </string>
+    <string name="modelInfoCostsFIRELLaVA"> Siehe: https://fireworks.ai/pricing </string>
+    <string name="modelInfoCostsGeminiPro1.5"> Siehe: https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsGeminiProVision1.0"> Siehe: https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsGeminiFlash1.5"> Siehe: https://ai.google.dev/pricing </string>
 
     <!-- Links -->
+    <string name="modelInfoLinksLLaVA"> https://llava-vl.github.io/ </string>
+    <string name="modelInfoLinksCLAUDE"> https://www.anthropic.com/claude </string>
+    <string name="modelInfoLinksGPT4o"> https://openai.com/index/hello-gpt-4o/ </string>
+    <string name="modelInfoLinksFIRELLaVA"> https://fireworks.ai/blog/firellava-the-first-commercially-permissive-oss-llava-model </string>
+    <string name="modelInfoLinksGeminiPro1.5"> https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-pro </string>
+    <string name="modelInfoLinksGeminiProVision1.0"> https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.0-pro-vision </string>
+    <string name="modelInfoLinksGeminiFlash1.5"> https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-flash </string>
 
 
 
