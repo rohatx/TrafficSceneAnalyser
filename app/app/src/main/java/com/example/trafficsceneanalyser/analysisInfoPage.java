@@ -52,42 +52,50 @@ public class analysisInfoPage extends AppCompatActivity {
 
 
         // Switch Case fuer Model Infoausgabe
+        // TODO: LINKS and PRICING need to be transformed into clickable URLs
 
         switch (selectedModel) {
             case "LLaVA":
                 headline.setText(selectedModel);
                 description.setText("LLaVA");
                 parameters.setText(getString(R.string.modelInfoParametersLLaVA));
+                costs.setText(getString(R.string.modelInfoCostsLLaVA));
                 break;
             case "Claude":
                 headline.setText(selectedModel);
                 description.setText("Claude");
                 parameters.setText(getString(R.string.modelInfoParametersCLAUDE));
+                costs.setText(getString(R.string.modelInfoCostsCLAUDE));
                 break;
             case "gpt-4o":
                 headline.setText(selectedModel);
                 description.setText("gpt-4o");
                 parameters.setText(getString(R.string.modelInfoParametersGPT4o));
+                costs.setText(getString(R.string.modelInfoCostsGPT4o));
                 break;
             case "FireLLaVA":
                 headline.setText(selectedModel);
                 description.setText("FIRELLaVA");
                 parameters.setText(getString(R.string.modelInfoParametersFIRELLaVA));
+                costs.setText(getString(R.string.modelInfoCostsFIRELLaVA));
                 break;
             case "Gemini Pro 1.5":
                 headline.setText(selectedModel);
                 description.setText("Gemini Pro 1.5");
                 parameters.setText(getString(R.string.modelInfoParametersGeminiPro1_5));
+                costs.setText(getString(R.string.modelInfoCostsGeminiPro1_5));
                 break;
             case "Gemini Pro Vision 1.0":
                 headline.setText(selectedModel);
                 description.setText("Gemini Pro Vision 1.0");
                 parameters.setText(getString(R.string.modelInfoParametersGeminiProVision1_0));
+                costs.setText(getString(R.string.modelInfoCostsGeminiProVision1_0));
                 break;
             case "Gemini Flash 1.5":
                 headline.setText(selectedModel);
                 description.setText("Gemini Flash 1.5");
                 parameters.setText(getString(R.string.modelInfoParametersGeminiFlash1_5));
+                costs.setText(getString(R.string.modelInfoCostsGeminiFlash1_5));
                 break;
             default:
                 headline.setText("No model found");

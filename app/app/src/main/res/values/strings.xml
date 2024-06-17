@@ -8,6 +8,17 @@
     <string name="upload_button">Hochladen</string>
     <string name="boilerplate_text">Waiting for server response...</string>
     <string name="image_description">Selected Image</string>
+    <!-- INFORMATION FOR MODELS -->
+
+    <!-- Description -->
+
+    <!-- Success Rate -->
+
+    <!-- Benchmarks -->
+
+    <!-- Speed -->
+
+    <!-- Parameters -->
     <string name="modelInfoParametersLLaVA">7 Milliarden Parameter</string>
     <string name="modelInfoParametersCLAUDE">137 Milliarden Parameter</string>
     <string name="modelInfoParametersGPT4o">Circa 100 Billionen Parameter </string>
@@ -15,6 +26,18 @@
     <string name="modelInfoParametersGeminiPro1.5">47 Milliarden Parameter</string>
     <string name="modelInfoParametersGeminiProVision1.0">Nicht bekannt</string>
     <string name="modelInfoParametersGeminiFlash1.5">Nicht bekannt</string>
+
+    <!-- Costs -->
+    <string name="modelInfoCostsLLaVA"> Free to use </string>
+    <string name="modelInfoCostsCLAUDE"> Please check: https://www.anthropic.com/api </string>
+    <string name="modelInfoCostsGPT4o"> Please check: https://openai.com/api/pricing/ </string>
+    <string name="modelInfoCostsFIRELLaVA"> Please check: https://fireworks.ai/pricing </string>
+    <string name="modelInfoCostsGeminiPro1.5"> Please check: https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsGeminiProVision1.0"> Please check: https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsGeminiFlash1.5"> Please check: https://ai.google.dev/pricing </string>
+
+    <!-- Links -->
+
 
 
 </resources>
