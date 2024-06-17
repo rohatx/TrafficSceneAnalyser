@@ -2,8 +2,10 @@ package com.example.trafficsceneanalyser;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void openImageTaker() {
         if (tokenManager.isLoggedIn()) {
             // open cameraPage
-            Intent i = new Intent(this, CameraActivity.class);
+            Intent i = new Intent(MainActivity.this, CameraActivity.class);
             startActivity(i);
         } else {
             showLoginPrompt();
