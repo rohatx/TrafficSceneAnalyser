@@ -2,14 +2,11 @@ package com.example.trafficsceneanalyser;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -17,42 +14,18 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class UploadConfigActivity extends AppCompatActivity {
 
@@ -141,35 +114,19 @@ public class UploadConfigActivity extends AppCompatActivity {
         });
         viewPager.setPageTransformer(compositePageTransformer);
 
+        // Set up OnPageChangeCallback to update coordinates
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-
-                // Hole das ImageView aus dem ViewPager2
-                View currentView = viewPager.findViewWithTag("pos" + position);
-                if (currentView instanceof ImageView) {
-                    ImageView currentImageView = (ImageView) currentView;
-                    Bitmap bitmap = ((BitmapDrawable) currentImageView.getDrawable()).getBitmap();
-
-                    // Konvertiere das Bitmap in einen InputStream
-                    InputStream inputMetaData = getBitmapInputStream(bitmap);
-
-                    if (inputMetaData != null) {
-                        // Lese Koordinaten aus, Logik in imageMetaData
-                        imageMetaData metaData = new imageMetaData(inputMetaData);
-
-                        // Koordinaten anzeigen lassen
-                        viewLatitude.setText("Latitude: " + metaData.getLatitude());
-                        viewLongitude.setText("Longitude: " + metaData.getLongitude());
-
-                        try {
-                            inputMetaData.close(); // Schließe den InputStream, wenn er nicht mehr benötigt wird
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                if (!uriInfo[position][1].equals("0.0") && !uriInfo[position][2].equals("0.0")){
+                    viewLatitude.setText("Latitude: " + uriInfo[position][1]);
+                    viewLongitude.setText("Longitude: " + uriInfo[position][2]);
+                } else {
+                    viewLatitude.setText("");
+                    viewLongitude.setText("No Cordinates");
                 }
+
             }
         });
 
@@ -180,13 +137,6 @@ public class UploadConfigActivity extends AppCompatActivity {
             analysisIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
             startActivity(analysisIntent);
         });
-    }
-
-    private InputStream getBitmapInputStream(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return new ByteArrayInputStream(byteArray);
     }
 
     public void goToHome(View view) {

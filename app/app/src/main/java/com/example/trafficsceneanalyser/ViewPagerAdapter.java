@@ -33,7 +33,6 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imageView.setImageURI(imageUrls.get(position));
-        holder.imageView.setTag("pos" + position);
     }
 
     @Override

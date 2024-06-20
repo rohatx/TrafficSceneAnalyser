@@ -60,7 +60,7 @@
 
     <TextView
         android:id="@+id/latitude"
-        android:layout_width="135dp"
+        android:layout_width="140dp"
         android:layout_height="23dp"
         android:layout_marginTop="12dp"
         android:ems="10"
@@ -73,7 +73,7 @@
 
     <TextView
         android:id="@+id/longitude"
-        android:layout_width="132dp"
+        android:layout_width="140dp"
         android:layout_height="22dp"
         android:ems="10"
         android:text="Longitude: "
