@@ -39,8 +39,9 @@ public class UploadConfigActivity extends AppCompatActivity {
     private TextView viewLongitude;
     private TextView viewLatitude;
 
+    // Default Werte, zum testen hinzugefügt (Golden Gate Bridge)
     private static final float DEFAULT_LATITUDE = 37.81713298488588f;
-    private static final float DEFAULT_LONGITUDE = -122.47837630605842f;
+    private static final float DEFAULT_LONGITUDE = -12.47837630605842f; // Im Ozean: -12.47837630605842f
 
     @SuppressLint("SetTextI18n")
     @Override

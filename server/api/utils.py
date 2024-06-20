@@ -10,7 +10,7 @@ import overpy
 import re
 
 # Define the global prompt template
-GLOBAL_PROMPT = "Ist das auf dem Bild erkennbare Objekt unterfahrbar? Ist es eine Brücke? Bitte antworte im JSON-Format mit 'unterfahrbar: Ja/Nein', 'Brücke: Ja/Nein', und 'Begründung: [Text]'."
+GLOBAL_PROMPT = "Ist das auf dem Bild erkennbare Objekt unterfahrbar (Brücke/Ampeln/weitere Metallische Objekte über der Straße)? Ist es eine Brücke? Bitte antworte im JSON-Format mit 'unterfahrbar: Ja/Nein', 'Brücke: Ja/Nein', und 'Begründung: [Text]'."
 
 def analyze_image_with_lmm(base64_image, model):
     if model == "LLaVA":
@@ -232,11 +232,3 @@ def analyze_and_check(base64_image, latitude, longitude, model):
     }
     
     return json.dumps(final_result, ensure_ascii=False, indent=2)
-
-# Example usage
-# base64_image = "your_base64_encoded_image_string"
-# latitude = 37.81713298488588
-# longitude = -122.47837630605842
-# model = "gpt-4o"
-# result = analyze_and_check(base64_image, latitude, longitude, model)
-# print(result)
