@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -16,40 +14,18 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class UploadConfigActivity extends AppCompatActivity {
 
@@ -62,6 +38,9 @@ public class UploadConfigActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private TextView viewLongitude;
     private TextView viewLatitude;
+
+    private static final float DEFAULT_LATITUDE = 37.81713298488588f;
+    private static final float DEFAULT_LONGITUDE = -122.47837630605842f;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -77,7 +56,7 @@ public class UploadConfigActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Initialisiere Parameter
+        // Initialize parameters
         intent = getIntent();
         int size = (int) intent.getExtras().get("size");
         images = new Uri[size];
@@ -87,19 +66,12 @@ public class UploadConfigActivity extends AppCompatActivity {
             imageList.add((Uri) intent.getExtras().get(extraName));
         }
 
-
-        // Initialisiere UI Komponente
+        // Initialize UI components
         viewPager = findViewById(R.id.viewPager);
         spinnerModelSelector = findViewById(R.id.spinner_model_selector);
         buttonUpload = findViewById(R.id.button_upload);
         viewLatitude = findViewById(R.id.latitude);
         viewLongitude = findViewById(R.id.longitude);
-
-        /*
-        // Koordinaten anzeigen lassen
-        viewLatitude.setText("Latitude: " + metaData.getLatitude());
-        viewLongitude.setText("Longitude: " + metaData.getLongitude());
-         */
 
         // Setup Spinner with model selector
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -107,28 +79,32 @@ public class UploadConfigActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerModelSelector.setAdapter(adapter);
 
-        // Erstelle Array von Arrays mit URI, Latitude und Longitude
+        // Create array of arrays with URI, Latitude, and Longitude
         String[][] uriInfo = new String[size][3];
 
         for (int i = 0; i < size; i++){
-            // InputStream öffnen für metaData
+            // Open InputStream for metaData
             InputStream inputMetaData = null;
             try {
                 inputMetaData = getContentResolver().openInputStream(images[i]);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            // Lese Koordinaten aus, Logik in imageMetaData
+            // Read coordinates, logic in imageMetaData
             imageMetaData metaData = new imageMetaData(inputMetaData);
 
             uriInfo[i][0] = images[i].toString();
-            uriInfo[i][1] = String.valueOf(metaData.getLatitude());
-            uriInfo[i][2] = String.valueOf(metaData.getLongitude());
+            if (metaData.hasCoordinates()) {
+                uriInfo[i][1] = String.valueOf(metaData.getLatitude());
+                uriInfo[i][2] = String.valueOf(metaData.getLongitude());
+            } else {
+                uriInfo[i][1] = String.valueOf(DEFAULT_LATITUDE);
+                uriInfo[i][2] = String.valueOf(DEFAULT_LONGITUDE);
+            }
         }
 
-        ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this,imageList);
+        ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this, imageList);
         viewPager.setAdapter(bildAdapter);
-
 
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
@@ -146,7 +122,7 @@ public class UploadConfigActivity extends AppCompatActivity {
         });
         viewPager.setPageTransformer(compositePageTransformer);
 
-        // Button mit Funktionalität verknüpfen
+        // Bind button with functionality
         buttonUpload.setOnClickListener(v -> {
             Intent analysisIntent = new Intent(UploadConfigActivity.this, AnalysisInfoActivity.class);
             analysisIntent.putExtra("uriInfo", uriInfo);
