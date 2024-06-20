@@ -5,23 +5,20 @@ import android.media.ExifInterface;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 public class imageMetaData {
-    private float[] cordinats = new float[2];
-    private boolean hasCordinats;
-    private float latitude,longitude;
+    private float[] coordinates = new float[2];
+    private boolean hasCoordinates;
+    private float latitude, longitude;
 
-    public imageMetaData(InputStream input ) {
+    public imageMetaData(InputStream input) {
         try {
             ExifInterface exif = new ExifInterface(input);
-
-            hasCordinats = exif.getLatLong(cordinats);
-
-            if (hasCordinats) {
-                 latitude = cordinats[0];
-                 longitude = cordinats[1];
+            hasCoordinates = exif.getLatLong(coordinates);
+            if (hasCoordinates) {
+                latitude = coordinates[0];
+                longitude = coordinates[1];
             }
-            // Schließe den InputStream
+            // Close the InputStream
             input.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -34,5 +31,9 @@ public class imageMetaData {
 
     public float getLongitude() {
         return longitude;
+    }
+
+    public boolean hasCoordinates() {
+        return hasCoordinates;
     }
 }
