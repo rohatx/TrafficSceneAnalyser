@@ -7,6 +7,7 @@ from io import BytesIO
 import json
 from PIL import Image
 import overpy
+import re
 
 # Define the global prompt template
 GLOBAL_PROMPT = "Ist das auf dem Bild erkennbare Objekt unterfahrbar? Ist es eine Brücke? Bitte antworte im JSON-Format mit 'unterfahrbar: Ja/Nein', 'Brücke: Ja/Nein', und 'Begründung: [Text]'."
@@ -58,8 +59,20 @@ def analyze_image_with_openai(base64_image):
     }
 
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+
+    # Add debug log to check the response
+    print("OpenAI API response status:", response.status_code)
+    print("OpenAI API response text:", response.text)
+
     if response.status_code == 200:
-        return response.json().get('choices')[0].get('message').get('content')
+        response_json = response.json()
+        message_content = response_json['choices'][0]['message']['content']
+        
+        # Remove code block formatting if present
+        if message_content.startswith("```json"):
+            message_content = re.sub(r"^```json|```$", "", message_content).strip()
+
+        return message_content
     else:
         return f"Error: Unable to analyze image. Status Code: {response.status_code}, Response: {response.text}"
 
@@ -79,6 +92,11 @@ def analyze_image_with_llava(base64_image):
                              images=[image_bytes], 
                              stream=True):
         full_response += response['response']
+    
+    # Remove code block formatting if present
+    if full_response.startswith("```json"):
+        full_response = re.sub(r"^```json|```$", "", full_response).strip()
+
     return full_response
 
 # Using OpenRouter to Access almost all APIs at once
@@ -114,53 +132,103 @@ def analyze_image_with_openRouter(base64_image, model):
 
     if response.status_code == 200:
         response_data = response.json()
-        if 'choices' in response_data:
-            return response_data['choices'][0]['message']['content']
-        else:
-            return "Unexpected response format: 'choices' field is missing"
+        message_content = response_data['choices'][0]['message']['content']
+        
+        # Remove code block formatting if present
+        if message_content.startswith("```json"):
+            message_content = re.sub(r"^```json|```$", "", message_content).strip()
+
+        return message_content
     else:
         return f"Request failed with status code: {response.status_code}\n{response.text}"
 
 ### Sanity Check Funktionen ###
 
 ## Brücke in der Nähe
-def query_brigdes_nearby(latitude, longitude, radius):
-    #API ist Overpass von OpenStreetMaps
+def query_bridges_nearby(latitude, longitude):
+    radius = 100
     api = overpy.Overpass()
 
-    # Query-Anfrage an den Overpass Server
+    # Query to find bridges that are underridable, excluding certain types
     query = f"""
-        [out:json];
-        (
-         way(around:{radius}, {latitude}, {longitude})["bridge"];
-        );
-        /*added by auto repair*/
-        (._;>;);
-        /*end of auto repair*/
-        out;
-        """
-    #Checke, ob im Result bridge tags vorhanden sind
+    [out:json];
+    (
+      way(around:{radius}, {latitude}, {longitude})["bridge"];
+    );
+    out body;
+    >;
+    out skel qt;
+    """
+
     result = api.query(query)
+
     if not result.ways:
         return False
-    if result.ways:
-        return True
+    return True
+
+## Straße in der Nähe
+def check_way(latitude, longitude):
+    radius = 100
+    api = overpy.Overpass()
+
+    # Query to find roads, excluding certain types that aren't passable for vehicles
+    query = f"""
+    [out:json];
+    (
+      way(around:{radius}, {latitude}, {longitude})
+        [highway]
+        [highway!=footway]
+        [highway!=bridleway]
+        [highway!=steps]
+        [highway!=corridor]
+        [highway!=path]
+        [highway!=via_ferrata]
+        [highway!=cycleway]
+        [highway!=track];
+    );
+    out body;
+    >;
+    out skel qt;
+    """
+
+    result = api.query(query)
+
+    if not result.ways:
+        return False
+    return True
 
 def analyze_and_check(base64_image, latitude, longitude, model):
     lmm_response = analyze_image_with_lmm(base64_image, model)
-    lmm_data = json.loads(lmm_response)
-    bridge_detected = lmm_data.get('Brücke', 'Nein') == 'Ja'
     
-    sanity_check_result = "Nicht erfolgreich"
-    if bridge_detected:
-        if query_brigdes_nearby(latitude, longitude, 50):
-            sanity_check_result = "Erfolgreich"
-    
+    try:
+        lmm_data = json.loads(lmm_response)
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON: {e}")
+        print(f"Response was: {lmm_response}")
+        return json.dumps({"error": "Invalid JSON response from LLM"}, ensure_ascii=False, indent=2)
+
+    bridge_detected_by_llm = lmm_data.get('Brücke', 'Nein') == 'Ja'
+    underridable_by_llm = lmm_data.get('unterfahrbar', 'Nein') == 'Ja'
+
+    bridge_detected = query_bridges_nearby(latitude, longitude)
+    road_detected = check_way(latitude, longitude)
+
+    sanity_check_result = "Erfolgreich"
+    sanity_check_reason = "Keine widersprüchlichen Aussagen gefunden."
+
+    if bridge_detected_by_llm and not bridge_detected:
+        sanity_check_result = "Nicht erfolgreich"
+        sanity_check_reason = "Die LLM sagte, dass sich dort eine Brücke befindet, aber der Sanity-Check hat keine Brücke gefunden."
+    elif underridable_by_llm and not road_detected:
+        sanity_check_result = "Nicht erfolgreich"
+        sanity_check_reason = "Die LLM sagte, dass das Objekt unterfahrbar ist, aber der Sanity-Check hat keine Straße gefunden."
+
     final_result = {
         "unterfahrbar": lmm_data.get('unterfahrbar', 'Nein'),
         "Brücke": lmm_data.get('Brücke', 'Nein'),
         "Begründung": lmm_data.get('Begründung', ''),
-        "sanity_check": sanity_check_result
+        "sanity_check": sanity_check_result,
+        "sanity_check_reason": sanity_check_reason
     }
     
     return json.dumps(final_result, ensure_ascii=False, indent=2)
