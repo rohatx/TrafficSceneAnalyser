@@ -4,12 +4,15 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 # Internals
 from api.models import CodeExplainer
-from api.utils import analyze_image_with_lmm
+from api.utils import analyze_and_check
 
 class PictureExplainSerializer(serializers.ModelSerializer):
+    latitude = serializers.FloatField(write_only=True)
+    longitude = serializers.FloatField(write_only=True)
+
     class Meta:
         model = CodeExplainer
-        fields = ("id", "user", "_input", "_output", "model")
+        fields = ("id", "user", "_input", "_output", "model", "latitude", "longitude")
         extra_kwargs = {
             "user": {"read_only": True},
             "_output": {"read_only": True}
@@ -18,8 +21,10 @@ class PictureExplainSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         request = self.context.get('request')
         validated_data['user'] = request.user
+        latitude = validated_data.pop('latitude')
+        longitude = validated_data.pop('longitude')
         ce = CodeExplainer(**validated_data)
-        _output = analyze_image_with_lmm(validated_data["_input"], validated_data["model"])
+        _output = analyze_and_check(validated_data["_input"], latitude, longitude, validated_data["model"])
         ce._output = _output
         ce.save()
         return ce
@@ -44,7 +49,7 @@ class UserSerializer(serializers.ModelSerializer):
      
 class TokenSerializer(serializers.Serializer):
     username = serializers.CharField()
-    password = serializers.CharField(style = {"input_type":"password"},trim_whitespace = False) 
+    password = serializers.CharField(style = {"input_type":"password"}, trim_whitespace = False) 
     
     def validate(self, attrs):
         username = attrs.get("username")

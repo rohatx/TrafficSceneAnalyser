@@ -60,6 +60,9 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
     private void processNextImage() {
         if (currentImageIndex < uriInfo.length) {
             Uri imageUri = Uri.parse(uriInfo[currentImageIndex][0]);
+            String latitude = uriInfo[currentImageIndex][1];
+            String longitude = uriInfo[currentImageIndex][2];
+
             try {
                 InputStream inputProcessing = getContentResolver().openInputStream(imageUri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputProcessing);
@@ -71,7 +74,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                     // Reopen the InputStream for processing
                     inputProcessing = getContentResolver().openInputStream(imageUri);
                     String url = getResources().getString(R.string.server_url) + "/api/v1/picture-explain/";
-                    imageProcessing = new imageProcessing(inputProcessing, imageUri, selectedModel, url, this, this);
+                    imageProcessing = new imageProcessing(inputProcessing, imageUri, selectedModel, url, this, this, latitude, longitude);
                     imageProcessing.uploadImage();
                 } else {
                     imageOutputList.add(new ImageOutput(null, "Failed to load image", imageUri));

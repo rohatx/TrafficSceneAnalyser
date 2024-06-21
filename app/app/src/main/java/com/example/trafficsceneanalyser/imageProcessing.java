@@ -25,14 +25,16 @@ import java.util.Map;
 
 public class imageProcessing {
     private String selectedModel;
-    InputStream inputStream;
-    Context context;
-    String url;
-    Uri image;
-    UploadImageCallback callback;
+    private String latitude;
+    private String longitude;
+    private InputStream inputStream;
+    private Context context;
+    private String url;
+    private Uri image;
+    private UploadImageCallback callback;
     private TokenManager tokenManager;
 
-    public imageProcessing(InputStream inputStream, Uri image, String selectedModel, String url, Context context, UploadImageCallback callback) {
+    public imageProcessing(InputStream inputStream, Uri image, String selectedModel, String url, Context context, UploadImageCallback callback, String latitude, String longitude) {
         this.inputStream = inputStream;
         this.image = image;
         this.selectedModel = selectedModel;
@@ -40,6 +42,8 @@ public class imageProcessing {
         this.url = url;
         this.callback = callback;
         this.tokenManager = new TokenManager(context);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public void uploadImage() {
@@ -54,6 +58,8 @@ public class imageProcessing {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("_input", imageBase64);
             jsonBody.put("model", selectedModel);
+            jsonBody.put("latitude", latitude);
+            jsonBody.put("longitude", longitude);
 
             RequestQueue requestQueue = Volley.newRequestQueue(context);
 

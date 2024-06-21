@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,10 +35,14 @@ public class UploadConfigActivity extends AppCompatActivity {
     private ImageButton buttonUpload;
     private Intent intent;
     private Uri[] images;
-    private ArrayList<Uri> imageList = new ArrayList<Uri>();
+    private ArrayList<Uri> imageList = new ArrayList<>();
     private ViewPager2 viewPager;
     private TextView viewLongitude;
     private TextView viewLatitude;
+
+    // Default values for testing (Golden Gate Bridge)
+    private static final float DEFAULT_LATITUDE = 37.81713298488588f;
+    private static final float DEFAULT_LONGITUDE = -122.47837630605842f; // Ocean coordinates
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -53,7 +58,7 @@ public class UploadConfigActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Initialisiere Parameter
+        // Initialize parameters
         intent = getIntent();
         int size = (int) intent.getExtras().get("size");
         images = new Uri[size];
@@ -63,7 +68,7 @@ public class UploadConfigActivity extends AppCompatActivity {
             imageList.add((Uri) intent.getExtras().get(extraName));
         }
 
-        // Initialisiere UI Komponente
+        // Initialize UI components
         viewPager = findViewById(R.id.viewPager);
         spinnerModelSelector = findViewById(R.id.spinner_model_selector);
         buttonUpload = findViewById(R.id.button_upload);
@@ -76,33 +81,40 @@ public class UploadConfigActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerModelSelector.setAdapter(adapter);
 
-        // Erstelle Array von Arrays mit URI, Latitude und Longitude
+        // Create array of arrays with URI, Latitude, and Longitude
         String[][] uriInfo = new String[size][3];
 
-        for (int i = 0; i < size; i++){
-            // InputStream öffnen für metaData
+        for (int i = 0; i < size; i++) {
+            // Open InputStream for metaData
             InputStream inputMetaData = null;
             try {
                 inputMetaData = getContentResolver().openInputStream(images[i]);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            // Lese Koordinaten aus, Logik in imageMetaData
+            // Read coordinates, logic in imageMetaData
             imageMetaData metaData = new imageMetaData(inputMetaData);
 
             uriInfo[i][0] = images[i].toString();
-            uriInfo[i][1] = String.valueOf(metaData.getLatitude());
-            uriInfo[i][2] = String.valueOf(metaData.getLongitude());
+            if (metaData.hasCoordinates()) {
+                uriInfo[i][1] = String.valueOf(metaData.getLatitude());
+                uriInfo[i][2] = String.valueOf(metaData.getLongitude());
+            } else {
+                uriInfo[i][1] = String.valueOf(DEFAULT_LATITUDE);
+                uriInfo[i][2] = String.valueOf(DEFAULT_LONGITUDE);
+            }
         }
 
-        // Adapter für ViewPager, damit mehrere Bilder angezeigt werden können
-        ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this,imageList);
+        // Adapter for ViewPager to display multiple images
+        ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this, imageList);
         viewPager.setAdapter(bildAdapter);
-        // ViewPager so einstellen, dass neben dem aktuellen Bild ein ansatz von den anderen gezeigt wird
+
+        // Set ViewPager to show a preview of the next and previous images
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
         viewPager.setOffscreenPageLimit(3);
         viewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
@@ -114,23 +126,22 @@ public class UploadConfigActivity extends AppCompatActivity {
         });
         viewPager.setPageTransformer(compositePageTransformer);
 
-        // Set up OnPageChangeCallback to update coordinates
+        // Set up OnPageChangeCallback to update coordinates dynamically
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                if (!uriInfo[position][1].equals("0.0") && !uriInfo[position][2].equals("0.0")){
+                if (!uriInfo[position][1].equals("0.0") && !uriInfo[position][2].equals("0.0")) {
                     viewLatitude.setText("Latitude: " + uriInfo[position][1]);
                     viewLongitude.setText("Longitude: " + uriInfo[position][2]);
                 } else {
                     viewLatitude.setText("");
-                    viewLongitude.setText("No Cordinates");
+                    viewLongitude.setText("No Coordinates");
                 }
-
             }
         });
 
-        // Button mit Funktionalität verknüpfen
+        // Bind button with functionality
         buttonUpload.setOnClickListener(v -> {
             Intent analysisIntent = new Intent(UploadConfigActivity.this, AnalysisInfoActivity.class);
             analysisIntent.putExtra("uriInfo", uriInfo);
