@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -34,14 +35,14 @@ public class UploadConfigActivity extends AppCompatActivity {
     private ImageButton buttonUpload;
     private Intent intent;
     private Uri[] images;
-    private ArrayList<Uri> imageList = new ArrayList<Uri>();
+    private ArrayList<Uri> imageList = new ArrayList<>();
     private ViewPager2 viewPager;
     private TextView viewLongitude;
     private TextView viewLatitude;
 
-    // Default Werte, zum testen hinzugefügt (Golden Gate Bridge)
+    // Default values for testing (Golden Gate Bridge)
     private static final float DEFAULT_LATITUDE = 37.81713298488588f;
-    private static final float DEFAULT_LONGITUDE = -12.47837630605842f; // Im Ozean: -12.47837630605842f
+    private static final float DEFAULT_LONGITUDE = -122.47837630605842f; // Ocean coordinates
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -83,7 +84,7 @@ public class UploadConfigActivity extends AppCompatActivity {
         // Create array of arrays with URI, Latitude, and Longitude
         String[][] uriInfo = new String[size][3];
 
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             // Open InputStream for metaData
             InputStream inputMetaData = null;
             try {
@@ -104,9 +105,11 @@ public class UploadConfigActivity extends AppCompatActivity {
             }
         }
 
+        // Adapter for ViewPager to display multiple images
         ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this, imageList);
         viewPager.setAdapter(bildAdapter);
 
+        // Set ViewPager to show a preview of the next and previous images
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
         viewPager.setOffscreenPageLimit(3);
@@ -122,6 +125,21 @@ public class UploadConfigActivity extends AppCompatActivity {
             }
         });
         viewPager.setPageTransformer(compositePageTransformer);
+
+        // Set up OnPageChangeCallback to update coordinates dynamically
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (!uriInfo[position][1].equals("0.0") && !uriInfo[position][2].equals("0.0")) {
+                    viewLatitude.setText("Latitude: " + uriInfo[position][1]);
+                    viewLongitude.setText("Longitude: " + uriInfo[position][2]);
+                } else {
+                    viewLatitude.setText("");
+                    viewLongitude.setText("No Coordinates");
+                }
+            }
+        });
 
         // Bind button with functionality
         buttonUpload.setOnClickListener(v -> {
