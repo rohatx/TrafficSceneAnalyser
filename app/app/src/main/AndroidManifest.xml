@@ -25,6 +25,9 @@
             android:name=".analysisInfoPage"
             android:exported="false" />
         <activity
+            android:name=".ModelListActivity"
+            android:exported="false" />
+        <activity
             android:name=".HistoryActivity"
             android:exported="false" />
         <activity

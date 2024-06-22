@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 public class analysisInfoPage extends AppCompatActivity {
 
     private String selectedModel;
-
     private TextView headline;
     private TextView description;
     private TextView successRate;
