@@ -37,6 +37,7 @@
 
     <!-- TODO: Implement Links as clickables -->
     <!-- Costs -->
+    <string name="modelInfoCosts"> Klick mich für die aktuelle Preise </string>
     <string name="modelInfoCostsLLaVA"> Kostenlos, da es lokal auf dem Server läuft.</string>
     <string name="modelInfoCostsCLAUDE"> Klick mich für aktuelle Preise </string>
     <string name="modelInfoCostsGPT4o"> Aktuelle Preise:\n https://openai.com/api/pricing/ </string>

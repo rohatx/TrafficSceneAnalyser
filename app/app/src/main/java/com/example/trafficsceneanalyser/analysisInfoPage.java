@@ -70,7 +70,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionCLAUDE);
                 parameters.setText(getString(R.string.modelInfoParametersCLAUDE));
-                costs.setText(getString(R.string.modelInfoCostsCLAUDE));
+                costs.setText(getString(R.string.modelInfoCosts));
                 links.setText(getString(R.string.modelInfoLinksCLAUDE));
 
                 costs.setOnClickListener(view -> {
@@ -84,40 +84,71 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGPT4o);
                 parameters.setText(getString(R.string.modelInfoParametersGPT4o));
-                costs.setText(getString(R.string.modelInfoCostsGPT4o));
+                costs.setText(getString(R.string.modelInfoCosts));
                 links.setText(getString(R.string.modelInfoLinksGPT4o));
+
+                costs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoCostsUrlGPT4o);
+                    Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(openLink);
+                });
                 break;
             case "FireLLaVA":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionFIRELLaVA);
                 parameters.setText(getString(R.string.modelInfoParametersFIRELLaVA));
-                costs.setText(getString(R.string.modelInfoCostsFIRELLaVA));
+                costs.setText(getString(R.string.modelInfoCosts));
                 links.setText(getString(R.string.modelInfoLinksFIRELLaVA));
+
+
+                costs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoCostsUrlFIRELLaVA);
+                    Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(openLink);
+                });
                 break;
             case "Gemini Pro 1.5":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiPro1_5);
                 parameters.setText(getString(R.string.modelInfoParametersGeminiPro1_5));
-                costs.setText(getString(R.string.modelInfoCostsGeminiPro1_5));
+                costs.setText(getString(R.string.modelInfoCosts));
                 links.setText(getString(R.string.modelInfoLinksGeminiPro1_5));
+
+                costs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoCostsUrlGeminiPro1_5);
+                    Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(openLink);
+                });
                 break;
             case "Gemini Pro Vision 1.0":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiProVision1_0);
                 parameters.setText(getString(R.string.modelInfoParametersGeminiProVision1_0));
-                costs.setText(getString(R.string.modelInfoCostsGeminiProVision1_0));
+                costs.setText(getString(R.string.modelInfoCosts));
                 links.setText(getString(R.string.modelInfoLinksGeminiProVision1_0));
+
+                costs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoCostsUrlGeminiProVision1_0);
+                    Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(openLink);
+                });
                 break;
             case "Gemini Flash 1.5":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiFlash1_5);
                 parameters.setText(getString(R.string.modelInfoParametersGeminiFlash1_5));
-                costs.setText(getString(R.string.modelInfoCostsGeminiFlash1_5));
+                costs.setText(getString(R.string.modelInfoCosts));
                 links.setText(getString(R.string.modelInfoLinksGeminiFlash1_5));
+
+                costs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoCostsUrlGeminiFlash1_5);
+                    Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(openLink);
+                });
                 break;
             default:
                 headline.setText("No model found");
-                description.setText("No description found." + "test");
+                description.setText("No description found.");
                 break;
         }
     }
