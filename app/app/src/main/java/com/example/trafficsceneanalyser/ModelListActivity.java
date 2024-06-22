@@ -1,7 +1,6 @@
 package com.example.trafficsceneanalyser;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -14,6 +13,13 @@ import androidx.core.view.WindowInsetsCompat;
 public class ModelListActivity extends AppCompatActivity {
 
     private TextView llava;
+    private TextView claude;
+    private TextView gpt4o;
+    private TextView fireLlava;
+    private TextView geminiPro1_5;
+    private TextView geminiProVision1_0;
+    private TextView geminiFlash1_5;
+
     private String selectedModel;
 
     @Override
@@ -35,6 +41,62 @@ public class ModelListActivity extends AppCompatActivity {
             i.putExtra("selectedModel", selectedModel);
             startActivity(i);
         });
+
+        claude = findViewById(R.id.CLAUDETextView);
+        claude.setText("Claude");
+        claude.setOnClickListener(view -> {
+            Intent i = new Intent(this, analysisInfoPage.class);
+            selectedModel = "Claude";
+            i.putExtra("selectedModel", selectedModel);
+            startActivity(i);
+        });
+
+        gpt4o = findViewById(R.id.Gpt4oTextView);
+        gpt4o.setText("GPT-4o");
+        gpt4o.setOnClickListener(view -> {
+            Intent i = new Intent(this, analysisInfoPage.class);
+            selectedModel = "gpt-4o";
+            i.putExtra("selectedModel", selectedModel);
+            startActivity(i);
+        });
+
+        fireLlava = findViewById(R.id.FireLLaVATextView);
+        fireLlava.setText("FireLLaVA");
+        fireLlava.setOnClickListener(view -> {
+            Intent i = new Intent(this, analysisInfoPage.class);
+            selectedModel = "FireLLaVA";
+            i.putExtra("selectedModel", selectedModel);
+            startActivity(i);
+        });
+
+        geminiPro1_5 = findViewById(R.id.GeminiPro1_5TextView);
+        geminiPro1_5.setText("Gemini Pro 1.5");
+        geminiPro1_5.setOnClickListener(view -> {
+            Intent i = new Intent(this, analysisInfoPage.class);
+            selectedModel = "Gemini Pro 1.5";
+            i.putExtra("selectedModel", selectedModel);
+            startActivity(i);
+        });
+
+        geminiProVision1_0 = findViewById(R.id.GeminiProVision1_0TextView);
+        geminiProVision1_0.setText("Gemini Pro Vision 1.0");
+        geminiProVision1_0.setOnClickListener(view -> {
+            Intent i = new Intent(this, analysisInfoPage.class);
+            selectedModel = "Gemini Pro Vision 1.0";
+            i.putExtra("selectedModel", selectedModel);
+            startActivity(i);
+        });
+
+        geminiFlash1_5 = findViewById(R.id.GeminiFlash1_5TextView);
+        geminiFlash1_5.setText("Gemini Flash 1.5");
+        geminiFlash1_5.setOnClickListener(view -> {
+            Intent i = new Intent(this, analysisInfoPage.class);
+            selectedModel = "Gemini Flash 1.5";
+            i.putExtra("selectedModel", selectedModel);
+            startActivity(i);
+        });
+
+
     }
 
 }
