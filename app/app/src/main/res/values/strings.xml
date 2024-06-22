@@ -38,12 +38,22 @@
     <!-- TODO: Implement Links as clickables -->
     <!-- Costs -->
     <string name="modelInfoCostsLLaVA"> Kostenlos, da es lokal auf dem Server läuft.</string>
-    <string name="modelInfoCostsCLAUDE"> Siehe: https://www.anthropic.com/api </string>
-    <string name="modelInfoCostsGPT4o"> Siehe: https://openai.com/api/pricing/ </string>
-    <string name="modelInfoCostsFIRELLaVA"> Siehe: https://fireworks.ai/pricing </string>
-    <string name="modelInfoCostsGeminiPro1.5"> Siehe: https://ai.google.dev/pricing </string>
-    <string name="modelInfoCostsGeminiProVision1.0"> Siehe: https://ai.google.dev/pricing </string>
-    <string name="modelInfoCostsGeminiFlash1.5"> Siehe: https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsCLAUDE"> Klick mich für aktuelle Preise </string>
+    <string name="modelInfoCostsGPT4o"> Aktuelle Preise:\n https://openai.com/api/pricing/ </string>
+    <string name="modelInfoCostsFIRELLaVA"> Aktuelle Preise:\n https://fireworks.ai/pricing </string>
+    <string name="modelInfoCostsGeminiPro1.5"> Aktuelle Preise:\n https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsGeminiProVision1.0"> Aktuelle Preise:\n https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsGeminiFlash1.5"> Aktuelle Preise:\n https://ai.google.dev/pricing </string>
+
+    <!-- Costs URLs -->
+
+    <string name="modelInfoCostsUrlCLAUDE">https://www.anthropic.com/api</string>
+    <string name="modelInfoCostsUrlGPT4o" >https://openai.com/api/pricing </string>
+    <string name="modelInfoCostsUrlFIRELLaVA">https://fireworks.ai/pricing </string>
+    <string name="modelInfoCostsUrlGeminiPro1.5">https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsUrlGeminiProVision1.0">https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsUrlGeminiFlash1.5">https://ai.google.dev/pricing </string>
+
 
     <!-- Links -->
     <string name="modelInfoLinksLLaVA"> https://llava-vl.github.io/ </string>

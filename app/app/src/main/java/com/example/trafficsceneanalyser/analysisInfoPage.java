@@ -1,7 +1,9 @@
 package com.example.trafficsceneanalyser;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -53,6 +55,8 @@ public class analysisInfoPage extends AppCompatActivity {
 
         // Switch Case fuer Model Infoausgabe
         // TODO: LINKS and PRICING need to be transformed into clickable URLs
+        // Erst wird der Text initialisiert
+        // Dann wird mit einer Funktion der notwendige Text clickable
 
         switch (selectedModel) {
             case "LLaVA":
@@ -68,6 +72,13 @@ public class analysisInfoPage extends AppCompatActivity {
                 parameters.setText(getString(R.string.modelInfoParametersCLAUDE));
                 costs.setText(getString(R.string.modelInfoCostsCLAUDE));
                 links.setText(getString(R.string.modelInfoLinksCLAUDE));
+
+                costs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoCostsUrlCLAUDE);
+                    Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(openLink);
+                });
+
                 break;
             case "gpt-4o":
                 headline.setText(selectedModel);
