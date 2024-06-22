@@ -3,8 +3,6 @@ package com.example.trafficsceneanalyser;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -24,7 +22,7 @@ public class analysisInfoPage extends AppCompatActivity {
     private TextView speed;
     private TextView parameters;
     private TextView costs;
-    private TextView links;
+    private TextView devs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +47,7 @@ public class analysisInfoPage extends AppCompatActivity {
         speed = findViewById(R.id.modelInfoSpeedTextView);
         parameters = findViewById(R.id.modelInfoParameterTextView);
         costs = findViewById(R.id.modelInfoCostsTextView);
-        links = findViewById(R.id.modelInfoLinksTextView);
-
-
+        devs = findViewById(R.id.modelInfoDevsTextView);
 
         // Switch Case fuer Model Infoausgabe
         // TODO: LINKS and PRICING need to be transformed into clickable URLs
@@ -64,31 +60,43 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionLLaVA);
                 parameters.setText(getString(R.string.modelInfoParametersLLaVA));
                 costs.setText(getString(R.string.modelInfoCostsLLaVA));
-                links.setText(getString(R.string.modelInfoLinksLLaVA));
+                devs.setText(getString(R.string.modelInfoDevs));
+                devs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoDevsUrlLLaVA);
+                    Intent devsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(devsIntent);
+                });
                 break;
             case "Claude":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionCLAUDE);
                 parameters.setText(getString(R.string.modelInfoParametersCLAUDE));
                 costs.setText(getString(R.string.modelInfoCosts));
-                links.setText(getString(R.string.modelInfoLinksCLAUDE));
-
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlCLAUDE);
-                    Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(openLink);
+                    Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(costsIntent);
                 });
-
+                devs.setText(getString(R.string.modelInfoDevs));
+                devs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoDevsUrlCLAUDE);
+                    Intent devsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(devsIntent);
+                });
                 break;
             case "gpt-4o":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGPT4o);
                 parameters.setText(getString(R.string.modelInfoParametersGPT4o));
                 costs.setText(getString(R.string.modelInfoCosts));
-                links.setText(getString(R.string.modelInfoLinksGPT4o));
-
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGPT4o);
+                    Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(costsIntent);
+                });
+                devs.setText(getString(R.string.modelInfoDevs));
+                devs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoDevsUrlGPT4o);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(openLink);
                 });
@@ -98,11 +106,14 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionFIRELLaVA);
                 parameters.setText(getString(R.string.modelInfoParametersFIRELLaVA));
                 costs.setText(getString(R.string.modelInfoCosts));
-                links.setText(getString(R.string.modelInfoLinksFIRELLaVA));
-
-
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlFIRELLaVA);
+                    Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(costsIntent);
+                });
+                devs.setText(getString(R.string.modelInfoDevs));
+                devs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoDevsUrlFIRELLaVA);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(openLink);
                 });
@@ -112,10 +123,14 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionGeminiPro1_5);
                 parameters.setText(getString(R.string.modelInfoParametersGeminiPro1_5));
                 costs.setText(getString(R.string.modelInfoCosts));
-                links.setText(getString(R.string.modelInfoLinksGeminiPro1_5));
-
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiPro1_5);
+                    Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(costsIntent);
+                });
+                devs.setText(getString(R.string.modelInfoDevs));
+                devs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoDevsUrlGeminiPro1_5);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(openLink);
                 });
@@ -125,10 +140,14 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionGeminiProVision1_0);
                 parameters.setText(getString(R.string.modelInfoParametersGeminiProVision1_0));
                 costs.setText(getString(R.string.modelInfoCosts));
-                links.setText(getString(R.string.modelInfoLinksGeminiProVision1_0));
-
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiProVision1_0);
+                    Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(costsIntent);
+                });
+                devs.setText(getString(R.string.modelInfoDevs));
+                devs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoDevsUrlGeminiProVision1_0);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(openLink);
                 });
@@ -138,10 +157,14 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionGeminiFlash1_5);
                 parameters.setText(getString(R.string.modelInfoParametersGeminiFlash1_5));
                 costs.setText(getString(R.string.modelInfoCosts));
-                links.setText(getString(R.string.modelInfoLinksGeminiFlash1_5));
-
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiFlash1_5);
+                    Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(costsIntent);
+                });
+                devs.setText(getString(R.string.modelInfoDevs));
+                devs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoDevsUrlGeminiFlash1_5);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(openLink);
                 });

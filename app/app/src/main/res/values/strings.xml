@@ -35,9 +35,8 @@
     <string name="modelInfoParametersGeminiFlash1.5">Nicht bekannt</string>
 
 
-    <!-- TODO: Implement Links as clickables -->
     <!-- Costs -->
-    <string name="modelInfoCosts"> Klick mich für die aktuelle Preise </string>
+    <string name="modelInfoCosts"> Hier klicken für aktuelle Preise </string>
     <string name="modelInfoCostsLLaVA"> Kostenlos, da es lokal auf dem Server läuft.</string>
     <string name="modelInfoCostsCLAUDE"> Klick mich für aktuelle Preise </string>
     <string name="modelInfoCostsGPT4o"> Aktuelle Preise:\n https://openai.com/api/pricing/ </string>
@@ -47,7 +46,6 @@
     <string name="modelInfoCostsGeminiFlash1.5"> Aktuelle Preise:\n https://ai.google.dev/pricing </string>
 
     <!-- Costs URLs -->
-
     <string name="modelInfoCostsUrlCLAUDE">https://www.anthropic.com/api</string>
     <string name="modelInfoCostsUrlGPT4o" >https://openai.com/api/pricing </string>
     <string name="modelInfoCostsUrlFIRELLaVA">https://fireworks.ai/pricing </string>
@@ -55,8 +53,8 @@
     <string name="modelInfoCostsUrlGeminiProVision1.0">https://ai.google.dev/pricing </string>
     <string name="modelInfoCostsUrlGeminiFlash1.5">https://ai.google.dev/pricing </string>
 
-
-    <!-- Links -->
+    <!-- Developer -->
+    <string name="modelInfoDevs"> Hier klicken für mehr Informationen </string>
     <string name="modelInfoLinksLLaVA"> https://llava-vl.github.io/ </string>
     <string name="modelInfoLinksCLAUDE"> https://www.anthropic.com/claude </string>
     <string name="modelInfoLinksGPT4o"> https://openai.com/index/hello-gpt-4o/ </string>
@@ -65,6 +63,14 @@
     <string name="modelInfoLinksGeminiProVision1.0"> https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.0-pro-vision </string>
     <string name="modelInfoLinksGeminiFlash1.5"> https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-flash </string>
 
+    <!-- Developer URL -->
 
+    <string name="modelInfoDevsUrlLLaVA">https://llava-vl.github.io/" </string>
+    <string name="modelInfoDevsUrlCLAUDE">https://www.anthropic.com/claude</string>
+    <string name="modelInfoDevsUrlGPT4o">https://openai.com/index/hello-gpt-4o/</string>
+    <string name="modelInfoDevsUrlFIRELLaVA">https://fireworks.ai/blog/firellava-the-first-commercially-permissive-oss-llava-model</string>
+    <string name="modelInfoDevsUrlGeminiPro1.5">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-pro</string>
+    <string name="modelInfoDevsUrlGeminiProVision1.0">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.0-pro-vision</string>
+    <string name="modelInfoDevsUrlGeminiFlash1.5">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-flash</string>"
 
 </resources>

@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/modelInfoLinksTextView"
+        android:id="@+id/modelInfoDevsTextView"
         android:layout_width="317dp"
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"
@@ -84,7 +84,7 @@
         android:layout_height="46dp"
         android:layout_marginBottom="16dp"
         android:text="Costs per request"
-        app:layout_constraintBottom_toTopOf="@+id/modelInfoLinksTextView"
+        app:layout_constraintBottom_toTopOf="@+id/modelInfoDevsTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
