@@ -11,6 +11,8 @@ class CodeExplainer(models.Model):
     model = models.CharField(max_length=100, default='gpt-4o')
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+    calculated_probability = models.FloatField(null=True, blank=True)  
+    llm_output = models.IntegerField(null=True, blank=True)
     
     class Meta:
         db_table = "t_picture_analyser"

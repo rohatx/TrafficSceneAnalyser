@@ -10,7 +10,21 @@ import overpy
 import re
 
 # Define the global prompt template
-GLOBAL_PROMPT = "Ist das auf dem Bild erkennbare Objekt unterfahrbar (Brücke/Ampeln/weitere Metallische Objekte über der Straße)? Ist es eine Brücke? Bitte antworte im JSON-Format mit 'unterfahrbar: Ja/Nein', 'Brücke: Ja/Nein', und 'Begründung: [Text]'."
+IMAGE_QUALITY_CATEGORIES = ["Helligkeit", "Kontrast", "Schärfe", "ganze Objekt zu sehen", "Nähe zum Objekt"]
+GLOBAL_PROMPT = (
+    "Ist das auf dem Bild erkennbare Objekt unterfahrbar (Brücke/Ampeln/weitere Metallische Objekte über der Straße)? "
+    "Ist es eine Brücke? Bitte antworte im JSON-Format mit 'unterfahrbar: 0/1', 'Brücke: 0/1', "
+    "'Begründung: [Text max. 1 Satz]', 'Vertrauenswürdigkeit: [Wert zwischen 0 und 1]', "
+    "'Bild Qualität: [Anzahl der erfüllten Kategorien, 0-5]', 'Probleme: [Falls eine Kategorie nicht erfüllt ist, "
+    "genaue Angabe z.B. " + ", ".join(IMAGE_QUALITY_CATEGORIES) + "]'."
+)
+
+# Weighting of variables
+w_CLLM = 0.4
+w_BSC = 0.2
+w_RSC = 0.1
+w_IQS = 0.2
+w_HACC = 0.1
 
 def analyze_image_with_lmm(base64_image, model):
     if model == "LLaVA":
@@ -59,10 +73,6 @@ def analyze_image_with_openai(base64_image):
     }
 
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
-
-    # Add debug log to check the response
-    print("OpenAI API response status:", response.status_code)
-    print("OpenAI API response text:", response.text)
 
     if response.status_code == 200:
         response_json = response.json()
@@ -197,6 +207,16 @@ def check_way(latitude, longitude):
         return False
     return True
 
+def calculate_probability(C_LLM, bridge_detected, road_detected, I_QS, H_ACC):
+    probability = w_CLLM * C_LLM
+    if bridge_detected:
+        probability += w_BSC * 1
+    if road_detected:
+        probability += w_RSC * 1
+    probability += w_IQS * I_QS
+    probability += w_HACC * H_ACC
+    return min(probability, 1.0)
+
 def analyze_and_check(base64_image, latitude, longitude, model):
     lmm_response = analyze_image_with_lmm(base64_image, model)
     
@@ -205,30 +225,39 @@ def analyze_and_check(base64_image, latitude, longitude, model):
     except json.JSONDecodeError as e:
         print(f"Error decoding JSON: {e}")
         print(f"Response was: {lmm_response}")
-        return json.dumps({"error": "Invalid JSON response from LLM"}, ensure_ascii=False, indent=2)
+        lmm_data = {
+            'unterfahrbar': 0,
+            'Brücke': 0,
+            'Begründung': 'LLM response could not be decoded',
+            'Vertrauenswürdigkeit': 0,
+            'Bild Qualität': 0,
+            'Probleme': 'Unbekannt'
+        }
 
-    bridge_detected_by_llm = lmm_data.get('Brücke', 'Nein') == 'Ja'
-    underridable_by_llm = lmm_data.get('unterfahrbar', 'Nein') == 'Ja'
+    bridge_detected_by_llm = lmm_data.get('Brücke', 0) == 1
+    underridable_by_llm = lmm_data.get('unterfahrbar', 0) == 1
+    C_LLM = lmm_data.get('Vertrauenswürdigkeit', 0)
+    I_QS = lmm_data.get('Bild Qualität', 0) / 5  # Normalized to [0, 1]
+    H_ACC = 0.90  # Assuming historical accuracy as 90%
 
-    bridge_detected = query_bridges_nearby(latitude, longitude)
-    road_detected = check_way(latitude, longitude)
+    bridge_detected = query_bridges_nearby(latitude, longitude) if bridge_detected_by_llm else False
+    road_detected = check_way(latitude, longitude) if underridable_by_llm else False
 
-    sanity_check_result = "Erfolgreich"
-    sanity_check_reason = "Keine widersprüchlichen Aussagen gefunden."
+    probability = calculate_probability(C_LLM, bridge_detected, road_detected, I_QS, H_ACC)
 
+    sanity_check_result = "Keine Probleme"
+    
     if bridge_detected_by_llm and not bridge_detected:
-        sanity_check_result = "Nicht erfolgreich"
-        sanity_check_reason = "Die LLM sagte, dass sich dort eine Brücke befindet, aber der Sanity-Check hat keine Brücke gefunden."
+        sanity_check_result = "Es wurde keine Brücke gefunden"
     elif underridable_by_llm and not road_detected:
-        sanity_check_result = "Nicht erfolgreich"
-        sanity_check_reason = "Die LLM sagte, dass das Objekt unterfahrbar ist, aber der Sanity-Check hat keine Straße gefunden."
+        sanity_check_result = "Es wurde keine Straße gefunden"
 
     final_result = {
-        "unterfahrbar": lmm_data.get('unterfahrbar', 'Nein'),
-        "Brücke": lmm_data.get('Brücke', 'Nein'),
+        "Berechnete Wahrscheinlichkeit": round(probability, 2),
+        "Ausgabe LLM": underridable_by_llm,
         "Begründung": lmm_data.get('Begründung', ''),
-        "sanity_check": sanity_check_result,
-        "sanity_check_reason": sanity_check_reason
+        "Sanity Check": sanity_check_result,
+        "Bild Qualität": "Keine Probleme" if I_QS == 1 else lmm_data.get('Probleme', '')
     }
     
     return json.dumps(final_result, ensure_ascii=False, indent=2)

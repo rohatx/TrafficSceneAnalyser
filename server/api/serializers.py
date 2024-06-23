@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+import json
 # Internals
 from api.models import CodeExplainer
 from api.utils import analyze_and_check
@@ -12,10 +13,12 @@ class PictureExplainSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CodeExplainer
-        fields = ("id", "user", "_input", "_output", "model", "latitude", "longitude")
+        fields = ("id", "user", "_input", "_output", "model", "latitude", "longitude", "calculated_probability", "llm_output")
         extra_kwargs = {
             "user": {"read_only": True},
-            "_output": {"read_only": True}
+            "_output": {"read_only": True},
+            "calculated_probability": {"read_only": True},  # Read-only
+            "llm_output": {"read_only": True}  # Read-only
         }
         
     def create(self, validated_data):
@@ -24,8 +27,11 @@ class PictureExplainSerializer(serializers.ModelSerializer):
         latitude = validated_data.pop('latitude')
         longitude = validated_data.pop('longitude')
         ce = CodeExplainer(**validated_data)
-        _output = analyze_and_check(validated_data["_input"], latitude, longitude, validated_data["model"])
-        ce._output = _output
+        analysis_result = analyze_and_check(validated_data["_input"], latitude, longitude, validated_data["model"])
+        analysis_data = json.loads(analysis_result)
+        ce._output = analysis_result
+        ce.calculated_probability = analysis_data.get("Berechnete Wahrscheinlichkeit", 0)
+        ce.llm_output = analysis_data.get("Ausgabe LLM", 0)
         ce.save()
         return ce
     
