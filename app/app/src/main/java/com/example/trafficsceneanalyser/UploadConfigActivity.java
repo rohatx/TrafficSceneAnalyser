@@ -42,7 +42,7 @@ public class UploadConfigActivity extends AppCompatActivity {
 
     // Default values for testing (Golden Gate Bridge)
     private static final float DEFAULT_LATITUDE = 37.81713298488588f;
-    private static final float DEFAULT_LONGITUDE = -122.47837630605842f; // Ocean coordinates
+    private static final float DEFAULT_LONGITUDE = -122.47837630605842f; // Ocean coordinates -12.47837630605842f
 
     @SuppressLint("SetTextI18n")
     @Override
