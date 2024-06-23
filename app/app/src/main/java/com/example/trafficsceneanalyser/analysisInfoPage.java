@@ -16,12 +16,9 @@ public class analysisInfoPage extends AppCompatActivity {
     private String selectedModel;
     private TextView headline;
     private TextView description;
-    private TextView successRate;
-    private TextView benchmarks;
-    private TextView speed;
-    private TextView parameters;
     private TextView costs;
     private TextView devs;
+    private TextView bench;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +38,21 @@ public class analysisInfoPage extends AppCompatActivity {
         // Initialisiere UI Komponenten
         headline = findViewById(R.id.modelInfoHeadlineTextview);
         description = findViewById(R.id.modelInfoDescTextView);
-        successRate = findViewById(R.id.modelInfoSuccessRateTextView);
-        benchmarks = findViewById(R.id.modelInfoBenchmarksTextView);
-        speed = findViewById(R.id.modelInfoSpeedTextView);
-        parameters = findViewById(R.id.modelInfoParameterTextView);
         costs = findViewById(R.id.modelInfoCostsTextView);
         devs = findViewById(R.id.modelInfoDevsTextView);
+        bench = findViewById(R.id.modelInfoBenchDescTextView);
 
         // Switch Case fuer Model Infoausgabe
         // TODO: LINKS and PRICING need to be transformed into clickable URLs
         // Erst wird der Text initialisiert
         // Dann wird mit einer Funktion der notwendige Text clickable
 
+        bench.setText(getString(R.string.modelInfoBenchDesc));
+
         switch (selectedModel) {
             case "LLaVA":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionLLaVA);
-                parameters.setText(getString(R.string.modelInfoParametersLLaVA));
                 costs.setText(getString(R.string.modelInfoCostsLLaVA));
                 devs.setText(getString(R.string.modelInfoDevs));
                 devs.setOnClickListener(view -> {
@@ -69,7 +64,6 @@ public class analysisInfoPage extends AppCompatActivity {
             case "Claude":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionCLAUDE);
-                parameters.setText(getString(R.string.modelInfoParametersCLAUDE));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlCLAUDE);
@@ -86,7 +80,6 @@ public class analysisInfoPage extends AppCompatActivity {
             case "gpt-4o":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGPT4o);
-                parameters.setText(getString(R.string.modelInfoParametersGPT4o));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGPT4o);
@@ -103,7 +96,6 @@ public class analysisInfoPage extends AppCompatActivity {
             case "FireLLaVA":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionFIRELLaVA);
-                parameters.setText(getString(R.string.modelInfoParametersFIRELLaVA));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlFIRELLaVA);
@@ -120,7 +112,6 @@ public class analysisInfoPage extends AppCompatActivity {
             case "Gemini Pro 1.5":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiPro1_5);
-                parameters.setText(getString(R.string.modelInfoParametersGeminiPro1_5));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiPro1_5);
@@ -137,7 +128,6 @@ public class analysisInfoPage extends AppCompatActivity {
             case "Gemini Pro Vision 1.0":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiProVision1_0);
-                parameters.setText(getString(R.string.modelInfoParametersGeminiProVision1_0));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiProVision1_0);
@@ -154,7 +144,6 @@ public class analysisInfoPage extends AppCompatActivity {
             case "Gemini Flash 1.5":
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiFlash1_5);
-                parameters.setText(getString(R.string.modelInfoParametersGeminiFlash1_5));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiFlash1_5);
