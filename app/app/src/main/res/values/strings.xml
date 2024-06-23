@@ -23,25 +23,9 @@
     <!-- MMU Description -->
     <string name="modelInfoBenchDesc"> MMMU (Massive Multi-discipline Multimodal Understanding and Reasoning) ist eine Benchmark zum Vergleich der verschiedenen LLMs. Sie untersucht die Fähigkeit Fragen aus unterschiedlichen Disziplinen richtig zu beantworten. Hierfür wird ein Bild, eine Frage und häufig eine Antwortauswahl gegeben. Alle diese Fragen sind auf Hochschulniveau. </string>
 
-    <!-- Parameters -->
-    <string name="modelInfoParametersLLaVA">7 Milliarden Parameter</string>
-    <string name="modelInfoParametersCLAUDE">137 Milliarden Parameter</string>
-    <string name="modelInfoParametersGPT4o">Circa 100 Billionen Parameter </string>
-    <string name="modelInfoParametersFIRELLaVA">13 Milliarden Parameter</string>
-    <string name="modelInfoParametersGeminiPro1.5">47 Milliarden Parameter</string>
-    <string name="modelInfoParametersGeminiProVision1.0">Nicht bekannt</string>
-    <string name="modelInfoParametersGeminiFlash1.5">Nicht bekannt</string>
-
-
     <!-- Costs -->
     <string name="modelInfoCosts"> Hier klicken für aktuelle Preise </string>
     <string name="modelInfoCostsLLaVA"> Kostenlos, da es lokal auf dem Server läuft.</string>
-    <string name="modelInfoCostsCLAUDE"> Klick mich für aktuelle Preise </string>
-    <string name="modelInfoCostsGPT4o"> Aktuelle Preise:\n https://openai.com/api/pricing/ </string>
-    <string name="modelInfoCostsFIRELLaVA"> Aktuelle Preise:\n https://fireworks.ai/pricing </string>
-    <string name="modelInfoCostsGeminiPro1.5"> Aktuelle Preise:\n https://ai.google.dev/pricing </string>
-    <string name="modelInfoCostsGeminiProVision1.0"> Aktuelle Preise:\n https://ai.google.dev/pricing </string>
-    <string name="modelInfoCostsGeminiFlash1.5"> Aktuelle Preise:\n https://ai.google.dev/pricing </string>
 
     <!-- Costs URLs -->
     <string name="modelInfoCostsUrlCLAUDE">https://www.anthropic.com/api</string>
