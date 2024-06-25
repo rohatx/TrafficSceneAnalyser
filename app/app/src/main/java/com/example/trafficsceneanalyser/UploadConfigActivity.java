@@ -37,6 +37,11 @@ public class UploadConfigActivity extends AppCompatActivity {
     private TextView viewLongitude;
     private TextView viewLatitude;
     private List<ImageSource> imageSources = new ArrayList<>();
+    String[][] uriInfo;
+    // Default values for testing (Golden Gate Bridge)
+    private static final float DEFAULT_LATITUDE = 37.81713298488588f;
+    private static final float DEFAULT_LONGITUDE = -122.47837630605842f; // Ocean coordinates -12.47837630605842f
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -65,23 +70,68 @@ public class UploadConfigActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerModelSelector.setAdapter(adapter);
 
-        // Füge lokale URIs hinzu (Beispiel)
+        // Füge lokale URIs hinzu
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null && extras.get("size") != null) {
             int size = (int) extras.get("size");
             Uri[] images = new Uri[size];
+            uriInfo = new String[size][3];
             for (int i = 0; i < size; i++) {
                 String extraName = "image" + i;
                 images[i] = (Uri) extras.get(extraName);
                 imageSources.add(new ImageSource(images[i]));
+
+                InputStream inputMetaData = null;
+                try {
+                    inputMetaData = getContentResolver().openInputStream(images[i]);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                // Read coordinates, logic in imageMetaData
+                imageMetaData metaData = new imageMetaData(inputMetaData);
+
+                uriInfo[i][0] = images[i].toString();
+                if (metaData.hasCoordinates()) {
+                    uriInfo[i][1] = String.valueOf(metaData.getLatitude());
+                    uriInfo[i][2] = String.valueOf(metaData.getLongitude());
+                } else {
+                    uriInfo[i][1] = String.valueOf(DEFAULT_LATITUDE);
+                    uriInfo[i][2] = String.valueOf(DEFAULT_LONGITUDE);
+                }
             }
+
         }
 
         // Empfange URLs
         ArrayList<ImageSource> urls = intent.getParcelableArrayListExtra("URL");
         if (urls != null && !urls.isEmpty()){
             imageSources.addAll(urls);
+            if (extras != null && extras.get("size") != null) {
+                int size = (int) extras.get("size");
+                Uri[] images = new Uri[size];
+                uriInfo = new String[size][3];
+                for (int i = 0; i < size; i++) {
+                    images[i] = urls.get(i).getUri();
+                    InputStream inputMetaData = null;
+                    try {
+                        inputMetaData = getContentResolver().openInputStream(images[i]);
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                    // Read coordinates, logic in imageMetaData
+                    imageMetaData metaData = new imageMetaData(inputMetaData);
+
+                    uriInfo[i][0] = images[i].toString();
+                    if (metaData.hasCoordinates()) {
+                        uriInfo[i][1] = String.valueOf(metaData.getLatitude());
+                        uriInfo[i][2] = String.valueOf(metaData.getLongitude());
+                    } else {
+                        uriInfo[i][1] = String.valueOf(DEFAULT_LATITUDE);
+                        uriInfo[i][2] = String.valueOf(DEFAULT_LONGITUDE);
+                    }
+                }
+            }
         }
 
         // Adapter für ViewPager
@@ -138,6 +188,9 @@ public class UploadConfigActivity extends AppCompatActivity {
         buttonUpload.setOnClickListener(v -> {
             Intent analysisIntent = new Intent(UploadConfigActivity.this, AnalysisInfoActivity.class);
             // Füge hier die notwendigen Extras hinzu
+            analysisIntent.putExtra("uriInfo", uriInfo);
+            analysisIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
+
             startActivity(analysisIntent);
         });
     }
