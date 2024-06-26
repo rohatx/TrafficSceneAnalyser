@@ -1,6 +1,12 @@
 # tests/test_utils.py
 import unittest
 from unittest.mock import patch, Mock
+import sys
+import os
+
+# Fügen Sie das Verzeichnis "server" zum Python-Pfad hinzu
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+
 from api.utils import query_bridges_nearby, check_way, calculate_probability
 
 # Weighting of variables
