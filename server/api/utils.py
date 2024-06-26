@@ -215,7 +215,7 @@ def calculate_probability(C_LLM, bridge_detected, road_detected, I_QS, H_ACC):
         probability += w_RSC * 1
     probability += w_IQS * I_QS
     probability += w_HACC * H_ACC
-    return min(probability, 1.0)
+    return round(min(probability, 1.0),2)
 
 def analyze_and_check(base64_image, latitude, longitude, model):
     lmm_response = analyze_image_with_lmm(base64_image, model)
