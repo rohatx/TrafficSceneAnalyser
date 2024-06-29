@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".analysisInfoPage">
 
+    <!-- DESIGNS -->
+
     <ImageView
         android:id="@+id/backg"
         android:layout_width="904dp"
@@ -47,11 +49,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/perfectlayout2" />
 
+    <!-- MODEL INFO TEXT -->
+
     <TextView
         android:id="@+id/modelInfoDescTextView"
         android:layout_width="333dp"
         android:layout_height="116dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="340dp"
         android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +72,8 @@
         app:layout_constraintBottom_toTopOf="@+id/modelInfoDescTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.207" />
 
     <TextView
         android:id="@+id/modelInfoDevsTextView"
@@ -92,6 +97,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- LOGO -->
+
+    <ImageView
+        android:id="@+id/modelInfoLogoImageView"
+        android:layout_width="271dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/modelInfoDescTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modelInfoHeadlineTextview"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/image_not_found" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
