@@ -1,7 +1,9 @@
 package com.example.trafficsceneanalyser;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +22,7 @@ public class getUrlActivity extends AppCompatActivity {
     EditText url;
     Button btnGetUrl;
     Button btnGoToConfig;
-    ArrayList<ImageSource> arrayList = new ArrayList<ImageSource>();
+    ArrayList<ImageSource> arrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class getUrlActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
         url = findViewById(R.id.etURL);
         btnGetUrl = findViewById(R.id.btnGetUrl);
         btnGoToConfig = findViewById(R.id.btnGoToConfig);
@@ -39,10 +43,19 @@ public class getUrlActivity extends AppCompatActivity {
         btnGetUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url2 = url.getText().toString();
-                arrayList.add(new ImageSource(url2));
-                url.setText("");
-                Toast.makeText(getUrlActivity.this,"URL hinzugefügt",Toast.LENGTH_SHORT).show();
+                String urlString = url.getText().toString();
+                new ImageDownloaderTask(getUrlActivity.this, new ImageDownloaderTask.OnImageDownloadedListener() {
+                    @Override
+                    public void onImageDownloaded(Uri uri) {
+                        if (uri != null) {
+                            arrayList.add(new ImageSource(uri));
+                            url.setText("");
+                            Toast.makeText(getUrlActivity.this, "URL hinzugefügt", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getUrlActivity.this, "Fehler beim Herunterladen des Bildes", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).execute(urlString);
             }
         });
         btnGoToConfig.setOnClickListener(view -> goToConfig());
