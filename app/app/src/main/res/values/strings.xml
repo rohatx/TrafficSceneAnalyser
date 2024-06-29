@@ -11,6 +11,15 @@
 
     <!-- INFORMATION FOR MODELS -->
 
+    <!-- Model names -->
+    <string name="modelInfoNameLLaVA">LLaVA</string>
+    <string name="modelInfoNameCLAUDE">Claude</string>
+    <string name="modelInfoNameGPT4o">GPT-4o</string>
+    <string name="modelInfoNameFIRELLaVA">FireLLaVA</string>
+    <string name="modelInfoNameGeminiPro1.5">Gemini Pro 1.5</string>
+    <string name="modelInfoNameGeminiProVision1.0">Gemini Pro Vision 1.0</string>
+    <string name="modelInfoNameGeminiFlash1.5">Gemini Flash 1.5</string>
+
     <!-- Description -->
     <string name="modelInfoDescriptionLLaVA">LLaVA ist eine open-source LMM, welche lokal auf dem Server zur Verfügung steht. Sie beantwortet Anfragen sehr schnell, da sie nur 7 bis 13 Milliarden Parameter benutzt, jedoch ist ihre Genauigkeit aufgrund dessen wechselhaft. Wegen dieser Ungenauigkeit empfehlen wir dieses Model nur, wenn eine kostenlose LLM benötigt wird. </string>
     <string name="modelInfoDescriptionCLAUDE">Claude ist eine LMM entwickelt von Anthropic. Sie ist eine der stärksten kommerziell verfügbaren AIs auf dem Markt. Mit ihren bis zu 137 Milliarden Parametern hat sie eine gute Genauigkeit, was jedoch auf Lasten der Geschwindigkeit geht. Auch sollte man die aktuelle Preisentwicklung im Auge behalten, besonders für größere Datenmengen.</string>

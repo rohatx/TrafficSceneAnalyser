@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".ModelListActivity">
 
+    <!--
+
+    TODO: rename TextView IDs
+
+    -->
     <ImageView
         android:id="@+id/backg"
         android:layout_width="904dp"
@@ -23,88 +28,120 @@
         android:id="@+id/imageView5"
         android:layout_width="484dp"
         android:layout_height="773dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.643"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/perfectlayout2" />
+        app:srcCompat="@drawable/perfectlayout2"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="2dp" />
 
-    <TextView
-        android:id="@+id/LLaVATextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LLaVA"
-        app:layout_constraintBottom_toTopOf="@+id/CLAUDETextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611" />
-
-    <TextView
-        android:id="@+id/CLAUDETextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/Gpt4oTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!-- Top Text View -->
 
     <TextView
         android:id="@+id/Gpt4oTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/FireLLaVATextView"
+        android:text="@string/modelInfoNameGPT4o"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.054" />
+
+    <TextView
+        android:id="@+id/LLaVATextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/modelInfoNameLLaVA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <!-- Left Side of the Text Views -->
+
+    <TextView
+        android:id="@+id/CLAUDETextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/modelInfoNameCLAUDE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LLaVATextView" />
 
     <TextView
         android:id="@+id/FireLLaVATextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/GeminiPro1.5TextView"
+        android:layout_marginTop="20dp"
+        android:text="@string/modelInfoNameFIRELLaVA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CLAUDETextView" />
+
+    <!-- Right Side of the Text Views -->
 
     <TextView
         android:id="@+id/GeminiPro1.5TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/GeminiProVision1.0TextView"
+        android:layout_marginTop="68dp"
+        android:text="@string/modelInfoNameGeminiPro1.5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.821"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/GeminiProVision1.0TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/GeminiFlash1.5TextView"
+        android:layout_marginTop="24dp"
+        android:text="@string/modelInfoNameGeminiProVision1.0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.942"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GeminiFlash1.5TextView" />
 
     <TextView
         android:id="@+id/GeminiFlash1.5TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="196dp"
-        android:text="TextView"
+        android:layout_marginTop="24dp"
+        android:text="@string/modelInfoNameGeminiFlash1.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.853"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GeminiPro1.5TextView" />
+
+    <!-- MMU Benchmark -->
+
+    <ImageView
+        android:id="@+id/modelInfoBenchImageView"
+        android:layout_width="338dp"
+        android:layout_height="217dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.758"
+        app:srcCompat="@drawable/benchmarktable" />
+
+    <TextView
+        android:id="@+id/modelInfoBenchDescTextView"
+        android:layout_width="342dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="252dp"
+        android:text="@string/modelInfoBenchDesc"
+        app:layout_constraintBottom_toTopOf="@+id/modelInfoBenchImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- app:layout_constraintBottom_toTopOf="@+id/modelInfoBenchImageView" -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

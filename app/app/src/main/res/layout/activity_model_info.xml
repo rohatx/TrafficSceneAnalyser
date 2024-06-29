@@ -92,27 +92,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/modelInfoBenchImageView"
-        android:layout_width="325dp"
-        android:layout_height="211dp"
-        android:layout_marginTop="376dp"
-        app:layout_constraintBottom_toTopOf="@+id/modelInfoCostsTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.581"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/benchmarktable" />
 
-    <TextView
-        android:id="@+id/modelInfoBenchDescTextView"
-        android:layout_width="342dp"
-        android:layout_height="129dp"
-        android:text="@string/modelInfoBenchDesc"
-        app:layout_constraintBottom_toTopOf="@+id/modelInfoBenchImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modelInfoDescTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

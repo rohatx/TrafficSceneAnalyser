@@ -18,7 +18,6 @@ public class analysisInfoPage extends AppCompatActivity {
     private TextView description;
     private TextView costs;
     private TextView devs;
-    private TextView bench;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +39,11 @@ public class analysisInfoPage extends AppCompatActivity {
         description = findViewById(R.id.modelInfoDescTextView);
         costs = findViewById(R.id.modelInfoCostsTextView);
         devs = findViewById(R.id.modelInfoDevsTextView);
-        bench = findViewById(R.id.modelInfoBenchDescTextView);
 
         // Switch Case fuer Model Infoausgabe
         // TODO: LINKS and PRICING need to be transformed into clickable URLs
         // Erst wird der Text initialisiert
         // Dann wird mit einer Funktion der notwendige Text clickable
-
-        bench.setText(getString(R.string.modelInfoBenchDesc));
 
         switch (selectedModel) {
             case "LLaVA":
@@ -157,6 +153,7 @@ public class analysisInfoPage extends AppCompatActivity {
                     startActivity(openLink);
                 });
                 break;
+            // TODO: Add strings for default case.
             default:
                 headline.setText("No model found");
                 description.setText("No description found.");

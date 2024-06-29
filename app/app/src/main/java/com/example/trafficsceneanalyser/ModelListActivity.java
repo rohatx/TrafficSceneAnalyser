@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ModelListActivity extends AppCompatActivity {
 
@@ -34,7 +39,7 @@ public class ModelListActivity extends AppCompatActivity {
         });
 
         llava = findViewById(R.id.LLaVATextView);
-        llava.setText("LLaVA");
+        llava.setText(R.string.modelInfoNameLLaVA);
         llava.setOnClickListener(view -> {
             Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "LLaVA";
@@ -43,7 +48,7 @@ public class ModelListActivity extends AppCompatActivity {
         });
 
         claude = findViewById(R.id.CLAUDETextView);
-        claude.setText("Claude");
+        claude.setText(R.string.modelInfoNameCLAUDE);
         claude.setOnClickListener(view -> {
             Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "Claude";
@@ -52,7 +57,7 @@ public class ModelListActivity extends AppCompatActivity {
         });
 
         gpt4o = findViewById(R.id.Gpt4oTextView);
-        gpt4o.setText("GPT-4o");
+        gpt4o.setText(R.string.modelInfoNameGPT4o);
         gpt4o.setOnClickListener(view -> {
             Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "gpt-4o";
@@ -61,7 +66,7 @@ public class ModelListActivity extends AppCompatActivity {
         });
 
         fireLlava = findViewById(R.id.FireLLaVATextView);
-        fireLlava.setText("FireLLaVA");
+        fireLlava.setText(R.string.modelInfoNameFIRELLaVA);
         fireLlava.setOnClickListener(view -> {
             Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "FireLLaVA";
@@ -70,7 +75,7 @@ public class ModelListActivity extends AppCompatActivity {
         });
 
         geminiPro1_5 = findViewById(R.id.GeminiPro1_5TextView);
-        geminiPro1_5.setText("Gemini Pro 1.5");
+        geminiPro1_5.setText(R.string.modelInfoNameGeminiPro1_5);
         geminiPro1_5.setOnClickListener(view -> {
             Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "Gemini Pro 1.5";
@@ -79,7 +84,7 @@ public class ModelListActivity extends AppCompatActivity {
         });
 
         geminiProVision1_0 = findViewById(R.id.GeminiProVision1_0TextView);
-        geminiProVision1_0.setText("Gemini Pro Vision 1.0");
+        geminiProVision1_0.setText(R.string.modelInfoNameGeminiProVision1_0);
         geminiProVision1_0.setOnClickListener(view -> {
             Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "Gemini Pro Vision 1.0";
@@ -88,14 +93,13 @@ public class ModelListActivity extends AppCompatActivity {
         });
 
         geminiFlash1_5 = findViewById(R.id.GeminiFlash1_5TextView);
-        geminiFlash1_5.setText("Gemini Flash 1.5");
+        geminiFlash1_5.setText(R.string.modelInfoNameGeminiFlash1_5);
         geminiFlash1_5.setOnClickListener(view -> {
             Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "Gemini Flash 1.5";
             i.putExtra("selectedModel", selectedModel);
             startActivity(i);
         });
-
 
     }
 
