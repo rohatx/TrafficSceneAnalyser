@@ -24,6 +24,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +88,7 @@ public class UploadConfigActivity extends AppCompatActivity {
                     uriInfo[i][1] = String.valueOf(metaData.getLatitude());
                     uriInfo[i][2] = String.valueOf(metaData.getLongitude());
                 } else {
-                    bspKoordinaten(i);
+                    //bspKoordinaten(i);
                 }
             }
         }
@@ -119,6 +120,7 @@ public class UploadConfigActivity extends AppCompatActivity {
 
         ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this, imageSources);
         viewPager.setAdapter(bildAdapter);
+
         // viewPager konfigurieren, korrekte anzeige mehrere Bilder
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
@@ -141,12 +143,14 @@ public class UploadConfigActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 ImageSource imageSource = imageSources.get(position);
+                // Format coordinates to 4 decimal places
+                DecimalFormat df = new DecimalFormat("#.####");
                 try {
                     InputStream inputMetaData = getContentResolver().openInputStream(imageSource.getUri());
                     imageMetaData metaData = new imageMetaData(inputMetaData);
                     if (metaData.getLatitude() != 0 && metaData.getLongitude() != 0) {
-                        viewLatitude.setText("Latitude: " + metaData.getLatitude());
-                        viewLongitude.setText("Longitude: " + metaData.getLongitude());
+                        viewLatitude.setText("Latitude: " + df.format(Double.parseDouble(uriInfo[position][1])));
+                        viewLongitude.setText("Longitude: " + df.format(Double.parseDouble(uriInfo[position][2])));
                     } else {
                         viewLatitude.setText("No Coordinates");
                         viewLongitude.setText("No Coordinates");
