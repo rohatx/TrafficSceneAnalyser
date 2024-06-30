@@ -94,11 +94,11 @@
 
         <ImageButton
             android:id="@+id/btnBildInternet"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="160dp"
+            android:layout_height="141dp"
             android:backgroundTint="#00F8F6F6"
             android:scaleType="fitCenter"
-            android:src="@drawable/google"
+            android:src="@drawable/url"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
