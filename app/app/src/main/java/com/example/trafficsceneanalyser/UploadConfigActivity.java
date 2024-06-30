@@ -88,7 +88,7 @@ public class UploadConfigActivity extends AppCompatActivity {
                     uriInfo[i][1] = String.valueOf(metaData.getLatitude());
                     uriInfo[i][2] = String.valueOf(metaData.getLongitude());
                 } else {
-                    //bspKoordinaten(i);
+                    bspKoordinaten(i);
                 }
             }
         }
