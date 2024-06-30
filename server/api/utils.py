@@ -26,6 +26,8 @@ w_RSC = 0.1
 w_IQS = 0.2
 w_HACC = 0.1
 
+H_ACC = 0.90  # Assuming historical accuracy as 90% (Should be adapted for each LLM when we have the correct statistics)
+
 def analyze_image_with_lmm(base64_image, model):
     if model == "LLaVA":
         return analyze_image_with_llava(base64_image)
@@ -86,7 +88,7 @@ def analyze_image_with_openai(base64_image):
     else:
         return f"Error: Unable to analyze image. Status Code: {response.status_code}, Response: {response.text}"
 
-# Using local LMM (LLaVa), Erweiterung möglich siehe Ollama
+# Using local LMM (LLaVa), extendable via Ollama
 def analyze_image_with_llava(base64_image):
     image_bytes = base64.b64decode(base64_image)
     img = Image.open(BytesIO(image_bytes))
@@ -131,7 +133,7 @@ def analyze_image_with_openRouter(base64_image, model):
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url": f"data:image/png;base64,{base64_image}" # Konvertierung in png auf Java Seite
+                                "url": f"data:image/png;base64,{base64_image}"
                             }
                         }
                     ]
@@ -152,9 +154,9 @@ def analyze_image_with_openRouter(base64_image, model):
     else:
         return f"Request failed with status code: {response.status_code}\n{response.text}"
 
-### Sanity Check Funktionen ###
+### Sanity Check functions ###
 
-## Brücke in der Nähe
+## Bridge nearby
 def query_bridges_nearby(latitude, longitude):
     radius = 100
     api = overpy.Overpass()
@@ -176,7 +178,7 @@ def query_bridges_nearby(latitude, longitude):
         return False
     return True
 
-## Straße in der Nähe
+## Street nearbey
 def check_way(latitude, longitude):
     radius = 100
     api = overpy.Overpass()
@@ -215,7 +217,7 @@ def calculate_probability(C_LLM, bridge_detected, road_detected, I_QS, H_ACC):
         probability += w_RSC * 1
     probability += w_IQS * I_QS
     probability += w_HACC * H_ACC
-    return min(probability, 1.0)
+    return round(min(probability, 1.0),2)
 
 def analyze_and_check(base64_image, latitude, longitude, model):
     lmm_response = analyze_image_with_lmm(base64_image, model)
@@ -238,7 +240,6 @@ def analyze_and_check(base64_image, latitude, longitude, model):
     underridable_by_llm = lmm_data.get('unterfahrbar', 0) == 1
     C_LLM = lmm_data.get('Vertrauenswürdigkeit', 0)
     I_QS = lmm_data.get('Bild Qualität', 0) / 5  # Normalized to [0, 1]
-    H_ACC = 0.90  # Assuming historical accuracy as 90%
 
     bridge_detected = query_bridges_nearby(latitude, longitude) if bridge_detected_by_llm else False
     road_detected = check_way(latitude, longitude) if underridable_by_llm else False
