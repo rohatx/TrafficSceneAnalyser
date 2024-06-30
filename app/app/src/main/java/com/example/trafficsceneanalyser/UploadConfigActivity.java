@@ -26,6 +26,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class UploadConfigActivity extends AppCompatActivity {
@@ -131,9 +132,13 @@ public class UploadConfigActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+
+                // Format coordinates to 3 decimal places
+                DecimalFormat df = new DecimalFormat("#.####");
+
                 if (!uriInfo[position][1].equals("0.0") && !uriInfo[position][2].equals("0.0")) {
-                    viewLatitude.setText("Latitude: " + uriInfo[position][1]);
-                    viewLongitude.setText("Longitude: " + uriInfo[position][2]);
+                    viewLatitude.setText("Latitude: " + df.format(Double.parseDouble(uriInfo[position][1])));
+                    viewLongitude.setText("Longitude: " + df.format(Double.parseDouble(uriInfo[position][2])));
                 } else {
                     viewLatitude.setText("");
                     viewLongitude.setText("No Coordinates");
