@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
                 fab2.hide();
             }
         });
+        fab1.setOnClickListener(view -> {
+            Intent openModels = new Intent(this, ModelListActivity.class);
+            startActivity(openModels);
+        });
+
         Log.v("Pfad", "Aktueller Pfad: " + getPackageName());
 
         btnBildHochladen = findViewById(R.id.btnBildHochladen);

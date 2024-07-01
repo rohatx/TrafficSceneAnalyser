@@ -27,39 +27,58 @@
         tools:targetApi="31">
         <activity
             android:name=".getUrlActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".analysisInfoPage"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".ModelListActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".HistoryActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ProfileLoggedInActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".AnalysisInfoActivity"
-            android:exported="false" /> <!-- cameraActivity added -->
-        <activity
-            android:name=".CameraActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
+            android:name=".CameraActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />        
+        <activity
             android:name=".UploadConfigActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="Settings"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="Test">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -38,6 +38,8 @@ public class UploadConfigActivity extends AppCompatActivity {
     private static final float DEFAULT_LATITUDE = 37.81713298488588f;
     private static final float DEFAULT_LONGITUDE = -122.47837630605842f;
 
+    private ImageButton infoButton;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class UploadConfigActivity extends AppCompatActivity {
         ImageButton buttonUpload = findViewById(R.id.button_upload);
         viewLatitude = findViewById(R.id.latitude);
         viewLongitude = findViewById(R.id.longitude);
+        infoButton = findViewById(R.id.infoButtonTest);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.lmm_array, android.R.layout.simple_spinner_item);
@@ -166,6 +169,12 @@ public class UploadConfigActivity extends AppCompatActivity {
             analysisIntent.putExtra("uriInfo", uriInfo);
             analysisIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
             startActivity(analysisIntent);
+        });
+
+        infoButton.setOnClickListener(v -> {
+            Intent infoIntent = new Intent(this, analysisInfoPage.class);
+            infoIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
+            startActivity(infoIntent);
         });
     }
 
