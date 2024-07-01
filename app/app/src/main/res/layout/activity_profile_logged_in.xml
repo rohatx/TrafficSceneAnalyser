@@ -7,51 +7,121 @@
     android:layout_height="match_parent"
     tools:context=".ProfileLoggedInActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="goToHome"
-        android:text="Home"
+    <ImageView
+        android:id="@+id/backg"
+        android:layout_width="904dp"
+        android:layout_height="897dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.12"
+        app:srcCompat="@drawable/background" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="484dp"
+        android:layout_height="773dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.643"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.951" />
+        app:srcCompat="@drawable/perfectlayout2" />
+
+    <ImageButton
+        android:id="@+id/hbutton"
+        android:layout_width="54dp"
+        android:layout_height="68dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="goToHome"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="255dp"
+        android:layout_height="347dp"
+        app:layout_constraintBottom_toBottomOf="@+id/verlauf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:srcCompat="@drawable/profile" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:layout_marginTop="52dp"
+        android:text="Willkommen zurück!"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/showHistoryButton"
+        android:layout_width="130dp"
+        android:layout_height="118dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#BC0404"
+        android:onClick="showHistory"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.277"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.68"
+        app:srcCompat="@drawable/history" />
 
-    <Button
-        android:id="@+id/showHistoryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="showHistory"
-        android:text="Verlauf"
-        app:layout_constraintBottom_toTopOf="@+id/signOutButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.966" />
-
-    <Button
+    <ImageButton
         android:id="@+id/signOutButton"
+        android:layout_width="130dp"
+        android:layout_height="116dp"
+        android:backgroundTint="#00FFFFFF"
+
+        android:onClick="signOut"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.74"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.68"
+        app:srcCompat="@drawable/logout" />
+
+    <TextView
+        android:id="@+id/verlauf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="signOut"
-        android:text="Abmelden"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:text="Verlauf"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.336"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.755" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.724" />
+
+    <TextView
+        android:id="@+id/abmelden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Abmelden"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.673"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signOutButton"
+        app:layout_constraintVertical_bias="0.329" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

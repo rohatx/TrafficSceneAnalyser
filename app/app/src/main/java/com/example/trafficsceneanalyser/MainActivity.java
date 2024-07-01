@@ -2,8 +2,10 @@ package com.example.trafficsceneanalyser;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -19,9 +21,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageButton btnBildHochladen;
+    ImageButton btnBildAufnehmen;
+    ImageButton btnBildInternet;
     private static final int PICK_IMAGE_REQUEST = 1;
     private FloatingActionButton mainFab, fab1, fab2; // Menu bar funktion
     private TokenManager tokenManager;
@@ -56,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         btnBildHochladen = findViewById(R.id.btnBildHochladen);
         btnBildHochladen.setOnClickListener(view -> openImagePicker());
+        btnBildAufnehmen = findViewById(R.id.btnBildAufnehmen);
+        btnBildAufnehmen.setOnClickListener(view -> openImageTaker());
+        btnBildInternet = findViewById(R.id.btnBildInternet);
+        btnBildInternet.setOnClickListener(view -> openUrlPage());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -69,6 +79,25 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        } else {
+            showLoginPrompt();
+        }
+    }
+
+    private void openImageTaker() {
+        if (tokenManager.isLoggedIn()) {
+            // open cameraPage
+            Intent i = new Intent(MainActivity.this, CameraActivity.class);
+            startActivity(i);
+        } else {
+            showLoginPrompt();
+        }
+    }
+
+    private void openUrlPage(){
+        if (tokenManager.isLoggedIn()) {
+            Intent i = new Intent(MainActivity.this, getUrlActivity.class);
+            startActivity(i);
         } else {
             showLoginPrompt();
         }

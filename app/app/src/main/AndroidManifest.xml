@@ -9,6 +9,10 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +25,10 @@
         android:theme="@style/Theme.TrafficSceneAnalyser"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".getUrlActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name=".analysisInfoPage"
             android:screenOrientation="portrait"
@@ -49,6 +57,10 @@
             android:name=".AnalysisInfoActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
+        <activity
+            android:name=".CameraActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />        
         <activity
             android:name=".UploadConfigActivity"
             android:screenOrientation="portrait"

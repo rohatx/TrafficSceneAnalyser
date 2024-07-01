@@ -9,6 +9,7 @@ from api.serializers import PictureExplainSerializer, UserSerializer, TokenSeria
 from api.models import CodeExplainer
 from api.permissions import AllowAnyForRegistration
 
+# views.py
 class PictureExplainView(views.APIView):
     serializer_class = PictureExplainSerializer
     authentication_classes = [TokenAuthentication]
@@ -16,6 +17,18 @@ class PictureExplainView(views.APIView):
     
     def get(self, request, format=None):
         qs = CodeExplainer.objects.filter(user=request.user)
+        
+        # Apply filters
+        llm_output = request.query_params.get('llm_output', None)
+        models = request.query_params.get('model', None)
+        
+        if llm_output:
+            qs = qs.filter(llm_output=llm_output)
+        
+        if models:
+            model_list = models.split(',')
+            qs = qs.filter(model__in=model_list)
+        
         serializer = self.serializer_class(qs, many=True)
         return Response(serializer.data)
     
@@ -25,6 +38,7 @@ class PictureExplainView(views.APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
