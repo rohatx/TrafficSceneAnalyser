@@ -21,6 +21,7 @@ public class analysisInfoPage extends AppCompatActivity {
     private TextView costs;
     private TextView devs;
     private ImageView logo;
+    private ImageView benchmark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class analysisInfoPage extends AppCompatActivity {
         costs = findViewById(R.id.modelInfoCostsTextView);
         devs = findViewById(R.id.modelInfoDevsTextView);
         logo = findViewById(R.id.modelInfoLogoImageView);
+        benchmark = findViewById(R.id.modelInfoBenchmarkImageView);
 
         // Switch Case fuer Model Infoausgabe
         // TODO: LINKS and PRICING need to be transformed into clickable URLs
@@ -54,6 +56,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionLLaVA);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.llava_logo));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.benchmark_llava));
                 costs.setText(getString(R.string.modelInfoCostsLLaVA));
                 devs.setText(getString(R.string.modelInfoDevs));
                 //image.setImageDrawable(getResources()
@@ -69,6 +72,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionCLAUDE);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.claude_logo));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.benchmark_claude));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlCLAUDE);
@@ -86,6 +90,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGPT4o);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.chatgpt_logo));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.benchmark_gpt4o));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGPT4o);
@@ -103,6 +108,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionFIRELLaVA);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.llava_logo));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.benchmark_firellava));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlFIRELLaVA);
@@ -120,6 +126,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiPro1_5);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_logo));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.benchmark_geminipro1_5));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiPro1_5);
@@ -137,6 +144,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiProVision1_0);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_logo));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.benchmark_geminiprovision1_0));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiProVision1_0);
@@ -154,6 +162,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiFlash1_5);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_logo));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.benchmark_geminiflash1_5));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiFlash1_5);

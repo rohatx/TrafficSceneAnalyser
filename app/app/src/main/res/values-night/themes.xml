@@ -5,9 +5,11 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <!-- CHANGES VALUES FOR MOST VIEWS -->
         <item name="android:textColor">@color/lightGrey</item>
-        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:backgroundTint">@color/darkGrey</item>
+        <item name="android:colorBackground">@color/darkGrey</item>
 
         <!-- CHANGES VALUES FOR BUTTONS -->
         <item name="colorOnPrimary"> @color/lightGrey</item>
     </style>
+
 </resources>
