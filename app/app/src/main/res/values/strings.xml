@@ -8,4 +8,59 @@
     <string name="upload_button">Hochladen</string>
     <string name="boilerplate_text">Waiting for server response...</string>
     <string name="image_description">Selected Image</string>
+
+    <!-- INFORMATION FOR MODELS -->
+
+    <!-- Model names -->
+    <string name="modelInfoNameLLaVA">LLaVA</string>
+    <string name="modelInfoNameCLAUDE">Claude</string>
+    <string name="modelInfoNameGPT4o">GPT-4o</string>
+    <string name="modelInfoNameFIRELLaVA">FireLLaVA</string>
+    <string name="modelInfoNameGeminiPro1.5">Gemini Pro 1.5</string>
+    <string name="modelInfoNameGeminiProVision1.0">Gemini Pro Vision 1.0</string>
+    <string name="modelInfoNameGeminiFlash1.5">Gemini Flash 1.5</string>
+
+    <!-- Description -->
+    <string name="modelInfoDescriptionLLaVA">LLaVA ist eine open-source LMM, welche lokal auf dem Server zur Verfügung steht. Sie beantwortet Anfragen sehr schnell, da sie nur 7 bis 13 Milliarden Parameter benutzt, jedoch ist ihre Genauigkeit aufgrund dessen wechselhaft. Wegen dieser Ungenauigkeit empfehlen wir dieses Model nur, wenn eine kostenlose LLM benötigt wird. </string>
+    <string name="modelInfoDescriptionCLAUDE">Claude ist eine LMM entwickelt von Anthropic. Sie ist eine der stärksten kommerziell verfügbaren AIs auf dem Markt. Mit ihren bis zu 137 Milliarden Parametern hat sie eine gute Genauigkeit, was jedoch auf Lasten der Geschwindigkeit geht. Auch sollte man die aktuelle Preisentwicklung im Auge behalten, besonders für größere Datenmengen.</string>
+    <string name="modelInfoDescriptionGPT4o"> GPT-4o ist eine LMM entwickelt von OpenAI. Sie ist die stärkste kommerziell verfügbare AI auf dem Markt, dank ihrer geschätzt 100 Billionen Parameter. Sie hat mit Abstand die höchste Genauigkeit und sollte, solange die Kosten keine Rolle spielen, den anderen Modellen gegenüber bevorzugt werden. </string>
+    <string name="modelInfoDescriptionFIRELLaVA">FireLLaVA ist eine LLM entwickelt von Fireworks AI. Sie basiert auf LLaVA und ist somit ebenfalls sehr schnell, jedoch tendenziell ungenau. Jedoch wurde sie mit besonders komerziell wertvollen Daten trainiert, weswegen sie in besonderen Fällen bessere Ergebnisse liefert.  </string>
+    <string name="modelInfoDescriptionGeminiPro1.5"> Gemini Pro 1.5 ist eine LLM entwickelt von Google. Obwohl es von der Größe her nur ein mittleres Model ist, mit seinen 47 Milliarden Parametern, besitzt es eine erstaunlich hohe Genauigkeit und eine sehr gute Verarbeitungszeit. Sollte beides benötigt werden empfehlen wir dieses Model. </string>
+    <string name="modelInfoDescriptionGeminiProVision1.0"> Gemini Pro Vision 1.0 ist eine LMM entwickelt von Google. Sie ist seit Juni 2024 veraltet und wird seit Juli 2024 nicht mehr unterstützt. Sie sollte nur in Ausnahmefällen gegenüber den Alternativen bevorzugt werden von Usern die genau wissen, was sie mit dieser LLM vorhaben. </string>
+    <string name="modelInfoDescriptionGeminiFlash1.5"> Gemini Flash 1.5 ist die kleinste LMM entwickelt von Google. Dank seiner geringen Parameteranzahl ist es sehr schnell und kann mühelos grosse Mengen an Daten verarbeiten. Trotz seiner geringen Größe hat es immer noch eine gute Genauigkeit. Es ist somit eine echte Option, wenn man schnell viele Daten verarbeiten möchte und gleichzeitg auf etwas Genauigkeit verzichten kann.</string>
+
+    <!-- MMU Description -->
+    <string name="modelInfoBenchDesc"> MMMU (Massive Multi-discipline Multimodal Understanding and Reasoning) ist eine Benchmark zum Vergleich der verschiedenen LLMs. Sie untersucht die Fähigkeit Fragen aus unterschiedlichen Disziplinen richtig zu beantworten. Hierfür wird ein Bild, eine Frage und häufig eine Antwortauswahl gegeben. Alle diese Fragen sind auf Hochschulniveau. </string>
+
+    <!-- Costs -->
+    <string name="modelInfoCosts"> Hier klicken für aktuelle Preise </string>
+    <string name="modelInfoCostsLLaVA"> Kostenlos, da es lokal auf dem Server läuft.</string>
+
+    <!-- Costs URLs -->
+    <string name="modelInfoCostsUrlCLAUDE">https://www.anthropic.com/api</string>
+    <string name="modelInfoCostsUrlGPT4o" >https://openai.com/api/pricing </string>
+    <string name="modelInfoCostsUrlFIRELLaVA">https://fireworks.ai/pricing </string>
+    <string name="modelInfoCostsUrlGeminiPro1.5">https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsUrlGeminiProVision1.0">https://ai.google.dev/pricing </string>
+    <string name="modelInfoCostsUrlGeminiFlash1.5">https://ai.google.dev/pricing </string>
+
+    <!-- Developer -->
+    <string name="modelInfoDevs"> Hier klicken für mehr Informationen </string>
+    <string name="modelInfoLinksLLaVA"> https://llava-vl.github.io/ </string>
+    <string name="modelInfoLinksCLAUDE"> https://www.anthropic.com/claude </string>
+    <string name="modelInfoLinksGPT4o"> https://openai.com/index/hello-gpt-4o/ </string>
+    <string name="modelInfoLinksFIRELLaVA"> https://fireworks.ai/blog/firellava-the-first-commercially-permissive-oss-llava-model </string>
+    <string name="modelInfoLinksGeminiPro1.5"> https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-pro </string>
+    <string name="modelInfoLinksGeminiProVision1.0"> https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.0-pro-vision </string>
+    <string name="modelInfoLinksGeminiFlash1.5"> https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-flash </string>
+
+    <!-- Developer URL -->
+    <string name="modelInfoDevsUrlLLaVA">https://llava-vl.github.io/" </string>
+    <string name="modelInfoDevsUrlCLAUDE">https://www.anthropic.com/claude</string>
+    <string name="modelInfoDevsUrlGPT4o">https://openai.com/index/hello-gpt-4o/</string>
+    <string name="modelInfoDevsUrlFIRELLaVA">https://fireworks.ai/blog/firellava-the-first-commercially-permissive-oss-llava-model</string>
+    <string name="modelInfoDevsUrlGeminiPro1.5">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-pro</string>
+    <string name="modelInfoDevsUrlGeminiProVision1.0">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.0-pro-vision</string>
+    <string name="modelInfoDevsUrlGeminiFlash1.5">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-flash</string>"
+
 </resources>
