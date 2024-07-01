@@ -47,9 +47,8 @@ public class analysisInfoPage extends AppCompatActivity {
         benchmark = findViewById(R.id.modelInfoBenchmarkImageView);
 
         // Switch Case fuer Model Infoausgabe
-        // TODO: LINKS and PRICING need to be transformed into clickable URLs
         // Erst wird der Text initialisiert
-        // Dann wird mit einer Funktion der notwendige Text clickable
+        // Dann wird mit der Funktion der notwendige Text clickable
 
         switch (selectedModel) {
             case "LLaVA":
@@ -59,9 +58,6 @@ public class analysisInfoPage extends AppCompatActivity {
                 benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.benchmark_llava));
                 costs.setText(getString(R.string.modelInfoCostsLLaVA));
                 devs.setText(getString(R.string.modelInfoDevs));
-                //image.setImageDrawable(getResources()
-                //        .getDrawable(R.drawable.benchmarktable)
-                // );
                 devs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoDevsUrlLLaVA);
                     Intent devsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -176,7 +172,7 @@ public class analysisInfoPage extends AppCompatActivity {
                     startActivity(openLink);
                 });
                 break;
-            // TODO: Add strings for default case.
+            // TODO: Add strings for default case to make it translateable
             default:
                 headline.setText("No model found");
                 description.setText("No description found.");

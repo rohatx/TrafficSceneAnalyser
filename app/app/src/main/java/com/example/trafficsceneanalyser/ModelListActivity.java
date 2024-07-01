@@ -17,6 +17,8 @@ import java.util.List;
 
 public class ModelListActivity extends AppCompatActivity {
 
+
+
     private TextView llava;
     private TextView claude;
     private TextView gpt4o;
@@ -24,7 +26,6 @@ public class ModelListActivity extends AppCompatActivity {
     private TextView geminiPro1_5;
     private TextView geminiProVision1_0;
     private TextView geminiFlash1_5;
-
     private String selectedModel;
 
     @Override
@@ -37,6 +38,9 @@ public class ModelListActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Initialize every textview and make the text clickable
+        // After the click the selected model is sent to the next activity
 
         llava = findViewById(R.id.LLaVATextView);
         llava.setText(R.string.modelInfoNameLLaVA);

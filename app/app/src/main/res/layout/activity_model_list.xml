@@ -28,6 +28,12 @@
         android:id="@+id/imageView5"
         android:layout_width="484dp"
         android:layout_height="773dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/perfectlayout2"
         tools:layout_editor_absoluteX="33dp"
         tools:layout_editor_absoluteY="2dp" />
@@ -45,6 +51,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.054" />
 
+    <!-- Left Side of the Text Views -->
+
     <TextView
         android:id="@+id/LLaVATextView"
         android:layout_width="wrap_content"
@@ -57,7 +65,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
 
-    <!-- Left Side of the Text Views -->
 
     <TextView
         android:id="@+id/CLAUDETextView"
@@ -84,7 +91,7 @@
     <!-- Right Side of the Text Views -->
 
     <TextView
-        android:id="@+id/GeminiPro1.5TextView"
+        android:id="@+id/GeminiPro1_5TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
@@ -96,7 +103,7 @@
 
 
     <TextView
-        android:id="@+id/GeminiProVision1.0TextView"
+        android:id="@+id/GeminiProVision1_0TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -104,10 +111,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.942"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GeminiFlash1.5TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/GeminiFlash1_5TextView" />
 
     <TextView
-        android:id="@+id/GeminiFlash1.5TextView"
+        android:id="@+id/GeminiFlash1_5TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -115,7 +122,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GeminiPro1.5TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/GeminiPro1_5TextView" />
 
     <!-- MMU Benchmark -->
 
@@ -142,6 +149,5 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!-- app:layout_constraintBottom_toTopOf="@+id/modelInfoBenchImageView" -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

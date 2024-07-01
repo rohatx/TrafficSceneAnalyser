@@ -21,25 +21,6 @@
         app:layout_constraintVertical_bias="0.12"
         app:srcCompat="@drawable/background" />
 
-    <!--
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="250dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="150dp"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.viewpager2.widget.ViewPager2>
-
-    -->
-
-    <!-- MODEL INFO TEXT -->
-
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="484dp"
@@ -51,6 +32,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/perfectlayout2" />
+
+    <!-- MODEL INFO TEXT -->
 
     <TextView
         android:id="@+id/modelInfoDescTextView"
@@ -111,6 +94,8 @@
         app:layout_constraintTop_toBottomOf="@+id/modelInfoHeadlineTextview"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/image_not_found" />
+
+    <!-- BENCHMARK TABLE -->
 
     <ImageView
         android:id="@+id/modelInfoBenchmarkImageView"
