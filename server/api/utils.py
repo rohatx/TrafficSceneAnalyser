@@ -13,7 +13,7 @@ import re
 IMAGE_QUALITY_CATEGORIES = ["Helligkeit", "Kontrast", "Schärfe", "ganze Objekt zu sehen", "Nähe zum Objekt"]
 GLOBAL_PROMPT = (
     "Ist das auf dem Bild erkennbare Objekt unterfahrbar (Brücke/Ampeln/weitere Metallische Objekte über der Straße)? "
-    "Ist es eine Brücke? Bitte antworte im JSON-Format mit 'unterfahrbar: 0/1', 'Brücke: 0/1', "
+    "Ist es eine Brücke oder ein Tunnel? Bitte antworte im JSON-Format mit 'unterfahrbar: 0/1', 'Brücke: 0/1', "
     "'Begründung: [Text max. 1 Satz]', 'Vertrauenswürdigkeit: [Wert zwischen 0 und 1]', "
     "'Bild Qualität: [Anzahl der erfüllten Kategorien, 0-5]', 'Probleme: [Falls eine Kategorie nicht erfüllt ist, "
     "genaue Angabe z.B. " + ", ".join(IMAGE_QUALITY_CATEGORIES) + "]'."
@@ -209,9 +209,43 @@ def check_way(latitude, longitude):
         return False
     return True
 
-def calculate_probability(C_LLM, bridge_detected, road_detected, I_QS, H_ACC):
+def query_tunnels_nearby(latitude, longitude):
+    radius = 100
+    
+    # Api is Overpass von OpenStreetMaps
+    api = overpy.Overpass()
+
+    # Query Anfrage an Overpass Server 
+    # Look for tag "tunnel", excluding the tags that won't be underridable
+    query = f"""
+        [out:json];
+        (
+            way(around:{radius}, {latitude}, {longitude})
+                ["tunnel"]
+                [tunnel!=canal]
+                [tunnel!=flooded]
+                [tunnel!=culvert]
+                [tunnel!=avalanche_protector]  
+        ;);
+        /*added by auto repair*/
+        (._;>;);
+        /*end of auto repair*/
+        out;
+        """
+    # Checke ob im Result tunnel tags vorhanden sind
+    result = api.query(query)
+
+    if not result.ways:
+        #print("result is empty")
+        return False
+    if result.ways:
+        #print("result has tunnel")
+        return True
+             
+
+def calculate_probability(C_LLM, bridge_or_tunnel_detected, road_detected, I_QS, H_ACC):
     probability = w_CLLM * C_LLM
-    if bridge_detected:
+    if bridge_or_tunnel_detected:
         probability += w_BSC * 1
     if road_detected:
         probability += w_RSC * 1
@@ -224,32 +258,35 @@ def analyze_and_check(base64_image, latitude, longitude, model):
     
     try:
         lmm_data = json.loads(lmm_response)
-    except json.JSONDecodeError as e:
+    except json.JSONDecodeError as e: 
         print(f"Error decoding JSON: {e}")
         print(f"Response was: {lmm_response}")
         lmm_data = {
             'unterfahrbar': 0,
-            'Brücke': 0,
+            'Brücke/Tunnel': 0,
             'Begründung': 'LLM response could not be decoded',
             'Vertrauenswürdigkeit': 0,
             'Bild Qualität': 0,
             'Probleme': 'Unbekannt'
         }
 
-    bridge_detected_by_llm = lmm_data.get('Brücke', 0) == 1
+    bridge_or_tunnel_detected_by_llm = lmm_data.get('Brücke/Tunnel', 0) == 1
     underridable_by_llm = lmm_data.get('unterfahrbar', 0) == 1
     C_LLM = lmm_data.get('Vertrauenswürdigkeit', 0)
     I_QS = lmm_data.get('Bild Qualität', 0) / 5  # Normalized to [0, 1]
 
-    bridge_detected = query_bridges_nearby(latitude, longitude) if bridge_detected_by_llm else False
+    bridge_detected = query_bridges_nearby(latitude, longitude) if bridge_or_tunnel_detected_by_llm else False
+    tunnel_detected = query_tunnels_nearby(latitude, longitude) if bridge_or_tunnel_detected_by_llm else False
     road_detected = check_way(latitude, longitude) if underridable_by_llm else False
+    
+    bridge_or_tunnel = bridge_detected or tunnel_detected
 
-    probability = calculate_probability(C_LLM, bridge_detected, road_detected, I_QS, H_ACC)
+    probability = calculate_probability(C_LLM, bridge_or_tunnel, road_detected, I_QS, H_ACC)
 
     sanity_check_result = "Keine Probleme"
     
-    if bridge_detected_by_llm and not bridge_detected:
-        sanity_check_result = "Es wurde keine Brücke gefunden"
+    if bridge_or_tunnel_detected_by_llm and not bridge_or_tunnel:
+        sanity_check_result = "Es wurde keine Brücke und kein Tunnel gefunden"
     elif underridable_by_llm and not road_detected:
         sanity_check_result = "Es wurde keine Straße gefunden"
 
