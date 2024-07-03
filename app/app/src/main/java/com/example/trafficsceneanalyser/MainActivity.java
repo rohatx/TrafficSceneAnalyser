@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton btnBildHochladen;
     ImageButton btnBildAufnehmen;
+    ImageButton btnBildInternet;
     private static final int PICK_IMAGE_REQUEST = 1;
     private FloatingActionButton mainFab, fab1, fab2; // Menu bar funktion
     private TokenManager tokenManager;
@@ -52,12 +53,19 @@ public class MainActivity extends AppCompatActivity {
                 fab2.hide();
             }
         });
+        fab1.setOnClickListener(view -> {
+            Intent openModels = new Intent(this, ModelListActivity.class);
+            startActivity(openModels);
+        });
+
         Log.v("Pfad", "Aktueller Pfad: " + getPackageName());
 
         btnBildHochladen = findViewById(R.id.btnBildHochladen);
         btnBildHochladen.setOnClickListener(view -> openImagePicker());
         btnBildAufnehmen = findViewById(R.id.btnBildAufnehmen);
         btnBildAufnehmen.setOnClickListener(view -> openImageTaker());
+        btnBildInternet = findViewById(R.id.btnBildInternet);
+        btnBildInternet.setOnClickListener(view -> openUrlPage());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -80,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
         if (tokenManager.isLoggedIn()) {
             // open cameraPage
             Intent i = new Intent(MainActivity.this, CameraActivity.class);
+            startActivity(i);
+        } else {
+            showLoginPrompt();
+        }
+    }
+
+    private void openUrlPage(){
+        if (tokenManager.isLoggedIn()) {
+            Intent i = new Intent(MainActivity.this, getUrlActivity.class);
             startActivity(i);
         } else {
             showLoginPrompt();
