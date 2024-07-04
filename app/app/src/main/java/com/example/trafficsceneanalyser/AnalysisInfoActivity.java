@@ -1,11 +1,21 @@
 package com.example.trafficsceneanalyser;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -16,6 +26,7 @@ import android.net.Uri;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class AnalysisInfoActivity extends AppCompatActivity implements UploadImageCallback {
@@ -89,6 +100,9 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                 currentImageIndex++;
                 processNextImage();
             }
+        } else {
+            // benachrichtigung, dass alle Bilder fertig analysiert wurden
+            makeNotification();
         }
     }
 
@@ -108,5 +122,30 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         adapter.notifyItemChanged(currentImageIndex);
         currentImageIndex++;
         processNextImage();
+    }
+
+    public void makeNotification(){
+        String chanelID = "CHANNEL_ID";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),chanelID);
+        builder.setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("Bilder Analyse abgeschlossen")
+            .setContentText("Ihre hochgeladen Bilder wurden fertig analysiert")
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel notificationChannel =
+                    notificationManager.getNotificationChannel(chanelID);
+            if (notificationChannel == null) {
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                notificationChannel = new NotificationChannel(chanelID, "name", importance);
+                notificationChannel.setLightColor(Color.BLUE);
+                notificationChannel.enableVibration(true);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+        }
+        notificationManager.notify(0,builder.build());
     }
 }
