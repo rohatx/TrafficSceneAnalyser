@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
+
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -38,6 +41,8 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
     private ImageOutputAdapter adapter;
     private List<ImageOutput> imageOutputList = new ArrayList<>();
     private int currentImageIndex = 0;
+    LottieAnimationView animationView;
+    LottieAnimationView animationDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             return insets;
         });
 
+        animationView = findViewById(R.id.animation);
+        animationDone = findViewById(R.id.animationdone);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ImageOutputAdapter(imageOutputList, this);
@@ -58,6 +65,10 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         Intent intent = getIntent();
         uriInfo = (String[][]) intent.getSerializableExtra("uriInfo");
         selectedModel = intent.getStringExtra("selectedModel");
+
+        // Ladeanimation Starten
+        animationView.setVisibility(View.VISIBLE);
+        animationView.playAnimation();
 
         // Add home button listener
         findViewById(R.id.homeButton).setOnClickListener(view -> {
@@ -101,8 +112,18 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                 processNextImage();
             }
         } else {
-            // benachrichtigung, dass alle Bilder fertig analysiert wurden
-            makeNotification();
+            // Ladeanimation beenden
+            animationView.pauseAnimation();
+            animationView.setVisibility(View.GONE);
+            // Abgeschlossen Animation ausführen
+            animationDone.setVisibility(View.VISIBLE);
+            animationDone.playAnimation();
+            // benachrichtigung, dass alle Bilder fertig analysiert wurden, wenn app geschlossen
+            AppLifecycleObserver lifecycleObserver = new AppLifecycleObserver(this);
+            getLifecycle().addObserver(lifecycleObserver);
+            if (!lifecycleObserver.AppOpen){
+                lifecycleObserver.makeNotification();
+            }
         }
     }
 
@@ -122,30 +143,5 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         adapter.notifyItemChanged(currentImageIndex);
         currentImageIndex++;
         processNextImage();
-    }
-
-    public void makeNotification(){
-        String chanelID = "CHANNEL_ID";
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),chanelID);
-        builder.setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("Bilder Analyse abgeschlossen")
-            .setContentText("Ihre hochgeladen Bilder wurden fertig analysiert")
-            .setAutoCancel(true)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel notificationChannel =
-                    notificationManager.getNotificationChannel(chanelID);
-            if (notificationChannel == null) {
-                int importance = NotificationManager.IMPORTANCE_HIGH;
-                notificationChannel = new NotificationChannel(chanelID, "name", importance);
-                notificationChannel.setLightColor(Color.BLUE);
-                notificationChannel.enableVibration(true);
-                notificationManager.createNotificationChannel(notificationChannel);
-            }
-        }
-        notificationManager.notify(0,builder.build());
     }
 }
