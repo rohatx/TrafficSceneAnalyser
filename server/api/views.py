@@ -53,13 +53,34 @@ class PictureExplainView(views.APIView):
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    permission_classes_by_action = {'create': [AllowAnyForRegistration], 'default': [TokenAuthentication]}
+    permission_classes_by_action = {'create': [AllowAnyForRegistration], 'default': [IsAuthenticated]}
 
     def get_permissions(self):
+        if self.action == 'create':
+            self.permission_classes = [AllowAnyForRegistration]
+        else:
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
+
+    def destroy(self, request, *args, **kwargs):
         try:
-            return [permission() for permission in self.permission_classes_by_action[self.action]]
-        except KeyError:
-            return [permission() for permission in self.permission_classes_by_action['default']]
+            user = request.user
+            self.perform_destroy(user)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def perform_destroy(self, instance):
+        instance.delete()
 
 class TokenView(ObtainAuthToken):
     serializer_class = TokenSerializer
+
+class DeleteUserView(views.APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, format=None):
+        user = request.user
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
