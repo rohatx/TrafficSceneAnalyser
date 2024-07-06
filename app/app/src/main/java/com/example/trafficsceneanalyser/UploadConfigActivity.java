@@ -155,8 +155,9 @@ public class UploadConfigActivity extends AppCompatActivity {
                         viewLatitude.setText("Latitude: " + df.format(Double.parseDouble(uriInfo[position][1])));
                         viewLongitude.setText("Longitude: " + df.format(Double.parseDouble(uriInfo[position][2])));
                     } else {
-                        viewLatitude.setText("No Coordinates");
-                        viewLongitude.setText("No Coordinates");
+                        // Use default coordinates if actual coordinates are not available
+                        viewLatitude.setText("Latitude: " + df.format(DEFAULT_LATITUDE));
+                        viewLongitude.setText("Longitude: " + df.format(DEFAULT_LONGITUDE));
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
