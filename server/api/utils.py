@@ -5,7 +5,6 @@ from ollama import generate
 from PIL import Image
 from io import BytesIO
 import json
-from PIL import Image
 import overpy
 import re
 
@@ -14,17 +13,10 @@ IMAGE_QUALITY_CATEGORIES = ["Helligkeit", "Kontrast", "Schärfe", "ganze Objekt 
 GLOBAL_PROMPT = (
     "Ist das auf dem Bild erkennbare Objekt unterfahrbar (Brücke/Ampeln/weitere Metallische Objekte über der Straße)? "
     "Ist es eine Brücke oder ein Tunnel? Bitte antworte im JSON-Format mit 'unterfahrbar: 0/1', 'Brücke: 0/1', "
-    "'Begründung: [Text max. 1 Satz]', 'Vertrauenswürdigkeit: [Wert zwischen 0 und 1]', "
+    "'Tunnel: 0/1', 'Begründung: [Text max. 1 Satz]', 'Vertrauenswürdigkeit: [Wert zwischen 0 und 1]', "
     "'Bild Qualität: [Anzahl der erfüllten Kategorien, 0-5]', 'Probleme: [Falls eine Kategorie nicht erfüllt ist, "
     "genaue Angabe z.B. " + ", ".join(IMAGE_QUALITY_CATEGORIES) + "]'."
 )
-
-# Weighting of variables
-w_CLLM = 0.4
-w_BSC = 0.2
-w_RSC = 0.1
-w_IQS = 0.2
-w_HACC = 0.1
 
 H_ACC = 0.90  # Assuming historical accuracy as 90% (Should be adapted for each LLM when we have the correct statistics)
 
@@ -236,22 +228,28 @@ def query_tunnels_nearby(latitude, longitude):
     result = api.query(query)
 
     if not result.ways:
-        #print("result is empty")
         return False
     if result.ways:
-        #print("result has tunnel")
         return True
-             
 
-def calculate_probability(C_LLM, bridge_or_tunnel_detected, road_detected, I_QS, H_ACC):
-    probability = w_CLLM * C_LLM
-    if bridge_or_tunnel_detected:
-        probability += w_BSC * 1
-    if road_detected:
-        probability += w_RSC * 1
-    probability += w_IQS * I_QS
-    probability += w_HACC * H_ACC
-    return round(min(probability, 1.0),2)
+def calculate_probability(C_LLM, road_detected, I_QS, H_ACC):
+    # Image Quality Adjustment
+    IQS_Adjustment = (1 - I_QS) * 0.05
+    
+    # Historical Accuracy Adjustment
+    HA_Adjustment = 1 - H_ACC
+    
+    # Total Adjustment
+    Adjustment = IQS_Adjustment + HA_Adjustment
+    
+    # If no road detected, reduce the probability by 50%
+    if not road_detected:
+        C_LLM *= 0.5
+    
+    # Final Probability
+    probability = C_LLM * (1 - Adjustment)
+    
+    return round(probability, 2)
 
 def analyze_and_check(base64_image, latitude, longitude, model):
     lmm_response = analyze_image_with_lmm(base64_image, model)
@@ -263,35 +261,34 @@ def analyze_and_check(base64_image, latitude, longitude, model):
         print(f"Response was: {lmm_response}")
         lmm_data = {
             'unterfahrbar': 0,
-            'Brücke/Tunnel': 0,
+            'Brücke': 0,
+            'Tunnel': 0,
             'Begründung': 'LLM response could not be decoded',
             'Vertrauenswürdigkeit': 0,
             'Bild Qualität': 0,
             'Probleme': 'Unbekannt'
         }
 
-    bridge_or_tunnel_detected_by_llm = lmm_data.get('Brücke/Tunnel', 0) == 1
+    bridge_or_tunnel_detected_by_llm = lmm_data.get('Brücke', 0) == 1 or lmm_data.get('Tunnel', 0) == 1
     underridable_by_llm = lmm_data.get('unterfahrbar', 0) == 1
     C_LLM = lmm_data.get('Vertrauenswürdigkeit', 0)
     I_QS = lmm_data.get('Bild Qualität', 0) / 5  # Normalized to [0, 1]
 
-    bridge_detected = query_bridges_nearby(latitude, longitude) if bridge_or_tunnel_detected_by_llm else False
-    tunnel_detected = query_tunnels_nearby(latitude, longitude) if bridge_or_tunnel_detected_by_llm else False
-    road_detected = check_way(latitude, longitude) if underridable_by_llm else False
+    # Check if a road is detected regardless of bridge/tunnel detection
+    road_detected = check_way(latitude, longitude)
     
-    bridge_or_tunnel = bridge_detected or tunnel_detected
-
-    probability = calculate_probability(C_LLM, bridge_or_tunnel, road_detected, I_QS, H_ACC)
+    # Calculate the probability
+    probability = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
 
     sanity_check_result = "Keine Probleme"
     
-    if bridge_or_tunnel_detected_by_llm and not bridge_or_tunnel:
-        sanity_check_result = "Es wurde keine Brücke und kein Tunnel gefunden"
-    elif underridable_by_llm and not road_detected:
+    if not road_detected:
         sanity_check_result = "Es wurde keine Straße gefunden"
+    elif bridge_or_tunnel_detected_by_llm and not (query_bridges_nearby(latitude, longitude) or query_tunnels_nearby(latitude, longitude)):
+        sanity_check_result = "Es wurde keine Brücke und kein Tunnel gefunden"
 
     final_result = {
-        "Berechnete Wahrscheinlichkeit": round(probability, 2),
+        "Berechnete Wahrscheinlichkeit": probability,
         "Ausgabe LLM": underridable_by_llm,
         "Begründung": lmm_data.get('Begründung', ''),
         "Sanity Check": sanity_check_result,
