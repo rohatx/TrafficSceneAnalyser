@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -41,6 +44,10 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
     private ImageOutputAdapter adapter;
     private List<ImageOutput> imageOutputList = new ArrayList<>();
     private int currentImageIndex = 0;
+    private TextView viewErwarteteZeit;
+    private TextView viewModell;
+    private TextView viewAccuracy;
+    private ImageButton btnInfo;
     LottieAnimationView animationView;
     LottieAnimationView animationDone;
 
@@ -65,6 +72,19 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         Intent intent = getIntent();
         uriInfo = (String[][]) intent.getSerializableExtra("uriInfo");
         selectedModel = intent.getStringExtra("selectedModel");
+
+        // Modell, erwatete Zeit, Accuracy und Info anzeigen
+        viewModell = findViewById(R.id.viewModell);
+        viewAccuracy = findViewById(R.id.viewAccuracy);
+        viewErwarteteZeit = findViewById(R.id.viewErwarteteZeit);
+        viewModell.setText(selectedModel);
+
+        btnInfo = findViewById(R.id.btnInfo);
+        btnInfo.setOnClickListener(v -> {
+            Intent infoIntent = new Intent(this, analysisInfoPage.class);
+            infoIntent.putExtra("selectedModel", selectedModel);
+            startActivity(infoIntent);
+        });
 
         // Ladeanimation Starten
         animationView.setVisibility(View.VISIBLE);
