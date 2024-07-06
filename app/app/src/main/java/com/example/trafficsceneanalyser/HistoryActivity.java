@@ -51,7 +51,6 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
         adapter = new ImageOutputAdapter(imageOutputList, this);
         recyclerView.setAdapter(adapter);
 
-        // Verwenden Sie AppCompatImageButton anstelle von Button
         AppCompatImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
 
@@ -101,7 +100,7 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
-                    imageOutputList.clear();
+                    imageOutputList.clear(); // Ensure the list is clear before adding new data
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
@@ -111,12 +110,12 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
                             byte[] decodedString = Base64.decode(input, Base64.DEFAULT);
                             InputStream inputStream = new ByteArrayInputStream(decodedString);
 
-                            imageOutputList.add(0, new ImageOutput(inputStream, output, null)); // Neueste Bilder oben einfügen
+                            imageOutputList.add(0, new ImageOutput(inputStream, output, null)); // Add images to the list
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged(); // Notify the adapter of data changes
                 },
                 error -> {
                     Log.e("Volley Error", error.toString());
@@ -126,7 +125,7 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Token " + tokenManager.getToken()); // Sicherstellen, dass der Token gesendet wird
+                headers.put("Authorization", "Token " + tokenManager.getToken()); // Ensure the token is sent
                 return headers;
             }
         };

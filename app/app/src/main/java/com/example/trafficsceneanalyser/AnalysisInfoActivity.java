@@ -49,10 +49,10 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         selectedModel = intent.getStringExtra("selectedModel");
 
         // Add home button listener
-        //findViewById(R.id.homeButton).setOnClickListener(view -> {
-        //    Intent homeIntent = new Intent(AnalysisInfoActivity.this, MainActivity.class);
-        //    startActivity(homeIntent);
-        //});
+        findViewById(R.id.homeButton).setOnClickListener(view -> {
+            Intent homeIntent = new Intent(AnalysisInfoActivity.this, MainActivity.class);
+            startActivity(homeIntent);
+        });
 
         processNextImage();
     }
