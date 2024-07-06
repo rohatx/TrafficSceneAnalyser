@@ -1,7 +1,7 @@
 package com.example.trafficsceneanalyser;
 
 import android.os.Bundle;
-import android.widget.Button;
+import androidx.appcompat.widget.AppCompatImageButton;
 import android.widget.CheckBox;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +51,8 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
         adapter = new ImageOutputAdapter(imageOutputList, this);
         recyclerView.setAdapter(adapter);
 
-        Button backButton = findViewById(R.id.backButton);
+        // Verwenden Sie AppCompatImageButton anstelle von Button
+        AppCompatImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
 
         filterCheckbox = findViewById(R.id.filterCheckbox);
