@@ -36,7 +36,7 @@ public class UploadConfigActivity extends AppCompatActivity {
     private List<ImageSource> imageSources = new ArrayList<>();
     String[][] uriInfo;
     private static final float DEFAULT_LATITUDE = 37.81713298488588f;
-    private static final float DEFAULT_LONGITUDE = -122.47837630605842f;
+    private static final float DEFAULT_LONGITUDE = -122.47837630605842f; // Test Position im Meer: -12.47837630605842f
 
     private ImageButton infoButton;
 
@@ -155,8 +155,9 @@ public class UploadConfigActivity extends AppCompatActivity {
                         viewLatitude.setText("Latitude: " + df.format(Double.parseDouble(uriInfo[position][1])));
                         viewLongitude.setText("Longitude: " + df.format(Double.parseDouble(uriInfo[position][2])));
                     } else {
-                        viewLatitude.setText("No Coordinates");
-                        viewLongitude.setText("No Coordinates");
+                        // Use default coordinates if actual coordinates are not available
+                        viewLatitude.setText("Latitude: " + df.format(DEFAULT_LATITUDE));
+                        viewLongitude.setText("Longitude: " + df.format(DEFAULT_LONGITUDE));
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
