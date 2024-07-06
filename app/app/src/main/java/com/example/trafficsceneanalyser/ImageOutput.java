@@ -4,14 +4,20 @@ import java.io.InputStream;
 import android.net.Uri;
 
 public class ImageOutput {
+    private String id;
     private InputStream imageStream;
     private String outputText;
     private Uri imageUri;
 
-    public ImageOutput(InputStream imageStream, String outputText, Uri imageUri) {
+    public ImageOutput(String id, InputStream imageStream, String outputText, Uri imageUri) {
+        this.id = id;
         this.imageStream = imageStream;
         this.outputText = outputText;
         this.imageUri = imageUri;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public InputStream getImageStream() {

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -19,28 +20,48 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
 
     private List<ImageOutput> imageOutputList;
     private Context context;
+    private OnDeleteClickListener onDeleteClickListener;
+    private int layoutResId;
 
-    public ImageOutputAdapter(List<ImageOutput> imageOutputList, Context context) {
+    public ImageOutputAdapter(List<ImageOutput> imageOutputList, Context context, OnDeleteClickListener onDeleteClickListener, int layoutResId) {
         this.imageOutputList = imageOutputList;
         this.context = context;
+        this.onDeleteClickListener = onDeleteClickListener;
+        this.layoutResId = layoutResId;
+    }
+
+    public interface OnDeleteClickListener {
+        void onDeleteClick(int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView textViewOutput;
+        public ImageButton deleteButton;
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view, OnDeleteClickListener onDeleteClickListener, int layoutResId) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
             textViewOutput = view.findViewById(R.id.textViewOutput);
+            if (layoutResId == R.layout.item_image_output_history) {
+                deleteButton = view.findViewById(R.id.deleteButton);
+                deleteButton.setOnClickListener(v -> {
+                    if (onDeleteClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onDeleteClickListener.onDeleteClick(position);
+                        }
+                    }
+                });
+            }
         }
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_output, parent, false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResId, parent, false);
+        return new ViewHolder(view, onDeleteClickListener, layoutResId);
     }
 
     @Override

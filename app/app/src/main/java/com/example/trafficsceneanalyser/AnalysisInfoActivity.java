@@ -41,7 +41,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ImageOutputAdapter(imageOutputList, this);
+        adapter = new ImageOutputAdapter(imageOutputList, this, null, R.layout.item_image_output); // Use the original layout
         recyclerView.setAdapter(adapter);
 
         Intent intent = getIntent();
@@ -68,7 +68,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                 Bitmap bitmap = BitmapFactory.decodeStream(inputProcessing);
                 if (bitmap != null) {
                     // Display image immediately
-                    imageOutputList.add(new ImageOutput(inputProcessing, "Waiting for server response...", imageUri));
+                    imageOutputList.add(new ImageOutput(null, inputProcessing, "Waiting for server response...", imageUri));
                     adapter.notifyItemInserted(imageOutputList.size() - 1);
 
                     // Reopen the InputStream for processing
@@ -77,13 +77,13 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                     imageProcessing = new imageProcessing(inputProcessing, imageUri, selectedModel, url, this, this, latitude, longitude);
                     imageProcessing.uploadImage();
                 } else {
-                    imageOutputList.add(new ImageOutput(null, "Failed to load image", imageUri));
+                    imageOutputList.add(new ImageOutput(null, null, "Failed to load image", imageUri));
                     adapter.notifyItemInserted(imageOutputList.size() - 1);
                     currentImageIndex++;
                     processNextImage();
                 }
             } catch (FileNotFoundException e) {
-                imageOutputList.add(new ImageOutput(null, "Image not found", imageUri));
+                imageOutputList.add(new ImageOutput(null, null, "Image not found", imageUri));
                 adapter.notifyItemInserted(imageOutputList.size() - 1);
                 e.printStackTrace();
                 currentImageIndex++;
