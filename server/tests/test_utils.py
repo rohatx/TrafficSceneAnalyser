@@ -64,19 +64,21 @@ class TestImageProcessing(unittest.TestCase):
         H_ACC = 0.85
 
         # Image Quality Adjustment
-        IQS_Adjustment = (1 - I_QS) * 0.05
+        IQS_Adjustment = round((1 - I_QS) * 0.05, 2)
         
         # Historical Accuracy Adjustment
-        HA_Adjustment = 1 - H_ACC
+        HA_Adjustment = round(1 - H_ACC, 2)
         
         # Total Adjustment
-        Adjustment = IQS_Adjustment + HA_Adjustment
+        Adjustment = round(IQS_Adjustment + HA_Adjustment, 2)
         
         # Final Probability
         expected_probability = round(C_LLM * (1 - Adjustment), 2)
         
-        result = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
+        result, details = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
         self.assertEqual(result, expected_probability)
+        self.assertEqual(details["formula"], "P_final = C_LLM * road_adjustment * (1 - (IQS_Adjustment + HA_Adjustment))")
+        self.assertEqual(details["calculation"], f"P_final = {C_LLM} * 1 * (1 - ({IQS_Adjustment} + {HA_Adjustment}))")
 
     def test_calculate_probability_no_road(self):
         C_LLM = 0.9
@@ -85,19 +87,21 @@ class TestImageProcessing(unittest.TestCase):
         H_ACC = 0.85
 
         # Image Quality Adjustment
-        IQS_Adjustment = (1 - I_QS) * 0.05
+        IQS_Adjustment = round((1 - I_QS) * 0.05, 2)
         
         # Historical Accuracy Adjustment
-        HA_Adjustment = 1 - H_ACC
+        HA_Adjustment = round(1 - H_ACC, 2)
         
         # Total Adjustment
-        Adjustment = IQS_Adjustment + HA_Adjustment
+        Adjustment = round(IQS_Adjustment + HA_Adjustment, 2)
         
         # Final Probability with road detection penalty
         expected_probability = round(C_LLM * 0.5 * (1 - Adjustment), 2)
         
-        result = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
+        result, details = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
         self.assertEqual(result, expected_probability)
+        self.assertEqual(details["formula"], "P_final = C_LLM * road_adjustment * (1 - (IQS_Adjustment + HA_Adjustment))")
+        self.assertEqual(details["calculation"], f"P_final = {C_LLM } * 0.5 * (1 - ({IQS_Adjustment} + {HA_Adjustment}))")
 
 if __name__ == '__main__':
     unittest.main()

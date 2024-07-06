@@ -170,7 +170,7 @@ def query_bridges_nearby(latitude, longitude):
         return False
     return True
 
-## Street nearbey
+## Street nearby
 def check_way(latitude, longitude):
     radius = 100
     api = overpy.Overpass()
@@ -234,22 +234,26 @@ def query_tunnels_nearby(latitude, longitude):
 
 def calculate_probability(C_LLM, road_detected, I_QS, H_ACC):
     # Image Quality Adjustment
-    IQS_Adjustment = (1 - I_QS) * 0.05
+    IQS_Adjustment = round((1 - I_QS) * 0.05, 2)
     
     # Historical Accuracy Adjustment
-    HA_Adjustment = 1 - H_ACC
+    HA_Adjustment = round(1 - H_ACC, 2)
     
     # Total Adjustment
-    Adjustment = IQS_Adjustment + HA_Adjustment
+    Adjustment = round(IQS_Adjustment + HA_Adjustment, 2)
     
+    C_LLM_adjusted = C_LLM
     # If no road detected, reduce the probability by 50%
     if not road_detected:
-        C_LLM *= 0.5
+        C_LLM_adjusted = round(C_LLM * 0.5, 2)
     
     # Final Probability
-    probability = C_LLM * (1 - Adjustment)
+    probability = round(C_LLM_adjusted * (1 - Adjustment), 2)
     
-    return round(probability, 2)
+    return probability, {
+        "formula": "P_final = C_LLM * road_adjustment * (1 - (IQS_Adjustment + HA_Adjustment))",
+        "calculation": f"P_final = {C_LLM} * {'0.5' if not road_detected else '1'} * (1 - ({IQS_Adjustment} + {HA_Adjustment}))"
+    }
 
 def analyze_and_check(base64_image, latitude, longitude, model):
     lmm_response = analyze_image_with_lmm(base64_image, model)
@@ -277,8 +281,8 @@ def analyze_and_check(base64_image, latitude, longitude, model):
     # Check if a road is detected regardless of bridge/tunnel detection
     road_detected = check_way(latitude, longitude)
     
-    # Calculate the probability
-    probability = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
+    # Calculate the probability and get adjustment details
+    probability, adjustment_details = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
 
     sanity_check_result = "Keine Probleme"
     
@@ -292,7 +296,9 @@ def analyze_and_check(base64_image, latitude, longitude, model):
         "Ausgabe LLM": underridable_by_llm,
         "Begründung": lmm_data.get('Begründung', ''),
         "Sanity Check": sanity_check_result,
-        "Bild Qualität": "Keine Probleme" if I_QS == 1 else lmm_data.get('Probleme', '')
+        "Bild Qualität": "Keine Probleme" if I_QS == 1 else lmm_data.get('Probleme', ''),
+        "Formel": adjustment_details["formula"],
+        "Berechnung": adjustment_details["calculation"]
     }
     
     return json.dumps(final_result, ensure_ascii=False, indent=2)
