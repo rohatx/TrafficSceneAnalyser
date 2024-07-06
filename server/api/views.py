@@ -9,7 +9,6 @@ from api.serializers import PictureExplainSerializer, UserSerializer, TokenSeria
 from api.models import CodeExplainer
 from api.permissions import AllowAnyForRegistration
 
-# views.py
 class PictureExplainView(views.APIView):
     serializer_class = PictureExplainSerializer
     authentication_classes = [TokenAuthentication]
@@ -39,7 +38,18 @@ class PictureExplainView(views.APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    
+    def delete(self, request, format=None):
+        image_id = request.query_params.get('id')
+        if not image_id:
+            return Response({"error": "ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            image = CodeExplainer.objects.get(id=image_id, user=request.user)
+            image.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except CodeExplainer.DoesNotExist:
+            return Response({"error": "Image not found"}, status=status.HTTP_404_NOT_FOUND)
+
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
