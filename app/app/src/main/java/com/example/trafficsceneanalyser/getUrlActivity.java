@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,6 +23,7 @@ public class getUrlActivity extends AppCompatActivity {
     EditText url;
     Button btnGetUrl;
     Button btnGoToConfig;
+
     ArrayList<ImageSource> arrayList = new ArrayList<>();
 
     @Override
@@ -35,6 +37,11 @@ public class getUrlActivity extends AppCompatActivity {
             return insets;
         });
 
+        ImageButton homebutton = findViewById(R.id.homeButton);
+        homebutton.setOnClickListener(view -> {
+            Intent homeIntent = new Intent(getUrlActivity.this, MainActivity.class);
+            startActivity(homeIntent);
+        });
 
         url = findViewById(R.id.etURL);
         btnGetUrl = findViewById(R.id.btnGetUrl);
@@ -60,6 +67,7 @@ public class getUrlActivity extends AppCompatActivity {
         });
         btnGoToConfig.setOnClickListener(view -> goToConfig());
     }
+
 
     public void goToConfig() {
         Intent i = new Intent(this, UploadConfigActivity.class);
