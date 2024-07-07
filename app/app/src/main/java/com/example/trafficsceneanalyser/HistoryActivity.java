@@ -1,7 +1,7 @@
 package com.example.trafficsceneanalyser;
 
 import android.os.Bundle;
-import android.widget.Button;
+import androidx.appcompat.widget.AppCompatImageButton;
 import android.widget.CheckBox;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HistoryActivity extends AppCompatActivity implements MultiSelectSpinner.MultiSelectSpinnerListener {
+public class HistoryActivity extends AppCompatActivity implements MultiSelectSpinner.MultiSelectSpinnerListener, ImageOutputAdapter.OnDeleteClickListener {
 
     private RecyclerView recyclerView;
     private ImageOutputAdapter adapter;
@@ -48,10 +49,10 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ImageOutputAdapter(imageOutputList, this);
+        adapter = new ImageOutputAdapter(imageOutputList, this, this, R.layout.item_image_output_history); // Use the new layout
         recyclerView.setAdapter(adapter);
 
-        Button backButton = findViewById(R.id.backButton);
+        AppCompatImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
 
         filterCheckbox = findViewById(R.id.filterCheckbox);
@@ -100,22 +101,23 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
-                    imageOutputList.clear();
+                    imageOutputList.clear(); // Ensure the list is clear before adding new data
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
+                            String id = jsonObject.getString("id");
                             String input = jsonObject.getString("_input");
                             String output = jsonObject.getString("_output");
 
                             byte[] decodedString = Base64.decode(input, Base64.DEFAULT);
                             InputStream inputStream = new ByteArrayInputStream(decodedString);
 
-                            imageOutputList.add(0, new ImageOutput(inputStream, output, null)); // Neueste Bilder oben einfügen
+                            imageOutputList.add(0, new ImageOutput(id, inputStream, output, null)); // Add images to the list
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged(); // Notify the adapter of data changes
                 },
                 error -> {
                     Log.e("Volley Error", error.toString());
@@ -125,7 +127,7 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Token " + tokenManager.getToken()); // Sicherstellen, dass der Token gesendet wird
+                headers.put("Authorization", "Token " + tokenManager.getToken()); // Ensure the token is sent
                 return headers;
             }
         };
@@ -141,5 +143,42 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
     @Override
     public void onItemsSelected(List<String> selectedItems) {
         loadHistory();
+    }
+
+    @Override
+    public void onDeleteClick(int position) {
+        ImageOutput imageOutput = imageOutputList.get(position);
+        deleteImage(imageOutput.getId(), position);
+    }
+
+    private void deleteImage(String id, int position) {
+        String url = getResources().getString(R.string.server_url) + "/api/v1/picture-explain/?id=" + id;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
+                response -> {
+                    imageOutputList.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    Toast.makeText(this, "Bild erfolgreich gelöscht", Toast.LENGTH_SHORT).show();
+                },
+                error -> {
+                    Log.e("Volley Error", error.toString());
+                    Toast.makeText(this, "Fehler beim Löschen des Bildes", Toast.LENGTH_SHORT).show();
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Token " + tokenManager.getToken());
+                return headers;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
     }
 }

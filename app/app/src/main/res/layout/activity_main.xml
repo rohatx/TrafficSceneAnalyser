@@ -74,7 +74,7 @@
             android:src="@drawable/galerieicon1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintHorizontal_bias="0.76"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.499" />
@@ -88,17 +88,17 @@
             android:src="@drawable/cameraicon1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintHorizontal_bias="0.24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnBildInternet"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="149dp"
+            android:layout_height="126dp"
             android:backgroundTint="#00F8F6F6"
             android:scaleType="fitCenter"
-            android:src="@drawable/google"
+            android:src="@drawable/url"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -128,10 +128,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.757"
+            app:layout_constraintHorizontal_bias="0.755"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnBildHochladen"
-            app:layout_constraintVertical_bias="0.037" />
+            app:layout_constraintVertical_bias="0.032" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_fab"
@@ -186,7 +186,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="52dp"
             android:text="Von URL laden"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/btnBildInternet"
