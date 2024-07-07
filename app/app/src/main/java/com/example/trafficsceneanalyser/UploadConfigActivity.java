@@ -85,7 +85,6 @@ public class UploadConfigActivity extends AppCompatActivity {
                 }
                 // Read coordinates, logic in imageMetaData
                 imageMetaData metaData = new imageMetaData(inputMetaData);
-
                 uriInfo[i][0] = images[i].toString();
                 if (metaData.hasCoordinates()) {
                     uriInfo[i][1] = String.valueOf(metaData.getLatitude());

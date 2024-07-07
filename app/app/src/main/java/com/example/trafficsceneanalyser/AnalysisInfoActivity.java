@@ -1,11 +1,21 @@
 package com.example.trafficsceneanalyser;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -13,9 +23,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class AnalysisInfoActivity extends AppCompatActivity implements UploadImageCallback {
@@ -27,6 +44,12 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
     private ImageOutputAdapter adapter;
     private List<ImageOutput> imageOutputList = new ArrayList<>();
     private int currentImageIndex = 0;
+    private TextView viewErwarteteZeit;
+    private TextView viewModell;
+    private TextView viewAccuracy;
+    private ImageButton btnInfo;
+    LottieAnimationView animationView;
+    LottieAnimationView animationDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +62,8 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             return insets;
         });
 
+        animationView = findViewById(R.id.animation);
+        animationDone = findViewById(R.id.animationdone);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ImageOutputAdapter(imageOutputList, this, null, R.layout.item_image_output); // Use the original layout
@@ -47,6 +72,23 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         Intent intent = getIntent();
         uriInfo = (String[][]) intent.getSerializableExtra("uriInfo");
         selectedModel = intent.getStringExtra("selectedModel");
+
+        // Modell, erwatete Zeit, Accuracy und Info anzeigen
+        viewModell = findViewById(R.id.viewModell);
+        viewAccuracy = findViewById(R.id.viewAccuracy);
+        viewErwarteteZeit = findViewById(R.id.viewErwarteteZeit);
+        viewModell.setText(selectedModel);
+
+        btnInfo = findViewById(R.id.btnInfo);
+        btnInfo.setOnClickListener(v -> {
+            Intent infoIntent = new Intent(this, analysisInfoPage.class);
+            infoIntent.putExtra("selectedModel", selectedModel);
+            startActivity(infoIntent);
+        });
+
+        // Ladeanimation Starten
+        animationView.setVisibility(View.VISIBLE);
+        animationView.playAnimation();
 
         // Add home button listener
         findViewById(R.id.homeButton).setOnClickListener(view -> {
@@ -88,6 +130,19 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                 e.printStackTrace();
                 currentImageIndex++;
                 processNextImage();
+            }
+        } else {
+            // Ladeanimation beenden
+            animationView.pauseAnimation();
+            animationView.setVisibility(View.GONE);
+            // Abgeschlossen Animation ausführen
+            animationDone.setVisibility(View.VISIBLE);
+            animationDone.playAnimation();
+            // benachrichtigung, dass alle Bilder fertig analysiert wurden, wenn app geschlossen
+            AppLifecycleObserver lifecycleObserver = new AppLifecycleObserver(this);
+            getLifecycle().addObserver(lifecycleObserver);
+            if (!lifecycleObserver.AppOpen){
+                lifecycleObserver.makeNotification();
             }
         }
     }

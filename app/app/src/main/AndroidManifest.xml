@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Internet-Berechtigung hinzufügen -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Speicher- Berechtigung hinzufügen -->
+    <!-- Berechtigung für benachrichtigungen -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission
