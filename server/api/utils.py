@@ -7,6 +7,9 @@ from io import BytesIO
 import json
 import overpy
 import re
+import numpy as np
+import cv2
+from ultralytics import YOLO
 
 # Define the global prompt template
 IMAGE_QUALITY_CATEGORIES = ["Helligkeit", "Kontrast", "Schärfe", "ganze Objekt zu sehen", "Nähe zum Objekt"]
@@ -255,6 +258,51 @@ def calculate_probability(C_LLM, road_detected, I_QS, H_ACC):
         "calculation": f"P_final = {C_LLM} * {'0.5' if not road_detected else '1'} * (1 - ({IQS_Adjustment} + {HA_Adjustment}))"
     }
 
+model = YOLO("yolov8n.pt", "v8")
+
+def detect_traffic_lights(base64_image):
+    image_bytes = base64.b64decode(base64_image)
+    np_image = np.frombuffer(image_bytes, np.uint8)
+    img = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
+
+    detection_output = model.predict(source=img, conf=0.25, save=False)
+
+    class_list = []
+    with open("utils/coco.txt", "r") as f:
+        class_list = f.read().strip().split("\n")
+
+    for result in detection_output[0].boxes:
+        clsID = result.cls.numpy()[0]
+        class_name = class_list[int(clsID)]
+        if class_name == "traffic light":
+            conf = result.conf.numpy()[0]
+            bb = result.xyxy.numpy()[0]
+
+            color = (0, 0, 255)
+
+            cv2.rectangle(
+                img,
+                (int(bb[0]), int(bb[1])),
+                (int(bb[2]), int(bb[3])),
+                color,
+                3
+            )
+
+            font = cv2.FONT_HERSHEY_COMPLEX
+            cv2.putText(
+                img,
+                f"{class_name} {round(conf, 2)}",
+                (int(bb[0]), int(bb[1]) - 10),
+                font,
+                1,
+                (255, 255, 255),
+                2
+            )
+
+    _, buffer = cv2.imencode('.png', img)
+    marked_image_base64 = base64.b64encode(buffer).decode('utf-8')
+    return marked_image_base64
+
 def analyze_and_check(base64_image, latitude, longitude, model):
     lmm_response = analyze_image_with_lmm(base64_image, model)
     
@@ -276,12 +324,10 @@ def analyze_and_check(base64_image, latitude, longitude, model):
     bridge_or_tunnel_detected_by_llm = lmm_data.get('Brücke', 0) == 1 or lmm_data.get('Tunnel', 0) == 1
     underridable_by_llm = lmm_data.get('unterfahrbar', 0) == 1
     C_LLM = lmm_data.get('Vertrauenswürdigkeit', 0)
-    I_QS = lmm_data.get('Bild Qualität', 0) / 5  # Normalized to [0, 1]
+    I_QS = lmm_data.get('Bild Qualität', 0) / 5
 
-    # Check if a road is detected regardless of bridge/tunnel detection
     road_detected = check_way(latitude, longitude)
     
-    # Calculate the probability and get adjustment details
     probability, adjustment_details = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
 
     sanity_check_result = "Keine Probleme"
@@ -300,5 +346,7 @@ def analyze_and_check(base64_image, latitude, longitude, model):
         "Formel": adjustment_details["formula"],
         "Berechnung": adjustment_details["calculation"]
     }
-    
-    return json.dumps(final_result, ensure_ascii=False, indent=2)
+
+    marked_image = detect_traffic_lights(base64_image)
+
+    return json.dumps(final_result, ensure_ascii=False, indent=2), marked_image

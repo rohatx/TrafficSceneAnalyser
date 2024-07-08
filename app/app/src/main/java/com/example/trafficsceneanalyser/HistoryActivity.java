@@ -106,10 +106,10 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
                             String id = jsonObject.getString("id");
-                            String input = jsonObject.getString("_input");
+                            String marked_image = jsonObject.getString("marked_image");
                             String output = jsonObject.getString("_output");
 
-                            byte[] decodedString = Base64.decode(input, Base64.DEFAULT);
+                            byte[] decodedString = Base64.decode(marked_image, Base64.DEFAULT);
                             InputStream inputStream = new ByteArrayInputStream(decodedString);
 
                             imageOutputList.add(0, new ImageOutput(id, inputStream, output, null)); // Add images to the list
