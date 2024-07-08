@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import signal
+import os
 
 def run_tests():
     result = subprocess.run(['pytest'], capture_output=True, text=True)
@@ -10,8 +11,13 @@ def run_tests():
         sys.exit(result.returncode)
 
 def start_server():
-    process = subprocess.Popen(['python3', 'manage.py', 'runserver', '0.0.0.0:8000'])
+    process = subprocess.Popen(['python3', 'manage.py', 'runserver', '0.0.0.0:8000'], preexec_fn=os.setsid)
     return process
+
+def stop_server(process):
+    os.killpg(os.getpgid(process.pid), signal.SIGINT)
+    process.wait()
+    print("Server stopped gracefully.")
 
 if __name__ == '__main__':
     run_tests()
@@ -21,6 +27,4 @@ if __name__ == '__main__':
         server_process.wait()
     except KeyboardInterrupt:
         print("\nShutting down server...")
-        server_process.send_signal(signal.SIGINT)
-        server_process.wait()
-        print("Server stopped gracefully.")
+        stop_server(server_process)
