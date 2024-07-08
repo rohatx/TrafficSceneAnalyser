@@ -112,7 +112,7 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
                             byte[] decodedString = Base64.decode(marked_image, Base64.DEFAULT);
                             InputStream inputStream = new ByteArrayInputStream(decodedString);
 
-                            imageOutputList.add(0, new ImageOutput(id, inputStream, output, null)); // Add images to the list
+                            imageOutputList.add(0, new ImageOutput(id, inputStream, output, null, marked_image)); // Add images to the list
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -127,7 +127,7 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Token " + tokenManager.getToken()); // Ensure the token is sent
+                headers.put("Authorization", "Token " + tokenManager.getToken());
                 return headers;
             }
         };

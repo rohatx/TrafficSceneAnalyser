@@ -67,8 +67,9 @@ public class imageProcessing {
                     response -> {
                         try {
                             String output = response.getString("_output");
+                            String markedImage = response.getString("marked_image");
 
-                            callback.onSuccess(output);
+                            callback.onSuccess(output, markedImage);
                         } catch (JSONException e) {
                             Log.e("JSON Error", "Error parsing JSON response.");
                             callback.onError("Error parsing JSON response.");
