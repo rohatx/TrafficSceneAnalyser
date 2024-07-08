@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,10 +70,14 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
         ImageOutput imageOutput = imageOutputList.get(position);
         holder.textViewOutput.setText(imageOutput.getOutputText());
 
-        Uri imageUri = imageOutput.getImageUri();
-        if (imageUri != null) {
+        if (imageOutput.getMarkedImage() != null) {
+            byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.imageView.setImageBitmap(bitmap);
+            holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
+        } else if (imageOutput.getImageUri() != null) {
             try {
-                InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+                InputStream inputStream = context.getContentResolver().openInputStream(imageOutput.getImageUri());
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 holder.imageView.setImageBitmap(bitmap);
                 holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter

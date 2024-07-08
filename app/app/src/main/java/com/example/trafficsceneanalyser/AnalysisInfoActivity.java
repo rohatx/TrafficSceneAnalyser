@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
@@ -29,10 +30,10 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class AnalysisInfoActivity extends AppCompatActivity implements UploadImageCallback {
@@ -110,7 +111,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                 Bitmap bitmap = BitmapFactory.decodeStream(inputProcessing);
                 if (bitmap != null) {
                     // Display image immediately
-                    imageOutputList.add(new ImageOutput(null, inputProcessing, "Waiting for server response...", imageUri));
+                    imageOutputList.add(new ImageOutput(null, inputProcessing, "Waiting for server response...", imageUri, null));
                     adapter.notifyItemInserted(imageOutputList.size() - 1);
 
                     // Reopen the InputStream for processing
@@ -119,13 +120,13 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                     imageProcessing = new imageProcessing(inputProcessing, imageUri, selectedModel, url, this, this, latitude, longitude);
                     imageProcessing.uploadImage();
                 } else {
-                    imageOutputList.add(new ImageOutput(null, null, "Failed to load image", imageUri));
+                    imageOutputList.add(new ImageOutput(null, null, "Failed to load image", imageUri, null));
                     adapter.notifyItemInserted(imageOutputList.size() - 1);
                     currentImageIndex++;
                     processNextImage();
                 }
             } catch (FileNotFoundException e) {
-                imageOutputList.add(new ImageOutput(null, null, "Image not found", imageUri));
+                imageOutputList.add(new ImageOutput(null, null, "Image not found", imageUri, null));
                 adapter.notifyItemInserted(imageOutputList.size() - 1);
                 e.printStackTrace();
                 currentImageIndex++;
@@ -148,9 +149,13 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
     }
 
     @Override
-    public void onSuccess(String output) {
+    public void onSuccess(String output, String markedImage) {
+        byte[] decodedString = Base64.decode(markedImage, Base64.DEFAULT);
+        InputStream inputStream = new ByteArrayInputStream(decodedString);
         ImageOutput imageOutput = imageOutputList.get(currentImageIndex);
         imageOutput.setOutputText(output);
+        imageOutput.setImageStream(inputStream);
+        imageOutput.setMarkedImage(markedImage);
         adapter.notifyItemChanged(currentImageIndex);
         currentImageIndex++;
         processNextImage();

@@ -8,12 +8,14 @@ public class ImageOutput {
     private InputStream imageStream;
     private String outputText;
     private Uri imageUri;
+    private String markedImage;
 
-    public ImageOutput(String id, InputStream imageStream, String outputText, Uri imageUri) {
+    public ImageOutput(String id, InputStream imageStream, String outputText, Uri imageUri, String markedImage) {
         this.id = id;
         this.imageStream = imageStream;
         this.outputText = outputText;
         this.imageUri = imageUri;
+        this.markedImage = markedImage;
     }
 
     public String getId() {
@@ -38,5 +40,17 @@ public class ImageOutput {
 
     public void setImageUri(Uri imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public String getMarkedImage() {
+        return markedImage;
+    }
+
+    public void setMarkedImage(String markedImage) {
+        this.markedImage = markedImage;
+    }
+
+    public void setImageStream(InputStream imageStream) {
+        this.imageStream = imageStream;
     }
 }
