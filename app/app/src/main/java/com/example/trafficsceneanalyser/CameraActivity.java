@@ -18,21 +18,17 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationRequest;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -44,7 +40,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 
 public class CameraActivity extends AppCompatActivity {
 
-    Button capture;
+    ImageButton capture;
     private PreviewView previewView;
     int cameraFacing = CameraSelector.LENS_FACING_BACK;
     private final ActivityResultLauncher<String[]> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
