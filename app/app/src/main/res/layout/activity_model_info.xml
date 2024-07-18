@@ -21,34 +21,35 @@
         app:layout_constraintVertical_bias="0.12"
         app:srcCompat="@drawable/background" />
 
+    <!-- MODEL INFO TEXT -->
+
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="484dp"
         android:layout_height="773dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/perfectlayout2" />
 
-    <!-- MODEL INFO TEXT -->
-
     <TextView
         android:id="@+id/modelInfoDescTextView"
         android:layout_width="333dp"
         android:layout_height="116dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="556dp"
         android:text="Description"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/modelInfoHeadlineTextview"
-        android:layout_width="165dp"
-        android:layout_height="45dp"
+        android:layout_width="230dp"
+        android:layout_height="70dp"
         android:text="SelectedModel"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -66,6 +67,7 @@
         android:layout_marginBottom="16dp"
         android:autoLink="web"
         android:text="@string/modelInfoDevs"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
@@ -77,6 +79,7 @@
         android:layout_height="42dp"
         android:layout_marginBottom="16dp"
         android:text="@string/modelInfoCosts"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/modelInfoDevsTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -95,18 +98,19 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/image_not_found" />
 
-    <!-- BENCHMARK TABLE -->
-
     <ImageView
         android:id="@+id/modelInfoBenchmarkImageView"
-        android:layout_width="352dp"
-        android:layout_height="119dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="355dp"
+        android:layout_height="772dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modelInfoDescTextView"
-        app:srcCompat="@drawable/benchmark_placeholder" />
+        app:layout_constraintTop_toTopOf="@+id/modelInfoLogoImageView"
+        app:layout_constraintVertical_bias="0.536"
+        app:srcCompat="@drawable/tabelle" />
+
+    <!-- BENCHMARK TABLE -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
