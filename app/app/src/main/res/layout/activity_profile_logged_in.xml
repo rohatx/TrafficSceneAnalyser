@@ -145,7 +145,8 @@
         android:layout_height="wrap_content"
         android:text="Account löschen"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/deleteAccountButton"
-        tools:layout_editor_absoluteX="145dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteAccountButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
