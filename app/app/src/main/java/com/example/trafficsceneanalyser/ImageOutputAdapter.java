@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +39,14 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView textViewOutput;
+        public TextView textViewAccuracy;
         public ImageButton deleteButton;
 
         public ViewHolder(View view, OnDeleteClickListener onDeleteClickListener, int layoutResId) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
             textViewOutput = view.findViewById(R.id.textViewOutput);
+            textViewAccuracy = view.findViewById(R.id.textViewAccuracy);
             if (layoutResId == R.layout.item_image_output_history) {
                 deleteButton = view.findViewById(R.id.deleteButton);
                 deleteButton.setOnClickListener(v -> {
@@ -68,7 +71,8 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ImageOutput imageOutput = imageOutputList.get(position);
-        holder.textViewOutput.setText(imageOutput.getOutputText());
+        holder.textViewOutput.setText(imageOutput.getLmmOutput());
+        holder.textViewAccuracy.setText(imageOutput.getProbability());
 
         if (imageOutput.getMarkedImage() != null) {
             byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);

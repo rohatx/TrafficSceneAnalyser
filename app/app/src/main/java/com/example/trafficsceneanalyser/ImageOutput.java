@@ -1,7 +1,13 @@
 package com.example.trafficsceneanalyser;
 
+import static android.provider.Settings.System.getString;
+
 import java.io.InputStream;
 import android.net.Uri;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ImageOutput {
     private String id;
@@ -9,6 +15,19 @@ public class ImageOutput {
     private String outputText;
     private Uri imageUri;
     private String markedImage;
+    // Keys for the json Parcing
+    private String lmmOutputKey = "Ausgabe LLM";
+    private String probabilityKey = "Berechnete Wahrscheinlichkeit";
+    private String reasoningKey = "Begründung";
+    private String sanityCheckKey = "Sanity Check";
+    private String imageQualityKey = "Bild Qualität";
+    // Strings for the json Outputs
+    private String lmmOutput = "Waiting for server response...";
+    private String probability;
+    private String reasoning;
+    private String sanityCheck;
+    private String imageQuality;
+
 
     public ImageOutput(String id, InputStream imageStream, String outputText, Uri imageUri, String markedImage) {
         this.id = id;
@@ -53,4 +72,64 @@ public class ImageOutput {
     public void setImageStream(InputStream imageStream) {
         this.imageStream = imageStream;
     }
+
+    //Getter for all the json values
+    public String getLmmOutput() {
+        return lmmOutput;
+    }
+    public String getProbability() {
+        return probability;
+    }
+    public String getReasoning() {
+        return reasoning;
+    }
+    public String getSanityCheck() {
+        return sanityCheck;
+    }
+    public String getImageQuality() {
+        return imageQuality;
+    }
+    public boolean isUnderrideable() {
+        if (lmmOutput.equals("false")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // if the output returns the json then begin parsing
+    public void setOutputJSON() {
+        try{
+            JSONObject jsonObject = new JSONObject(outputText);
+            lmmOutput = jsonObject.getString(lmmOutputKey);
+            probability = jsonObject.getString(probabilityKey);
+            reasoning = jsonObject.getString(reasoningKey);
+            sanityCheck = jsonObject.getString(sanityCheckKey);
+            imageQuality = jsonObject.getString(imageQualityKey);
+        } catch (JSONException e) {
+            Log.e("ImageOutput", "Error parsing JSON: " + e.getMessage());
+        }
+    }
+
+    //Setter for all the json values
+    // can be deleted ?
+    public void setLmmOutput(String lmmOutput) {
+        this.lmmOutput = lmmOutput;
+    }
+    public void setProbability(String probability) {
+        this.probability = probability;
+    }
+    public void setReasoning(String reasoning) {
+        this.reasoning = reasoning;
+    }
+    public void setSanityCheck(String sanityCheck) {
+        this.sanityCheck = sanityCheck;
+    }
+    public void setImageQuality(String imageQuality) {
+        this.imageQuality = imageQuality;
+    }
+
+
+
+
 }

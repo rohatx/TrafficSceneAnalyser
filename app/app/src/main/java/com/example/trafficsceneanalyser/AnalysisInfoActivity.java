@@ -49,8 +49,8 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
     private TextView viewModell;
     private TextView viewAccuracy;
     private ImageButton btnInfo;
-    LottieAnimationView animationView;
-    LottieAnimationView animationDone;
+    //LottieAnimationView animationView;
+    //LottieAnimationView animationDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +63,8 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             return insets;
         });
 
-        animationView = findViewById(R.id.animation);
-        animationDone = findViewById(R.id.animationdone);
+        //animationView = findViewById(R.id.animation);
+        //animationDone = findViewById(R.id.animationdone);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ImageOutputAdapter(imageOutputList, this, null, R.layout.item_image_output); // Use the original layout
@@ -74,7 +74,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         uriInfo = (String[][]) intent.getSerializableExtra("uriInfo");
         selectedModel = intent.getStringExtra("selectedModel");
 
-        // Modell, erwatete Zeit, Accuracy und Info anzeigen
+        // Modell, erwartete Zeit, Accuracy und Info anzeigen
         viewModell = findViewById(R.id.viewModell);
         viewAccuracy = findViewById(R.id.viewAccuracy);
         viewErwarteteZeit = findViewById(R.id.viewErwarteteZeit);
@@ -87,9 +87,9 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             startActivity(infoIntent);
         });
 
-        // Ladeanimation Starten
-        animationView.setVisibility(View.VISIBLE);
-        animationView.playAnimation();
+        // Ladeanimation Startenpy
+        // animationView.setVisibility(View.VISIBLE);
+        // animationView.playAnimation();
 
         // Add home button listener
         findViewById(R.id.homeButton).setOnClickListener(view -> {
@@ -132,7 +132,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                 currentImageIndex++;
                 processNextImage();
             }
-        } else {
+        } else { /*
             // Ladeanimation beenden
             animationView.pauseAnimation();
             animationView.setVisibility(View.GONE);
@@ -144,7 +144,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             getLifecycle().addObserver(lifecycleObserver);
             if (!lifecycleObserver.AppOpen){
                 lifecycleObserver.makeNotification();
-            }
+            } */
         }
     }
 
@@ -154,6 +154,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         InputStream inputStream = new ByteArrayInputStream(decodedString);
         ImageOutput imageOutput = imageOutputList.get(currentImageIndex);
         imageOutput.setOutputText(output);
+        imageOutput.setOutputJSON();
         imageOutput.setImageStream(inputStream);
         imageOutput.setMarkedImage(markedImage);
         adapter.notifyItemChanged(currentImageIndex);

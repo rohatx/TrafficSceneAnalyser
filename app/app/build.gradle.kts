@@ -57,4 +57,7 @@ dependencies {
     
     // für ladeanimation
     implementation("com.airbnb.android:lottie:5.2.0")
+
+    // Json Dependency
+    implementation("org.json:json:20240303")
 }
