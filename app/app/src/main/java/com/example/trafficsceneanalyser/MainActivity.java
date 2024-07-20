@@ -70,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
             Intent openModels = new Intent(this, ModelListActivity.class);
             startActivity(openModels);
         });
+        fab2.setOnClickListener(view -> {
+            Intent intent = new Intent(this,TutorialActivity.class);
+            startActivity(intent);
+        });
 
         Log.v("Pfad", "Aktueller Pfad: " + getPackageName());
 

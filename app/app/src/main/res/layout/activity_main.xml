@@ -186,7 +186,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="40dp"
             android:text="Von URL laden"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/btnBildInternet"
