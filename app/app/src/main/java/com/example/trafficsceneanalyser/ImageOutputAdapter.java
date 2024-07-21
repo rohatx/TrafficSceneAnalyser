@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.util.List;
 
 //TODO : Why does the history does not show the results of the image analysis?
+// Do I need to get the outputText again and then transform it the json again?
 
 public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.ViewHolder> {
 
@@ -41,7 +42,6 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
         public ImageView imageView;
         public ImageView imageViewOutput;
         public ImageView imageViewAccuracy;
-        public TextView textViewOutput;
         public TextView textViewAccuracy;
         public ImageButton deleteButton;
 
@@ -50,7 +50,6 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             imageView = view.findViewById(R.id.imageView);
             imageViewOutput = view.findViewById(R.id.imageViewOutput);
             imageViewAccuracy = view.findViewById(R.id.imageViewAccuracy);
-            textViewOutput = view.findViewById(R.id.textViewOutput);
             textViewAccuracy = view.findViewById(R.id.textViewAccuracy);
             if (layoutResId == R.layout.item_image_output_history) {
                 deleteButton = view.findViewById(R.id.deleteButton);
@@ -76,15 +75,6 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ImageOutput imageOutput = imageOutputList.get(position);
-        // -1 == unknown, 0 == false, 1 == true
-        if(imageOutput.isUnderrideable() == -1) {
-            holder.imageViewOutput.setImageResource(R.drawable.icons8_questionmark);
-        } else if (imageOutput.isUnderrideable() == 0) {
-            holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
-        } else {
-            holder.imageViewOutput.setImageResource(R.drawable.icons8_tick);
-        }
-        holder.textViewAccuracy.setText(imageOutput.getProbability());
 
         if (imageOutput.getMarkedImage() != null) {
             byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
@@ -110,6 +100,17 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             holder.imageView.setImageResource(R.drawable.placeholder_image); // Placeholder image if bitmap is null
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
         }
+
+        // Initialize the analysis return values
+        // -1 == unknown, 0 == false, 1 == true
+        if(imageOutput.isUnderrideable() == -1) {
+            holder.imageViewOutput.setImageResource(R.drawable.icons8_questionmark);
+        } else if (imageOutput.isUnderrideable() == 0) {
+            holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
+        } else {
+            holder.imageViewOutput.setImageResource(R.drawable.icons8_tick);
+        }
+        holder.textViewAccuracy.setText(imageOutput.getProbability());
 
         // open up the Popup Window if clicked on textViewAccuracy
         holder.imageView.setOnClickListener(v -> {

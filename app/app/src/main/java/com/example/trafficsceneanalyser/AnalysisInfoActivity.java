@@ -49,8 +49,8 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
     private TextView viewModell;
     private TextView viewAccuracy;
     private ImageButton btnInfo;
-    //LottieAnimationView animationView;
-    //LottieAnimationView animationDone;
+    LottieAnimationView animationView;
+    LottieAnimationView animationDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +63,8 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             return insets;
         });
 
-        //animationView = findViewById(R.id.animation);
-        //animationDone = findViewById(R.id.animationdone);
+        animationView = findViewById(R.id.animation);
+        animationDone = findViewById(R.id.animationdone);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ImageOutputAdapter(imageOutputList, this, null, R.layout.item_image_output); // Use the original layout
@@ -88,8 +88,8 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         });
 
         // Ladeanimation Starten
-        // animationView.setVisibility(View.VISIBLE);
-        // animationView.playAnimation();
+        animationView.setVisibility(View.VISIBLE);
+        animationView.playAnimation();
 
         // Add home button listener
         findViewById(R.id.homeButton).setOnClickListener(view -> {
@@ -132,7 +132,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                 currentImageIndex++;
                 processNextImage();
             }
-        } else { /*
+        } else {
             // Ladeanimation beenden
             animationView.pauseAnimation();
             animationView.setVisibility(View.GONE);
@@ -144,7 +144,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             getLifecycle().addObserver(lifecycleObserver);
             if (!lifecycleObserver.AppOpen){
                 lifecycleObserver.makeNotification();
-            } */
+            }
         }
     }
 
