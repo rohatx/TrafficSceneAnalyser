@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
+//TODO : Why does the history does not show the results of the image analysis?
+
 public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.ViewHolder> {
 
     private List<ImageOutput> imageOutputList;
@@ -74,7 +76,6 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ImageOutput imageOutput = imageOutputList.get(position);
-        // holder.textViewOutput.setText(imageOutput.getLmmOutput());
         // -1 == unknown, 0 == false, 1 == true
         if(imageOutput.isUnderrideable() == -1) {
             holder.imageViewOutput.setImageResource(R.drawable.icons8_questionmark);

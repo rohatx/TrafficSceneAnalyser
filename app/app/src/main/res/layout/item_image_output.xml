@@ -13,34 +13,6 @@
         android:scaleType="fitCenter"
         android:contentDescription="@string/image_description" />
 
-    <!-- Beta
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/textViewOutput"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:text="@string/boilerplate_text"
-            android:textSize="16sp"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/textViewAccuracy"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:text="TextView" />
-
-    </LinearLayout>
-
-    -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,17 +26,7 @@
             android:layout_weight="1"
             android:tooltipText="@string/imageOutputIcon"
             android:src="@drawable/tunnel_freepik" />
-        <!--
-        <TextView
-            android:id="@+id/textViewOutput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:text="@string/boilerplate_text"
-            android:textSize="16sp" />
-        -->
+
         <ImageView
             android:id="@+id/imageViewOutput"
             android:layout_width="0dp"

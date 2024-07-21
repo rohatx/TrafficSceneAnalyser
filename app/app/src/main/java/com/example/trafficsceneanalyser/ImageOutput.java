@@ -123,7 +123,7 @@ public class ImageOutput {
     }
 
     //Setter for all the json values
-    // can be deleted ?
+    /*
     public void setLmmOutput(String lmmOutput) {
         this.lmmOutput = lmmOutput;
     }
@@ -139,4 +139,6 @@ public class ImageOutput {
     public void setImageQuality(String imageQuality) {
         this.imageQuality = imageQuality;
     }
+
+     */
 }

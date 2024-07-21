@@ -22,6 +22,46 @@
         android:textSize="16sp"
         android:gravity="center" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:id="@+id/imageViewOutputIcon"
+            android:layout_width="0dp"
+            android:layout_height="67dp"
+            android:layout_weight="1"
+            android:tooltipText="@string/imageOutputIcon"
+            android:src="@drawable/tunnel_freepik" />
+
+        <ImageView
+            android:id="@+id/imageViewOutput"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/icons8_questionmark" />
+
+        <ImageView
+            android:id="@+id/imageViewAccuracy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:tooltipText="@string/imageAccuracyIcon"
+            android:src="@drawable/accuracy_freepik" />
+
+        <TextView
+            android:id="@+id/textViewAccuracy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="0.5"
+            android:textAlignment="center"
+            android:textSize="48sp" />
+
+    </LinearLayout>
+
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="101dp"
