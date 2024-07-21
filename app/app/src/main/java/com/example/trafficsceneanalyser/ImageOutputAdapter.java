@@ -1,5 +1,6 @@
 package com.example.trafficsceneanalyser;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -108,6 +109,47 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             holder.imageView.setImageResource(R.drawable.placeholder_image); // Placeholder image if bitmap is null
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
         }
+
+        // open up the Popup Window if clicked on textViewAccuracy
+        holder.imageView.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
+            LayoutInflater inflater = LayoutInflater.from(holder.itemView.getContext());
+            View dialogView = inflater.inflate(R.layout.activity_reasoning_popup, null);
+
+            ImageView imageViewPopup = dialogView.findViewById(R.id.imageViewPopup);
+            TextView textViewReasoningPopUp = dialogView.findViewById(R.id.textViewReasoningPopUp);
+
+            if (imageOutput.getMarkedImage() != null) {
+                byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imageViewPopup.setImageBitmap(bitmap);
+                imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
+            } else if (imageOutput.getImageUri() != null) {
+                try {
+                    InputStream inputStream = context.getContentResolver().openInputStream(imageOutput.getImageUri());
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    imageViewPopup.setImageBitmap(bitmap);
+                    imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
+                } catch (FileNotFoundException e) {
+                    imageViewPopup.setImageResource(R.drawable.placeholder_image);
+                    imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
+                    e.printStackTrace();
+                }
+            } else if (imageOutput.getImageStream() != null) {
+                Bitmap bitmap = BitmapFactory.decodeStream(imageOutput.getImageStream());
+                imageViewPopup.setImageBitmap(bitmap);
+                imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
+            } else {
+                imageViewPopup.setImageResource(R.drawable.placeholder_image); // Placeholder image if bitmap is null
+                imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
+            }
+
+            textViewReasoningPopUp.setText(imageOutput.getReasoning());
+            builder.setView(dialogView)
+                    .setTitle("Image Details")
+                    .setPositiveButton("Ok", null)
+                    .show();
+        });
     }
 
     @Override

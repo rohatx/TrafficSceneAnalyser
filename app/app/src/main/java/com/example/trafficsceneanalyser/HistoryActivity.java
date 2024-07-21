@@ -52,8 +52,10 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
         adapter = new ImageOutputAdapter(imageOutputList, this, this, R.layout.item_image_output_history); // Use the new layout
         recyclerView.setAdapter(adapter);
 
+        /*
         AppCompatImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
+        */
 
         filterCheckbox = findViewById(R.id.filterCheckbox);
         filterCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> loadHistory());

@@ -52,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="67dp"
             android:layout_weight="1"
+            android:tooltipText="@string/imageOutputIcon"
             android:src="@drawable/tunnel_freepik" />
         <!--
         <TextView
@@ -76,6 +77,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:tooltipText="@string/imageAccuracyIcon"
             android:src="@drawable/accuracy_freepik" />
 
         <TextView

@@ -87,7 +87,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             startActivity(infoIntent);
         });
 
-        // Ladeanimation Startenpy
+        // Ladeanimation Starten
         // animationView.setVisibility(View.VISIBLE);
         // animationView.playAnimation();
 
