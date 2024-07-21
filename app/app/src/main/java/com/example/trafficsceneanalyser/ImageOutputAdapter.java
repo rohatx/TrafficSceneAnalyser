@@ -3,9 +3,7 @@ package com.example.trafficsceneanalyser;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +36,8 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
+        public ImageView imageViewOutput;
+        public ImageView imageViewAccuracy;
         public TextView textViewOutput;
         public TextView textViewAccuracy;
         public ImageButton deleteButton;
@@ -45,6 +45,8 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
         public ViewHolder(View view, OnDeleteClickListener onDeleteClickListener, int layoutResId) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
+            imageViewOutput = view.findViewById(R.id.imageViewOutput);
+            imageViewAccuracy = view.findViewById(R.id.imageViewAccuracy);
             textViewOutput = view.findViewById(R.id.textViewOutput);
             textViewAccuracy = view.findViewById(R.id.textViewAccuracy);
             if (layoutResId == R.layout.item_image_output_history) {
@@ -71,7 +73,15 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ImageOutput imageOutput = imageOutputList.get(position);
-        holder.textViewOutput.setText(imageOutput.getLmmOutput());
+        // holder.textViewOutput.setText(imageOutput.getLmmOutput());
+        // -1 == unknown, 0 == false, 1 == true
+        if(imageOutput.isUnderrideable() == -1) {
+            holder.imageViewOutput.setImageResource(R.drawable.icons8_questionmark);
+        } else if (imageOutput.isUnderrideable() == 0) {
+            holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
+        } else {
+            holder.imageViewOutput.setImageResource(R.drawable.icons8_tick);
+        }
         holder.textViewAccuracy.setText(imageOutput.getProbability());
 
         if (imageOutput.getMarkedImage() != null) {

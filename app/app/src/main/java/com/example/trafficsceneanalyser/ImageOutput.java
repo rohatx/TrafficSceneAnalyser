@@ -89,11 +89,13 @@ public class ImageOutput {
     public String getImageQuality() {
         return imageQuality;
     }
-    public boolean isUnderrideable() {
+    public int isUnderrideable() {
         if (lmmOutput.equals("false")) {
-            return false;
+            return 0;
+        } else if (lmmOutput.equals("true")) {
+            return 1;
         } else {
-            return true;
+            return -1;
         }
     }
 
@@ -108,6 +110,15 @@ public class ImageOutput {
             imageQuality = jsonObject.getString(imageQualityKey);
         } catch (JSONException e) {
             Log.e("ImageOutput", "Error parsing JSON: " + e.getMessage());
+        }
+
+        try {
+            float floatValue = Float.parseFloat(probability);
+            floatValue = floatValue*100;
+            int intValue = (int) floatValue;
+            probability = intValue + "%";
+        } catch (NumberFormatException e) {
+            Log.e("ImageOutput", "Error parsing float value: " + e.getMessage());
         }
     }
 
@@ -128,8 +139,4 @@ public class ImageOutput {
     public void setImageQuality(String imageQuality) {
         this.imageQuality = imageQuality;
     }
-
-
-
-
 }
