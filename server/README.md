@@ -36,6 +36,12 @@ Vor dem Starten der Anwendung müssen die Datenbank-Migrationen angewendet werde
 python manage.py migrate
 ```
 
+### Erstelle die notwendigen Certificates für HTTPS
+```bash
+mkdir certificates
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout django-selfsigned.key -out certificates/django-selfsigned.crt
+```
+
 ### Starten des Entwicklungsservers
 Zunächst muss .env angepasst werden. Es muss ein API key sowie ALLOWED_HOSTS exportiert werden.
 ```env
