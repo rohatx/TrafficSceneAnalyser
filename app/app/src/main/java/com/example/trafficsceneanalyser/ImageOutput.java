@@ -120,24 +120,4 @@ public class ImageOutput {
             Log.e("ImageOutput", "Error parsing float value: " + e.getMessage());
         }
     }
-
-    //Setter for all the json values
-    /*
-    public void setLmmOutput(String lmmOutput) {
-        this.lmmOutput = lmmOutput;
-    }
-    public void setProbability(String probability) {
-        this.probability = probability;
-    }
-    public void setReasoning(String reasoning) {
-        this.reasoning = reasoning;
-    }
-    public void setSanityCheck(String sanityCheck) {
-        this.sanityCheck = sanityCheck;
-    }
-    public void setImageQuality(String imageQuality) {
-        this.imageQuality = imageQuality;
-    }
-
-     */
 }

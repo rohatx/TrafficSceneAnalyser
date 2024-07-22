@@ -20,8 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-// TODO: Initialize the missing values to the PopUpWindow
-
 public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.ViewHolder> {
 
     private List<ImageOutput> imageOutputList;
@@ -160,7 +158,6 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                     imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
                 }
 
-                // TODO: Popup initializate all values
                 // TODO: Set string values in xml
 
                 textViewInfoPopUp.setText("Das Objekt ist mit " + imageOutput.getProbability() + " unterfahrbar. Somit kann es unterfahren" + underride + "werden.");
@@ -182,7 +179,7 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                         .setPositiveButton("Ok", null)
                         .show();
             });
-        } else {} // Animation?
+        } else {} // Animation? Waiting for server response
     }
 
     @Override
