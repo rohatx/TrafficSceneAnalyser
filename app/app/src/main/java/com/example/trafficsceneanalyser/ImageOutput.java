@@ -28,7 +28,6 @@ public class ImageOutput {
     private String sanityCheck;
     private String imageQuality;
 
-
     public ImageOutput(String id, InputStream imageStream, String outputText, Uri imageUri, String markedImage) {
         this.id = id;
         this.imageStream = imageStream;

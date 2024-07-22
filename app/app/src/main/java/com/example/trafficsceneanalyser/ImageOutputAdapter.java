@@ -40,14 +40,17 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
+        public ImageView imageViewOutputIcon;
         public ImageView imageViewOutput;
         public ImageView imageViewAccuracy;
         public TextView textViewAccuracy;
         public ImageButton deleteButton;
 
+
         public ViewHolder(View view, OnDeleteClickListener onDeleteClickListener, int layoutResId) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
+            imageViewOutputIcon = view.findViewById(R.id.imageViewOutputIcon);
             imageViewOutput = view.findViewById(R.id.imageViewOutput);
             imageViewAccuracy = view.findViewById(R.id.imageViewAccuracy);
             textViewAccuracy = view.findViewById(R.id.textViewAccuracy);
@@ -101,57 +104,61 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
         }
 
-        // Initialize the analysis return values
-        // -1 == unknown, 0 == false, 1 == true
-        if(imageOutput.isUnderrideable() == -1) {
-            holder.imageViewOutput.setImageResource(R.drawable.icons8_questionmark);
-        } else if (imageOutput.isUnderrideable() == 0) {
-            holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
-        } else {
-            holder.imageViewOutput.setImageResource(R.drawable.icons8_tick);
-        }
-        holder.textViewAccuracy.setText(imageOutput.getProbability());
 
-        // open up the Popup Window if clicked on textViewAccuracy
-        holder.imageView.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
-            LayoutInflater inflater = LayoutInflater.from(holder.itemView.getContext());
-            View dialogView = inflater.inflate(R.layout.activity_reasoning_popup, null);
 
-            ImageView imageViewPopup = dialogView.findViewById(R.id.imageViewPopup);
-            TextView textViewReasoningPopUp = dialogView.findViewById(R.id.textViewReasoningPopUp);
+        if(imageOutput.isUnderrideable() != -1) {
+            holder.imageViewOutputIcon.setImageResource(R.drawable.tunnel_freepik);
+            if (imageOutput.isUnderrideable() == -1) {
+                holder.imageViewOutput.setImageResource(R.drawable.icons8_questionmark);
+            } else if (imageOutput.isUnderrideable() == 0) {
+                holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
+            } else {
+                holder.imageViewOutput.setImageResource(R.drawable.icons8_tick);
+            }
+            holder.imageViewAccuracy.setImageResource(R.drawable.accuracy_freepik);
+            holder.textViewAccuracy.setText(imageOutput.getProbability());
 
-            if (imageOutput.getMarkedImage() != null) {
-                byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                imageViewPopup.setImageBitmap(bitmap);
-                imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
-            } else if (imageOutput.getImageUri() != null) {
-                try {
-                    InputStream inputStream = context.getContentResolver().openInputStream(imageOutput.getImageUri());
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            // open up the Popup Window if clicked on textViewAccuracy
+            holder.imageView.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
+                LayoutInflater inflater = LayoutInflater.from(holder.itemView.getContext());
+                View dialogView = inflater.inflate(R.layout.activity_reasoning_popup, null);
+
+                ImageView imageViewPopup = dialogView.findViewById(R.id.imageViewPopup);
+                TextView textViewReasoningPopUp = dialogView.findViewById(R.id.textViewReasoningPopUp);
+
+                if (imageOutput.getMarkedImage() != null) {
+                    byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     imageViewPopup.setImageBitmap(bitmap);
                     imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
-                } catch (FileNotFoundException e) {
-                    imageViewPopup.setImageResource(R.drawable.placeholder_image);
+                } else if (imageOutput.getImageUri() != null) {
+                    try {
+                        InputStream inputStream = context.getContentResolver().openInputStream(imageOutput.getImageUri());
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        imageViewPopup.setImageBitmap(bitmap);
+                        imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
+                    } catch (FileNotFoundException e) {
+                        imageViewPopup.setImageResource(R.drawable.placeholder_image);
+                        imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
+                        e.printStackTrace();
+                    }
+                } else if (imageOutput.getImageStream() != null) {
+                    Bitmap bitmap = BitmapFactory.decodeStream(imageOutput.getImageStream());
+                    imageViewPopup.setImageBitmap(bitmap);
                     imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
-                    e.printStackTrace();
+                } else {
+                    imageViewPopup.setImageResource(R.drawable.placeholder_image); // Placeholder image if bitmap is null
+                    imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
                 }
-            } else if (imageOutput.getImageStream() != null) {
-                Bitmap bitmap = BitmapFactory.decodeStream(imageOutput.getImageStream());
-                imageViewPopup.setImageBitmap(bitmap);
-                imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
-            } else {
-                imageViewPopup.setImageResource(R.drawable.placeholder_image); // Placeholder image if bitmap is null
-                imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
-            }
 
-            textViewReasoningPopUp.setText(imageOutput.getReasoning());
-            builder.setView(dialogView)
-                    .setTitle("Image Details")
-                    .setPositiveButton("Ok", null)
-                    .show();
-        });
+                textViewReasoningPopUp.setText(imageOutput.getReasoning());
+                builder.setView(dialogView)
+                        .setTitle("Bildbeschreibung")
+                        .setPositiveButton("Ok", null)
+                        .show();
+            });
+        } else {} // Animation?
     }
 
     @Override
