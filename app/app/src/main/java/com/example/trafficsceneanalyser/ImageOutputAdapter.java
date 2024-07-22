@@ -108,9 +108,7 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
 
         if(imageOutput.isUnderrideable() != -1) {
             holder.imageViewOutputIcon.setImageResource(R.drawable.tunnel_freepik);
-            if (imageOutput.isUnderrideable() == -1) {
-                holder.imageViewOutput.setImageResource(R.drawable.icons8_questionmark);
-            } else if (imageOutput.isUnderrideable() == 0) {
+            if (imageOutput.isUnderrideable() == 0) {
                 holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
             } else {
                 holder.imageViewOutput.setImageResource(R.drawable.icons8_tick);

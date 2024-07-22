@@ -114,7 +114,12 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
                             byte[] decodedString = Base64.decode(marked_image, Base64.DEFAULT);
                             InputStream inputStream = new ByteArrayInputStream(decodedString);
 
-                            imageOutputList.add(0, new ImageOutput(id, inputStream, output, null, marked_image)); // Add images to the list
+
+                            // Parse the json values before the imageOutput gets added to the list
+                            ImageOutput imageOutput = new ImageOutput(id, inputStream, output, null, marked_image);
+                            imageOutput.setOutputJSON();
+
+                            imageOutputList.add(0, imageOutput); // Add images to the list
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

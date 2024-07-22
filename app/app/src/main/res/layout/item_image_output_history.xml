@@ -24,30 +24,26 @@
             android:layout_width="0dp"
             android:layout_height="67dp"
             android:layout_weight="1"
-            android:tooltipText="@string/imageOutputIcon"
-            android:src="@drawable/tunnel_freepik" />
+            android:tooltipText="@string/imageOutputIcon" />
 
         <ImageView
             android:id="@+id/imageViewOutput"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/icons8_questionmark" />
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/imageViewAccuracy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:tooltipText="@string/imageAccuracyIcon"
-            android:src="@drawable/accuracy_freepik" />
+            android:tooltipText="@string/imageAccuracyIcon" />
 
         <TextView
             android:id="@+id/textViewAccuracy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="0.5"
             android:textAlignment="center"
             android:textSize="48sp" />
 
