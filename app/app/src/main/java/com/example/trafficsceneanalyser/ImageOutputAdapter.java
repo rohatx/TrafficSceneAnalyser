@@ -1,7 +1,10 @@
 package com.example.trafficsceneanalyser;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -17,8 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-//TODO : Why does the history does not show the results of the image analysis?
-// Do I need to get the outputText again and then transform it the json again?
+// TODO: Initialize the missing values to the PopUpWindow
 
 public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.ViewHolder> {
 
@@ -104,26 +106,34 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
         }
 
-
+        String underride;
 
         if(imageOutput.isUnderrideable() != -1) {
             holder.imageViewOutputIcon.setImageResource(R.drawable.tunnel_freepik);
             if (imageOutput.isUnderrideable() == 0) {
                 holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
+                underride = " nicht ";
             } else {
                 holder.imageViewOutput.setImageResource(R.drawable.icons8_tick);
+                underride = "";
             }
             holder.imageViewAccuracy.setImageResource(R.drawable.accuracy_freepik);
             holder.textViewAccuracy.setText(imageOutput.getProbability());
 
             // open up the Popup Window if clicked on textViewAccuracy
+            // TODO: Change to extra More Informations Button
             holder.imageView.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
                 LayoutInflater inflater = LayoutInflater.from(holder.itemView.getContext());
                 View dialogView = inflater.inflate(R.layout.activity_reasoning_popup, null);
 
+                // Initialize all PopUpViews
+
                 ImageView imageViewPopup = dialogView.findViewById(R.id.imageViewPopup);
+                TextView textViewInfoPopUp = dialogView.findViewById(R.id.textViewInfoPopUp);
                 TextView textViewReasoningPopUp = dialogView.findViewById(R.id.textViewReasoningPopUp);
+                TextView textViewSanityCheckPopUp = dialogView.findViewById(R.id.textViewSanityCheckPopUp);
+                TextView textViewImageQualityPopUp = dialogView.findViewById(R.id.textViewImageQualityPopUp);
 
                 if (imageOutput.getMarkedImage() != null) {
                     byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
@@ -150,7 +160,23 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                     imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
                 }
 
-                textViewReasoningPopUp.setText(imageOutput.getReasoning());
+                // TODO: Popup initializate all values
+                // TODO: Set string values in xml
+
+                textViewInfoPopUp.setText("Das Objekt ist mit " + imageOutput.getProbability() + " unterfahrbar. Somit kann es unterfahren" + underride + "werden.");
+                textViewReasoningPopUp.setText("Die Begruendung dafuer lautet: " + imageOutput.getReasoning());
+                // TODO: Sanity output logic
+                textViewSanityCheckPopUp.setText(imageOutput.getSanityCheck());
+                // TODO: Image Quality output logic
+                // If problems initialize else do nothing with it
+                textViewImageQualityPopUp.setText(imageOutput.getImageQuality());
+
+                // TODO: Connect with the right intent
+                textViewImageQualityPopUp.setOnClickListener(view -> {
+                    Intent intent = new Intent(view.getContext(), MainActivity.class);
+                    view.getContext().startActivity(intent);
+                });
+
                 builder.setView(dialogView)
                         .setTitle("Bildbeschreibung")
                         .setPositiveButton("Ok", null)

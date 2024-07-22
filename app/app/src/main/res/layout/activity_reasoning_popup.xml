@@ -14,9 +14,26 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
+        android:id="@+id/textViewInfoPopUp"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="Das Objekt ist mit x% unterfahrbar. Somit kann es (nicht) unterfahren werden." />
+
+    <TextView
         android:id="@+id/textViewReasoningPopUp"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="54dp"
         android:padding="8dp"
-        android:text="Reasoning" />
+        android:text="Die Begruendung dafuer lautet: Reasoning" />
+
+    <TextView
+        android:id="@+id/textViewSanityCheckPopUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Auch der Sanity Check blabla" />
+
+    <TextView
+        android:id="@+id/textViewImageQualityPopUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
