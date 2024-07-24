@@ -21,7 +21,15 @@ GLOBAL_PROMPT = (
     "genaue Angabe z.B. " + ", ".join(IMAGE_QUALITY_CATEGORIES) + "]'."
 )
 
-H_ACC = 0.90  # Assuming historical accuracy as 90% (Should be adapted for each LLM when we have the correct statistics)
+H_ACC_VALUES = {
+    "gpt-4o": 0.94,
+    "Claude": 0.90,
+    "Gemini Pro 1.5": 0.84,
+    "Gemini Flash": 0.60,
+    "Gemini Pro Vision 1.0": 0.70,
+    "LLaVA": 0.68,
+    "FireLLaVA": 0.80
+}
 
 def analyze_image_with_lmm(base64_image, model):
     if model == "LLaVA":
@@ -263,7 +271,7 @@ model_standard = YOLO("yolov8n.pt")
 model_custom = YOLO("yolov8n_custom.pt")
 
 def predict_and_draw(image, model, color, label, target_class=None):
-    results = model.predict(source=image, conf=0.25, save=False)
+    results = model.predict(source=image, conf=0.5, save=False)
     
     for result in results[0].boxes:
         bb = result.xyxy.numpy()[0].astype(int)
@@ -320,6 +328,9 @@ def analyze_and_check(base64_image, latitude, longitude, model):
 
     road_detected = check_way(latitude, longitude)
     
+    # Get the historical accuracy for the chosen model
+    H_ACC = H_ACC_VALUES.get(model, 0.90)
+
     probability, adjustment_details = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)
 
     sanity_check_result = "Keine Probleme"
