@@ -158,11 +158,8 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                     imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
                 }
 
-                // TODO: Set string values in xml
-
-                textViewInfoPopUp.setText("Das Objekt ist mit " + imageOutput.getProbability() + " unterfahrbar. Somit kann es unterfahren" + underride + "werden.");
-                textViewReasoningPopUp.setText("Die Begruendung dafuer lautet: " + imageOutput.getReasoning());
-                // TODO: Sanity output logic
+                textViewInfoPopUp.setText(imageOutput.getInfoText());
+                textViewReasoningPopUp.setText(imageOutput.getReasoningText());
                 textViewSanityCheckPopUp.setText(imageOutput.getSanityCheck());
                 // TODO: Image Quality output logic
                 // If problems initialize else do nothing with it

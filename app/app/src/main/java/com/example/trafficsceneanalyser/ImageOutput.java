@@ -79,9 +79,7 @@ public class ImageOutput {
     public String getProbability() {
         return probability;
     }
-    public String getReasoning() {
-        return reasoning;
-    }
+    public String getReasoning() { return reasoning; }
     public String getSanityCheck() {
         return sanityCheck;
     }
@@ -118,6 +116,36 @@ public class ImageOutput {
             probability = intValue + "%";
         } catch (NumberFormatException e) {
             Log.e("ImageOutput", "Error parsing float value: " + e.getMessage());
+        }
+    }
+
+    // TODO: Set string values in xml
+
+    public String getInfoText() {
+        String underride = "";
+        if (isUnderrideable() == 0) {
+            underride = " nicht ";
+        }
+        return "Das Objekt ist mit " + getProbability() + " unterfahrbar. Somit kann es " + underride + " unterfahren werden";
+    }
+
+    public String getReasoningText() {
+        return "Die Begruendung dafuer lautet: " + reasoning;
+    }
+
+    public String getSanityCheckText() {
+        if (getSanityCheck().equals("Keine Probleme")) {
+            return "Der Sanity Check hat keine Probleme festgestellt.";
+        } else {
+            return "Es gab Probleme beim Sanity Check";
+        }
+    }
+
+    public String getImageQualityText() {
+        if (getImageQuality().equals("Keine Probleme")) {
+            return "";
+        } else {
+            return "Um ein besseres Ergebnis zu erzielen koennten folgende Tipps hilfreich sein.";
         }
     }
 }
