@@ -258,49 +258,41 @@ def calculate_probability(C_LLM, road_detected, I_QS, H_ACC):
         "calculation": f"P_final = {C_LLM} * {'0.5' if not road_detected else '1'} * (1 - ({IQS_Adjustment} + {HA_Adjustment}))"
     }
 
-model = YOLO("yolov8n.pt", "v8")
+# Load both models
+model_standard = YOLO("yolov8n.pt")
+model_custom = YOLO("yolov8n_custom.pt")
 
-def detect_traffic_lights(base64_image):
+def predict_and_draw(image, model, color, label, target_class=None):
+    results = model.predict(source=image, conf=0.25, save=False)
+    
+    for result in results[0].boxes:
+        bb = result.xyxy.numpy()[0].astype(int)
+        cls_id = int(result.cls.numpy()[0])
+        
+        # Only draw the bounding box if the class matches the target class (if specified)
+        if target_class is None or cls_id == target_class:
+            cv2.rectangle(image, (bb[0], bb[1]), (bb[2], bb[3]), color, 3)  # Thicker line
+            cv2.putText(image, label, (bb[0] + 5, bb[1] + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2)  # Text inside the box
+    
+    return image
+
+def detect_objects(base64_image):
     image_bytes = base64.b64decode(base64_image)
     np_image = np.frombuffer(image_bytes, np.uint8)
     img = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
+    
+    # Predict with the standard model for traffic lights
+    img_with_traffic_lights = predict_and_draw(img.copy(), model_standard, (255, 0, 0), "traffic_light", target_class=9)  # Blue for traffic lights (class 9)
+    
+    # Predict with the custom model for other objects
+    img_with_custom_model = predict_and_draw(img.copy(), model_custom, (0, 255, 0), "bridge")  # Green for custom model
 
-    detection_output = model.predict(source=img, conf=0.25, save=False)
-
-    class_list = []
-    with open("utils/coco.txt", "r") as f:
-        class_list = f.read().strip().split("\n")
-
-    for result in detection_output[0].boxes:
-        clsID = result.cls.numpy()[0]
-        class_name = class_list[int(clsID)]
-        if class_name == "traffic light":
-            conf = result.conf.numpy()[0]
-            bb = result.xyxy.numpy()[0]
-
-            color = (0, 0, 255)
-
-            cv2.rectangle(
-                img,
-                (int(bb[0]), int(bb[1])),
-                (int(bb[2]), int(bb[3])),
-                color,
-                3
-            )
-
-            font = cv2.FONT_HERSHEY_COMPLEX
-            cv2.putText(
-                img,
-                f"{class_name} {round(conf, 2)}",
-                (int(bb[0]), int(bb[1]) - 10),
-                font,
-                1,
-                (255, 255, 255),
-                2
-            )
-
-    _, buffer = cv2.imencode('.png', img)
+    # Combine the images
+    combined_img = cv2.addWeighted(img_with_traffic_lights, 0.5, img_with_custom_model, 0.5, 0)
+    
+    _, buffer = cv2.imencode('.png', combined_img)
     marked_image_base64 = base64.b64encode(buffer).decode('utf-8')
+    
     return marked_image_base64
 
 def analyze_and_check(base64_image, latitude, longitude, model):
@@ -308,7 +300,7 @@ def analyze_and_check(base64_image, latitude, longitude, model):
     
     try:
         lmm_data = json.loads(lmm_response)
-    except json.JSONDecodeError as e: 
+    except json.JSONDecodeError as e:
         print(f"Error decoding JSON: {e}")
         print(f"Response was: {lmm_response}")
         lmm_data = {
@@ -347,6 +339,6 @@ def analyze_and_check(base64_image, latitude, longitude, model):
         "Berechnung": adjustment_details["calculation"]
     }
 
-    marked_image = detect_traffic_lights(base64_image)
+    marked_image = detect_objects(base64_image)
 
     return json.dumps(final_result, ensure_ascii=False, indent=2), marked_image
