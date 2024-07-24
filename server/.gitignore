@@ -17,4 +17,4 @@ venv/
 
 # .DS_Store on macOS
 .DS_Store
-*.pt
+yolov8n.pt
