@@ -148,4 +148,10 @@ public class ImageOutput {
             return "Um ein besseres Ergebnis zu erzielen koennten folgende Tipps hilfreich sein.";
         }
     }
+
+    public boolean hasImageQualityIssues() {
+        if (getImageQualityText().equals("")) {
+            return false;
+        } else { return true;}
+    }
 }

@@ -67,4 +67,9 @@
 
     <string name="imageOutputIcon"> Underrideability </string>
     <string name="imageAccuracyIcon"> Confidence </string>
+
+    <!-- Test for Design -->
+
+    <string name="test"> <u>Ihr naht euch wieder, schwankende Gestalten!</u></string>
+
 </resources>

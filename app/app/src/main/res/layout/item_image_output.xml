@@ -13,6 +13,16 @@
         android:scaleType="fitCenter"
         android:contentDescription="@string/image_description" />
 
+    <TextView
+        android:id="@+id/textViewLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        android:text="Warten auf Serverantwort..."
+        android:padding="8dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,20 +34,23 @@
             android:layout_width="0dp"
             android:layout_height="67dp"
             android:layout_weight="1"
-            android:tooltipText="@string/imageOutputIcon" />
+            android:tooltipText="Unterfahrbarkeit"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/imageViewOutput"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/imageViewAccuracy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:tooltipText="@string/imageAccuracyIcon" />
+            android:tooltipText="Sicherheit"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textViewAccuracy"
@@ -45,10 +58,20 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="48sp" />
+            android:textSize="48sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
-
+    <View
+        android:id="@+id/ViewBar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/lightGrey"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"/>
 
 </LinearLayout>
+
+
+

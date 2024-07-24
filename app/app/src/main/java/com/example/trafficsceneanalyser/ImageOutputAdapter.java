@@ -45,7 +45,8 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
         public ImageView imageViewAccuracy;
         public TextView textViewAccuracy;
         public ImageButton deleteButton;
-
+        public TextView textViewLoading;
+        public View viewBar;
 
         public ViewHolder(View view, OnDeleteClickListener onDeleteClickListener, int layoutResId) {
             super(view);
@@ -54,6 +55,11 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             imageViewOutput = view.findViewById(R.id.imageViewOutput);
             imageViewAccuracy = view.findViewById(R.id.imageViewAccuracy);
             textViewAccuracy = view.findViewById(R.id.textViewAccuracy);
+            textViewLoading = view.findViewById(R.id.textViewLoading);
+            viewBar = view.findViewById(R.id.ViewBar);
+
+            //Initialize all Views for the AlertBuilder ?
+
             if (layoutResId == R.layout.item_image_output_history) {
                 deleteButton = view.findViewById(R.id.deleteButton);
                 deleteButton.setOnClickListener(v -> {
@@ -104,22 +110,28 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
         }
 
-        String underride;
-
         if(imageOutput.isUnderrideable() != -1) {
+
+            holder.textViewLoading.setVisibility(View.GONE);
+            holder.imageViewOutputIcon.setVisibility(View.VISIBLE);
+            holder.imageViewOutput.setVisibility(View.VISIBLE);
+            holder.imageViewAccuracy.setVisibility(View.VISIBLE);
+            holder.textViewAccuracy.setVisibility(View.VISIBLE);
+            holder.viewBar.setVisibility(View.VISIBLE);
+
             holder.imageViewOutputIcon.setImageResource(R.drawable.tunnel_freepik);
             if (imageOutput.isUnderrideable() == 0) {
                 holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
-                underride = " nicht ";
             } else {
                 holder.imageViewOutput.setImageResource(R.drawable.icons8_tick);
-                underride = "";
             }
             holder.imageViewAccuracy.setImageResource(R.drawable.accuracy_freepik);
             holder.textViewAccuracy.setText(imageOutput.getProbability());
 
             // open up the Popup Window if clicked on textViewAccuracy
             // TODO: Change to extra More Informations Button
+            // TODO: Create a second ViewHolder Pattern to decrease memory usage significantly
+
             holder.imageView.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
                 LayoutInflater inflater = LayoutInflater.from(holder.itemView.getContext());
@@ -166,17 +178,21 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                 textViewImageQualityPopUp.setText(imageOutput.getImageQuality());
 
                 // TODO: Connect with the right intent
-                textViewImageQualityPopUp.setOnClickListener(view -> {
-                    Intent intent = new Intent(view.getContext(), MainActivity.class);
-                    view.getContext().startActivity(intent);
-                });
+                if (imageOutput.hasImageQualityIssues()) {
+                    textViewImageQualityPopUp.setVisibility(View.VISIBLE);
+                    textViewImageQualityPopUp.setText(imageOutput.getImageQuality());
+                    textViewImageQualityPopUp.setOnClickListener(view -> {
+                        Intent intent = new Intent(view.getContext(), MainActivity.class);
+                        view.getContext().startActivity(intent);
+                    });
+                }
 
                 builder.setView(dialogView)
                         .setTitle("Bildbeschreibung")
                         .setPositiveButton("Ok", null)
                         .show();
             });
-        } else {} // Animation? Waiting for server response
+        } // else {} // Animation? Waiting for server response
     }
 
     @Override
