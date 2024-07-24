@@ -55,7 +55,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionLLaVA);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.llava_logo));
-                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.tabelle));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.llava_tabelle));
                 costs.setText(getString(R.string.modelInfoCostsLLaVA));
                 devs.setText(getString(R.string.modelInfoDevs));
                 devs.setOnClickListener(view -> {
@@ -68,7 +68,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionCLAUDE);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.claude_logo));
-                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.tabelle));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.claude_tabelle));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlCLAUDE);
@@ -86,7 +86,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGPT4o);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.chatgpt_logo));
-                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.tabelle));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gpt_4o_tabelle));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGPT4o);
@@ -104,7 +104,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionFIRELLaVA);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.llava_logo));
-                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.tabelle));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.fire_llava_tabelle));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlFIRELLaVA);
@@ -122,7 +122,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiPro1_5);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_logo));
-                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.tabelle));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_pro_tabelle));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiPro1_5);
@@ -158,7 +158,7 @@ public class analysisInfoPage extends AppCompatActivity {
                 headline.setText(selectedModel);
                 description.setText(R.string.modelInfoDescriptionGeminiFlash1_5);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_logo));
-                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.tabelle));
+                benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_flash_tabelle));
                 costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiFlash1_5);
