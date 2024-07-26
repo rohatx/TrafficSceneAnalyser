@@ -2,6 +2,7 @@ package com.example.trafficsceneanalyser;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -48,5 +49,9 @@ public class TutorialActivity extends AppCompatActivity {
             Intent intent = new Intent(this,QualityTutActivity.class);
             startActivity(intent);
         });
+    }
+    public void goToHome(View view) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }
