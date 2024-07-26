@@ -15,6 +15,7 @@ public class TutorialActivity extends AppCompatActivity {
     Button btnAccount;
     Button btnBilder;
     Button btnUrlTut;
+    Button btnImageQuality;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,11 @@ public class TutorialActivity extends AppCompatActivity {
         btnUrlTut = findViewById(R.id.btnUrlTut);
         btnUrlTut.setOnClickListener(view -> {
             Intent intent = new Intent(this,UrlTutActivity.class);
+            startActivity(intent);
+        });
+        btnImageQuality = findViewById(R.id.btnImageQuality);
+        btnImageQuality.setOnClickListener(view -> {
+            Intent intent = new Intent(this,QualityTutActivity.class);
             startActivity(intent);
         });
     }
