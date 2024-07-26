@@ -122,15 +122,15 @@ public class ImageOutput {
     // TODO: Set string values in xml
 
     public String getInfoText() {
-        String underride = "";
+        String underride = " ";
         if (isUnderrideable() == 0) {
             underride = " nicht ";
         }
-        return "Das Objekt ist mit " + getProbability() + " unterfahrbar. Somit kann es " + underride + " unterfahren werden";
+        return "Das Objekt ist mit " + getProbability() + " unterfahrbar. Somit kann es" + underride + "unterfahren werden";
     }
 
     public String getReasoningText() {
-        return "Die Begruendung dafuer lautet: " + reasoning;
+        return "Begruendung: " + reasoning;
     }
 
     public String getSanityCheckText() {
@@ -145,7 +145,7 @@ public class ImageOutput {
         if (getImageQuality().equals("Keine Probleme")) {
             return "";
         } else {
-            return "Um ein besseres Ergebnis zu erzielen koennten folgende Tipps hilfreich sein.";
+            return "<u>Um ein besseres Ergebnis zu erzielen koennten folgende Tipps hilfreich sein.<u>";
         }
     }
 

@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -129,8 +131,8 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             holder.textViewAccuracy.setText(imageOutput.getProbability());
 
             // open up the Popup Window if clicked on textViewAccuracy
-            // TODO: Change to extra More Informations Button
-            // TODO: Create a second ViewHolder Pattern to decrease memory usage significantly
+            // TODO: Change to extra More Informations Button ?
+            // TODO: Create a second ViewHolder Pattern to decrease memory usage significantly ?
 
             holder.imageView.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
@@ -144,6 +146,8 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                 TextView textViewReasoningPopUp = dialogView.findViewById(R.id.textViewReasoningPopUp);
                 TextView textViewSanityCheckPopUp = dialogView.findViewById(R.id.textViewSanityCheckPopUp);
                 TextView textViewImageQualityPopUp = dialogView.findViewById(R.id.textViewImageQualityPopUp);
+                // Test
+                TextView textViewPopUp = dialogView.findViewById(R.id.textViewPopUp);
 
                 if (imageOutput.getMarkedImage() != null) {
                     byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
@@ -172,15 +176,21 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
 
                 textViewInfoPopUp.setText(imageOutput.getInfoText());
                 textViewReasoningPopUp.setText(imageOutput.getReasoningText());
-                textViewSanityCheckPopUp.setText(imageOutput.getSanityCheck());
+                textViewSanityCheckPopUp.setText(imageOutput.getSanityCheckText());
                 // TODO: Image Quality output logic
                 // If problems initialize else do nothing with it
                 textViewImageQualityPopUp.setText(imageOutput.getImageQuality());
+                // Test
+                String popUpStr = imageOutput.getInfoText() + "\n\n"
+                                    + imageOutput.getReasoningText() + "\n\n"
+                                    + imageOutput.getSanityCheckText();
+                textViewPopUp.setText(popUpStr);
 
                 // TODO: Connect with the right intent
                 if (imageOutput.hasImageQualityIssues()) {
                     textViewImageQualityPopUp.setVisibility(View.VISIBLE);
-                    textViewImageQualityPopUp.setText(imageOutput.getImageQuality());
+                    Spanned underLinedText = Html.fromHtml(imageOutput.getImageQualityText(), 0);
+                    textViewImageQualityPopUp.setText(underLinedText);
                     textViewImageQualityPopUp.setOnClickListener(view -> {
                         Intent intent = new Intent(view.getContext(), MainActivity.class);
                         view.getContext().startActivity(intent);

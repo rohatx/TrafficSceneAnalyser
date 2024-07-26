@@ -65,11 +65,11 @@
 
     <!-- Image Output Icon Descriptions -->
 
-    <string name="imageOutputIcon"> Underrideability </string>
-    <string name="imageAccuracyIcon"> Confidence </string>
+    <string name="imageOutputIcon"> Unterfahrbarkeit </string>
+    <string name="imageAccuracyIcon"> Sicherheit </string>
 
     <!-- Test for Design -->
 
-    <string name="test"> <u>Ihr naht euch wieder, schwankende Gestalten!</u></string>
+    <string name="test"> <u>Diese Tipps koennten helfen die Bildqualitaet zu verbessern.</u></string>
 
 </resources>
