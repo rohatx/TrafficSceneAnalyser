@@ -21,3 +21,7 @@ yolov8n.pt
 
 # Certificates
 certificates/*
+
+# CSV related
+images/
+*.csv
