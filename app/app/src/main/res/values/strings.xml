@@ -38,7 +38,7 @@
 
     <!-- Costs URLs -->
     <string name="modelInfoCostsUrlCLAUDE">https://www.anthropic.com/api</string>
-    <string name="modelInfoCostsUrlGPT4o" >https://openai.com/api/pricing </string>
+    <string name="modelInfoCostsUrlGPT4o">https://openai.com/api/pricing </string>
     <string name="modelInfoCostsUrlFIRELLaVA">https://fireworks.ai/pricing </string>
     <string name="modelInfoCostsUrlGeminiPro1.5">https://ai.google.dev/pricing </string>
     <string name="modelInfoCostsUrlGeminiProVision1.0">https://ai.google.dev/pricing </string>
@@ -61,7 +61,8 @@
     <string name="modelInfoDevsUrlFIRELLaVA">https://fireworks.ai/blog/firellava-the-first-commercially-permissive-oss-llava-model</string>
     <string name="modelInfoDevsUrlGeminiPro1.5">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-pro</string>
     <string name="modelInfoDevsUrlGeminiProVision1.0">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.0-pro-vision</string>
-    <string name="modelInfoDevsUrlGeminiFlash1.5">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-flash</string>"
+    <string name="modelInfoDevsUrlGeminiFlash1.5">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-flash</string>
+    "
 
     <!-- Image Output Icon Descriptions -->
 

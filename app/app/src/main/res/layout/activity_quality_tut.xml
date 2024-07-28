@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QualityTutActivity">
+
+    <Button
+        android:id="@+id/btnHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToHome"
+        android:text="HOME"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Titel -->
+        <TextView
+            android:id="@+id/textViewImageQualityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Tipps zur Verbesserung der Bildqualität"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Helligkeit -->
+        <TextView
+            android:id="@+id/textViewBrightness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="• Helligkeit:"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewBrightnessDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  - Passen Sie die Helligkeit so an, dass Details in dunklen und hellen Bereichen sichtbar bleiben.\n  - Vermeiden Sie Über- oder Unterbelichtung."
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Kontrast -->
+        <TextView
+            android:id="@+id/textViewContrast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="• Kontrast:"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewContrastDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- Erhöhen Sie den Kontrast, um Unterschiede zwischen hellen und dunklen Bereichen deutlicher zu machen.\n- Achten Sie darauf, dass der Kontrast nicht so hoch ist, dass Details in Schatten oder Lichtern verloren gehen."
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Schärfe -->
+        <TextView
+            android:id="@+id/textViewSharpness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="• Schärfe:"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewSharpnessDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- Verwenden Sie Schärfefilter, um Details klarer herauszuarbeiten.\n- Vermeiden Sie Übertreibung, um ein körniges Bild zu verhindern."
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Ganze Objekt zu sehen -->
+        <TextView
+            android:id="@+id/textViewFullObject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="• Ganze Objekt zu sehen:"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewFullObjectDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- Stellen Sie sicher, dass das gesamte Objekt im Bildrahmen sichtbar ist.\n- Vermeiden Sie Zuschnitte, die wichtige Teile des Objekts abschneiden."
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:layout_marginBottom="16dp"/>
+
+        <!-- Nähe zum Objekt -->
+        <TextView
+            android:id="@+id/textViewProximity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="• Nähe zum Objekt:"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewProximityDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- Achten Sie darauf, dass Sie ausreichend nah am Objekt sind, um relevante Details einzufangen.\n- Vermeiden Sie Unschärfe durch zu große Distanz oder unsachgemäße Fokussierung."
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="16dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

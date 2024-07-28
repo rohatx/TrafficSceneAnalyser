@@ -5,5 +5,11 @@
     <color name="lightGrey">#D3D3D3</color>
     <color name="darkGrey">#5B5B5B</color>
     <color name="grayRed">#F6F5F5 </color>
+
+    <!-- für visuelles feedback der textviews -->
+    <color name="link_color">#1E90FF</color> <!-- Standardfarbe -->
+    <color name="link_color_pressed">#FF4500</color> <!-- Farbe beim Drücken -->
+    <color name="link_color_focused">#104E8B</color> <!-- Farbe beim Fokussieren -->
+
     <color name="clickBlue"> #0000EE </color>
 </resources>
