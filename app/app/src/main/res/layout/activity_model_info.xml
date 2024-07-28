@@ -39,9 +39,9 @@
 
     <TextView
         android:id="@+id/modelInfoDescTextView"
-        android:layout_width="333dp"
-        android:layout_height="116dp"
-        android:layout_marginTop="484dp"
+        android:layout_width="335dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="468dp"
         android:text="Description"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,16 +108,16 @@
 
     <ImageView
         android:id="@+id/modelInfoBenchmarkImageView"
-        android:layout_width="355dp"
-        android:layout_height="772dp"
+        android:layout_width="346dp"
+        android:layout_height="78dp"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/modelInfoLogoImageView"
-        app:layout_constraintVertical_bias="0.855"
-        app:srcCompat="@drawable/tabelle" />
+        app:layout_constraintVertical_bias="0.298"
+        app:srcCompat="@drawable/gpt_4o_tabelle" />
 
     <!-- BENCHMARK TABLE -->
 
