@@ -20,10 +20,10 @@ temporary table for accuracy and latency of the LMM:
 
 | LMM | accuracy | latency |
 | :-: | :------: | :-----: |
-| GPT-4o | 0.94% | 13 seconds |
-| Claude | 0.90% | 5 seconds |
-| Gemini Pro | 0.84% | 10 seoncds |
-| Gemini Flash | 0.60% | 7 seconds |
-| LLaVA | 0.68% | 30 seconds |
-| FireLLaVA | 0.80% | 10 seconds |
+| GPT-4o | 94% | 13 seconds |
+| Claude | 90% | 5 seconds |
+| Gemini Pro | 84% | 10 seoncds |
+| Gemini Flash | 60% | 7 seconds |
+| LLaVA | 68% | 30 seconds |
+| FireLLaVA | 80% | 10 seconds |
 
