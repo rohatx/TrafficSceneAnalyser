@@ -15,8 +15,6 @@
         android:layout_height="897dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.12"
         app:srcCompat="@drawable/background" />
@@ -44,6 +42,7 @@
         android:layout_marginTop="468dp"
         android:text="Description"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/rechteck"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,37 +61,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.077" />
-
-    <TextView
-        android:id="@+id/modelInfoDevsTextView"
-        android:layout_width="250dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="16dp"
-        android:autoLink="web"
-        android:text="@string/modelInfoDevs"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modelInfoDescTextView"
-        app:layout_constraintVertical_bias="0.891" />
-
-    <TextView
-        android:id="@+id/modelInfoCostsTextView"
-        android:layout_width="233dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/modelInfoCosts"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/modelInfoDevsTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.381"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modelInfoDescTextView"
-        app:layout_constraintVertical_bias="0.862" />
 
     <ImageView
         android:id="@+id/modelInfoLogoImageView"
@@ -118,6 +86,58 @@
         app:layout_constraintTop_toTopOf="@+id/modelInfoLogoImageView"
         app:layout_constraintVertical_bias="0.298"
         app:srcCompat="@drawable/gpt_4o_tabelle" />
+
+    <ImageButton
+        android:id="@+id/hbutton"
+        android:layout_width="54dp"
+        android:layout_height="68dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="goToHome"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
+
+    <ImageButton
+        android:id="@+id/modelInfoCostsTextView"
+        android:layout_width="91dp"
+        android:layout_height="80dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/modelInfoDevsTextView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modelInfoDescTextView"
+        app:srcCompat="@drawable/dollar" />
+
+    <ImageButton
+        android:id="@+id/modelInfoDevsTextView"
+        android:layout_width="101dp"
+        android:layout_height="91dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.63"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modelInfoDescTextView"
+        app:srcCompat="@drawable/infoo" />
+
+    <ImageView
+        android:id="@+id/rechteck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rechteck" />
 
     <!-- BENCHMARK TABLE -->
 

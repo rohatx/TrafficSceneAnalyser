@@ -3,6 +3,8 @@ package com.example.trafficsceneanalyser;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,8 +20,8 @@ public class analysisInfoPage extends AppCompatActivity {
     private String selectedModel;
     private TextView headline;
     private TextView description;
-    private TextView costs;
-    private TextView devs;
+    private ImageButton costs;
+    private ImageButton devs;
     private ImageView logo;
     private ImageView benchmark;
 
@@ -33,6 +35,7 @@ public class analysisInfoPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         // Erhalte das ausgewaehlte Model
         Intent intent = getIntent();
@@ -56,8 +59,11 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionLLaVA);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.llava_logo));
                 benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.llava_tabelle));
-                costs.setText(getString(R.string.modelInfoCostsLLaVA));
-                devs.setText(getString(R.string.modelInfoDevs));
+                costs.setOnClickListener(view -> {
+                    String url = getString(R.string.modelInfoCostsUrlFIRELLaVA);
+                    Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(costsIntent);
+                });
                 devs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoDevsUrlLLaVA);
                     Intent devsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -69,13 +75,12 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionCLAUDE);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.claude_logo));
                 benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.claude_tabelle));
-                costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlCLAUDE);
                     Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(costsIntent);
                 });
-                devs.setText(getString(R.string.modelInfoDevs));
+
                 devs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoDevsUrlCLAUDE);
                     Intent devsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -87,13 +92,12 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionGPT4o);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.chatgpt_logo));
                 benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gpt_4o_tabelle));
-                costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGPT4o);
                     Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(costsIntent);
                 });
-                devs.setText(getString(R.string.modelInfoDevs));
+
                 devs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoDevsUrlGPT4o);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -105,13 +109,12 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionFIRELLaVA);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.llava_logo));
                 benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.fire_llava_tabelle));
-                costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlFIRELLaVA);
                     Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(costsIntent);
                 });
-                devs.setText(getString(R.string.modelInfoDevs));
+
                 devs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoDevsUrlFIRELLaVA);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -123,13 +126,12 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionGeminiPro1_5);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_logo));
                 benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_pro_tabelle));
-                costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiPro1_5);
                     Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(costsIntent);
                 });
-                devs.setText(getString(R.string.modelInfoDevs));
+
                 devs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoDevsUrlGeminiPro1_5);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -141,13 +143,13 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionGeminiProVision1_0);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_logo));
                 benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.tabelle));
-                costs.setText(getString(R.string.modelInfoCosts));
+
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiProVision1_0);
                     Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(costsIntent);
                 });
-                devs.setText(getString(R.string.modelInfoDevs));
+
                 devs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoDevsUrlGeminiProVision1_0);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -159,13 +161,12 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText(R.string.modelInfoDescriptionGeminiFlash1_5);
                 logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_logo));
                 benchmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.gemini_flash_tabelle));
-                costs.setText(getString(R.string.modelInfoCosts));
                 costs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoCostsUrlGeminiFlash1_5);
                     Intent costsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(costsIntent);
                 });
-                devs.setText(getString(R.string.modelInfoDevs));
+
                 devs.setOnClickListener(view -> {
                     String url = getString(R.string.modelInfoDevsUrlGeminiFlash1_5);
                     Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -178,5 +179,9 @@ public class analysisInfoPage extends AppCompatActivity {
                 description.setText("No description found.");
                 break;
         }
+    }
+    public void goToHome(View view) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }
