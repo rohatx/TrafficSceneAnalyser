@@ -145,7 +145,7 @@ public class ImageOutput {
         if (getImageQuality().equals("Keine Probleme")) {
             return "";
         } else {
-            return "<u>Um ein besseres Ergebnis zu erzielen koennten folgende Tipps hilfreich sein.<u>";
+            return "<u>Um ein besseres Ergebnis zu erzielen könnten folgende Tipps hilfreich sein.<u>";
         }
     }
 
