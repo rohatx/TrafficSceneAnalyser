@@ -74,7 +74,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         uriInfo = (String[][]) intent.getSerializableExtra("uriInfo");
         selectedModel = intent.getStringExtra("selectedModel");
 
-        // Modell, erwatete Zeit, Accuracy und Info anzeigen
+        // Modell, erwartete Zeit, Accuracy und Info anzeigen
         viewModell = findViewById(R.id.viewModell);
         viewAccuracy = findViewById(R.id.viewAccuracy);
         viewErwarteteZeit = findViewById(R.id.viewErwarteteZeit);
@@ -189,6 +189,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         InputStream inputStream = new ByteArrayInputStream(decodedString);
         ImageOutput imageOutput = imageOutputList.get(currentImageIndex);
         imageOutput.setOutputText(output);
+        imageOutput.setOutputJSON();
         imageOutput.setImageStream(inputStream);
         imageOutput.setMarkedImage(markedImage);
         adapter.notifyItemChanged(currentImageIndex);

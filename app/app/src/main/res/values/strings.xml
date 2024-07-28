@@ -64,4 +64,14 @@
     <string name="modelInfoDevsUrlGeminiFlash1.5">https://ai.google.dev/gemini-api/docs/models/gemini#gemini-1.5-flash</string>
     "
 
+    <!-- Image Output Icon Descriptions -->
+
+    <string name="imageOutputIcon"> Unterfahrbarkeit </string>
+    <string name="imageAccuracyIcon"> Sicherheit </string>
+    <string name="imageOutputImageView"> Klicken für mehr Informationen </string>
+
+    <!-- Test for Design -->
+
+    <string name="test"> <u>Diese Tipps könnten helfen die Bildqualität zu verbessern.</u></string>
+
 </resources>
