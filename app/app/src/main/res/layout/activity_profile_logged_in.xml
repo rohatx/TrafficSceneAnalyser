@@ -100,8 +100,8 @@
 
     <ImageButton
         android:id="@+id/deleteAccountButton"
-        android:layout_width="103dp"
-        android:layout_height="88dp"
+        android:layout_width="97dp"
+        android:layout_height="77dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="deleteAccount"
         android:scaleType="fitCenter"
@@ -138,5 +138,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/signOutButton"
         app:layout_constraintVertical_bias="0.317" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account löschen"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteAccountButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,13 +19,15 @@
         app:layout_constraintVertical_bias="0.12"
         app:srcCompat="@drawable/background" />
 
+    <!-- Top Text View -->
+
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="484dp"
         android:layout_height="773dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
