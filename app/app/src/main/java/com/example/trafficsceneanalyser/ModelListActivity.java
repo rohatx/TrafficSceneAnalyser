@@ -2,6 +2,7 @@ package com.example.trafficsceneanalyser;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -9,15 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class ModelListActivity extends AppCompatActivity {
-
-
 
     private TextView llava;
     private TextView claude;
@@ -107,4 +101,9 @@ public class ModelListActivity extends AppCompatActivity {
 
     }
 
+    public void goToHome(View view) {
+        // Intent to go back to the home activity
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }
