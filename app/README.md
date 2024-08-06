@@ -6,5 +6,5 @@
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="server_url">http://your-server-ip:8000</string>
+    <string name="server_url">https://your-server-ip:8000</string>
 </resources>

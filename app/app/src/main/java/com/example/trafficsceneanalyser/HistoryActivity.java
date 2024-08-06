@@ -52,8 +52,10 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
         adapter = new ImageOutputAdapter(imageOutputList, this, this, R.layout.item_image_output_history); // Use the new layout
         recyclerView.setAdapter(adapter);
 
+
         AppCompatImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
+
 
         filterCheckbox = findViewById(R.id.filterCheckbox);
         filterCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> loadHistory());
@@ -107,12 +109,17 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
                             JSONObject jsonObject = response.getJSONObject(i);
                             String id = jsonObject.getString("id");
                             String marked_image = jsonObject.getString("marked_image");
-                            String output = jsonObject.getString("_output");
+                            String output = jsonObject.getString("_output"); // Check json
 
                             byte[] decodedString = Base64.decode(marked_image, Base64.DEFAULT);
                             InputStream inputStream = new ByteArrayInputStream(decodedString);
 
-                            imageOutputList.add(0, new ImageOutput(id, inputStream, output, null, marked_image)); // Add images to the list
+
+                            // Parse the json values before the imageOutput gets added to the list
+                            ImageOutput imageOutput = new ImageOutput(id, inputStream, output, null, marked_image);
+                            imageOutput.setOutputJSON();
+
+                            imageOutputList.add(0, imageOutput); // Add images to the list
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

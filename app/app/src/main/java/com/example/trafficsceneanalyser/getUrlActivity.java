@@ -68,7 +68,6 @@ public class getUrlActivity extends AppCompatActivity {
         btnGoToConfig.setOnClickListener(view -> goToConfig());
     }
 
-
     public void goToConfig() {
         Intent i = new Intent(this, UploadConfigActivity.class);
         i.putParcelableArrayListExtra("URL", arrayList);

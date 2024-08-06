@@ -11,14 +11,68 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="fitCenter"
-        android:contentDescription="@string/image_description" />
+        android:contentDescription="@string/image_description"
+        android:tooltipText="@string/imageOutputImageView" />
 
     <TextView
-        android:id="@+id/textViewOutput"
+        android:id="@+id/textViewLoading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="@string/boilerplate_text"
-        android:textSize="16sp"
-        android:gravity="center" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        android:text="Warten auf Serverantwort..."
+        android:padding="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:id="@+id/imageViewOutputIcon"
+            android:layout_width="0dp"
+            android:layout_height="67dp"
+            android:layout_weight="1"
+            android:tooltipText="Unterfahrbarkeit"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imageViewOutput"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imageViewAccuracy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:tooltipText="Sicherheit"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewAccuracy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="48sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/ViewBar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/lightGrey"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"/>
+
 </LinearLayout>
+
+
+

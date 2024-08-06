@@ -1,7 +1,13 @@
 package com.example.trafficsceneanalyser;
 
+import static android.provider.Settings.System.getString;
+
 import java.io.InputStream;
 import android.net.Uri;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ImageOutput {
     private String id;
@@ -9,6 +15,18 @@ public class ImageOutput {
     private String outputText;
     private Uri imageUri;
     private String markedImage;
+    // Keys for the json Parcing
+    private String lmmOutputKey = "Ausgabe LLM";
+    private String probabilityKey = "Berechnete Wahrscheinlichkeit";
+    private String reasoningKey = "Begründung";
+    private String sanityCheckKey = "Sanity Check";
+    private String imageQualityKey = "Bild Qualität";
+    // Strings for the json Outputs
+    private String lmmOutput = "Waiting for server response...";
+    private String probability;
+    private String reasoning;
+    private String sanityCheck;
+    private String imageQuality;
 
     public ImageOutput(String id, InputStream imageStream, String outputText, Uri imageUri, String markedImage) {
         this.id = id;
@@ -52,5 +70,88 @@ public class ImageOutput {
 
     public void setImageStream(InputStream imageStream) {
         this.imageStream = imageStream;
+    }
+
+    //Getter for all the json values
+    public String getLmmOutput() {
+        return lmmOutput;
+    }
+    public String getProbability() {
+        return probability;
+    }
+    public String getReasoning() { return reasoning; }
+    public String getSanityCheck() {
+        return sanityCheck;
+    }
+    public String getImageQuality() {
+        return imageQuality;
+    }
+    public int isUnderrideable() {
+        if (lmmOutput.equals("false")) {
+            return 0;
+        } else if (lmmOutput.equals("true")) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    // if the output returns the json then begin parsing
+    public void setOutputJSON() {
+        try{
+            JSONObject jsonObject = new JSONObject(outputText);
+            lmmOutput = jsonObject.getString(lmmOutputKey);
+            probability = jsonObject.getString(probabilityKey);
+            reasoning = jsonObject.getString(reasoningKey);
+            sanityCheck = jsonObject.getString(sanityCheckKey);
+            imageQuality = jsonObject.getString(imageQualityKey);
+        } catch (JSONException e) {
+            Log.e("ImageOutput", "Error parsing JSON: " + e.getMessage());
+        }
+
+        try {
+            float floatValue = Float.parseFloat(probability);
+            floatValue = floatValue*100;
+            int intValue = (int) floatValue;
+            probability = intValue + "%";
+        } catch (NumberFormatException e) {
+            Log.e("ImageOutput", "Error parsing float value: " + e.getMessage());
+        }
+    }
+
+    // TODO: Set string values in xml
+
+    public String getInfoText() {
+        String underride = " ";
+        if (isUnderrideable() == 0) {
+            underride = " nicht ";
+        }
+        return "Das Objekt ist mit " + getProbability() + " unterfahrbar. Somit kann es" + underride + "unterfahren werden";
+    }
+
+    public String getReasoningText() {
+        return "Begruendung: " + reasoning;
+    }
+
+    public String getSanityCheckText() {
+        if (getSanityCheck().equals("Keine Probleme")) {
+            return "Der Sanity Check hat keine Probleme festgestellt.";
+        } else {
+            return "Es gab Probleme beim Sanity Check";
+        }
+    }
+
+    public String getImageQualityText() {
+        if (getImageQuality().equals("Keine Probleme")) {
+            return "";
+        } else {
+            return "<u>Um ein besseres Ergebnis zu erzielen könnten folgende Tipps hilfreich sein.<u>";
+        }
+    }
+
+    public boolean hasImageQualityIssues() {
+        if (getImageQualityText().equals("")) {
+            return false;
+        } else { return true;}
     }
 }

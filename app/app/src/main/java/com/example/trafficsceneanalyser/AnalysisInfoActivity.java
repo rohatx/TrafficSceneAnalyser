@@ -74,11 +74,46 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         uriInfo = (String[][]) intent.getSerializableExtra("uriInfo");
         selectedModel = intent.getStringExtra("selectedModel");
 
-        // Modell, erwatete Zeit, Accuracy und Info anzeigen
+        // Modell, erwartete Zeit, Accuracy und Info anzeigen
         viewModell = findViewById(R.id.viewModell);
         viewAccuracy = findViewById(R.id.viewAccuracy);
         viewErwarteteZeit = findViewById(R.id.viewErwarteteZeit);
         viewModell.setText(selectedModel);
+        int zeit = 0;
+        switch (selectedModel) {
+            case "LLaVA":
+                viewAccuracy.setText("68%");
+                zeit = uriInfo.length * 30;
+
+                break;
+            case "Claude":
+                viewAccuracy.setText("90%");
+                zeit = uriInfo.length * 5;
+                break;
+            case "gpt-4o":
+                viewAccuracy.setText("94%");
+                zeit = uriInfo.length * 13;
+                break;
+            case "FireLLaVA":
+                viewAccuracy.setText("80%");
+                zeit = uriInfo.length * 10;
+                break;
+            case "Gemini Pro 1.5":
+                viewAccuracy.setText("84%");
+                zeit = uriInfo.length * 10;
+                break;
+            case "Gemini Pro Vision 1.0":
+                viewAccuracy.setText("82%");
+                zeit = uriInfo.length * 15;
+                break;
+            case "Gemini Flash 1.5":
+                viewAccuracy.setText("60%");
+                zeit = uriInfo.length * 7;
+                break;
+            default:
+                break;
+        }
+        viewErwarteteZeit.setText(zeit + "s");
 
         btnInfo = findViewById(R.id.btnInfo);
         btnInfo.setOnClickListener(v -> {
@@ -154,6 +189,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         InputStream inputStream = new ByteArrayInputStream(decodedString);
         ImageOutput imageOutput = imageOutputList.get(currentImageIndex);
         imageOutput.setOutputText(output);
+        imageOutput.setOutputJSON();
         imageOutput.setImageStream(inputStream);
         imageOutput.setMarkedImage(markedImage);
         adapter.notifyItemChanged(currentImageIndex);
