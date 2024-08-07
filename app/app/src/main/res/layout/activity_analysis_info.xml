@@ -131,7 +131,7 @@
   </LinearLayout>
 
     <ImageButton
-        android:id="@+id/homeButton"
+        android:id="@+id/btnHome"
         android:layout_width="64dp"
         android:layout_height="73dp"
         android:backgroundTint="#00FFFFFF"

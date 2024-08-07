@@ -1,22 +1,12 @@
 package com.example.trafficsceneanalyser;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -24,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -127,7 +116,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         animationView.playAnimation();
 
         // Add home button listener
-        findViewById(R.id.homeButton).setOnClickListener(view -> {
+        findViewById(R.id.btnHome).setOnClickListener(view -> {
             Intent homeIntent = new Intent(AnalysisInfoActivity.this, MainActivity.class);
             startActivity(homeIntent);
         });

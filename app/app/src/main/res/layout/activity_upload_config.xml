@@ -97,7 +97,7 @@
         app:srcCompat="@drawable/perfectlayout2" />
 
     <ImageButton
-        android:id="@+id/homeButton"
+        android:id="@+id/btnHome"
         android:layout_width="54dp"
         android:layout_height="68dp"
         android:backgroundTint="#00FFFFFF"
