@@ -122,22 +122,24 @@ public class ImageOutput {
     // TODO: Set string values in xml
 
     public String getInfoText() {
+        // return "Laut unseren Abschtzung: Das Objekt ist mit " + getProbability() + " unterfahrbar. Somit kann es" + underride + "unterfahren werden";
+        return "Laut unserer Berechnung: Das Objekt ist mit " + getProbability() + " unterfahrbar." ;
+    }
+
+    public String getReasoningText() {
         String underride = " ";
         if (isUnderrideable() == 0) {
             underride = " nicht ";
         }
-        return "Das Objekt ist mit " + getProbability() + " unterfahrbar. Somit kann es" + underride + "unterfahren werden";
-    }
-
-    public String getReasoningText() {
-        return "Begruendung: " + reasoning;
-    }
+        String boilerplate = "Laut LMM: Das Objekt kann" + underride + "unterfahren werden./n";
+        return boilerplate + "LMM Begründung: " + reasoning;
+    } // add isUnderrideable ?
 
     public String getSanityCheckText() {
         if (getSanityCheck().equals("Keine Probleme")) {
-            return "Der Sanity Check hat keine Probleme festgestellt.";
+            return "Sanity Check: Keine Probleme.";
         } else {
-            return "Es gab Probleme beim Sanity Check";
+            return "Sanity Check: Es gab Probleme.";
         }
     }
 
@@ -146,7 +148,7 @@ public class ImageOutput {
             return "";
         } else {
             // return "<u>Um ein besseres Ergebnis zu erzielen könnten folgende Tipps hilfreich sein.<u>";
-            return "<u>" + getImageQuality() + "</u>";
+            return "<u>Bildprobleme: " + getImageQuality() + "</u>";
         }
     }
 
