@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -36,7 +35,7 @@ public class UploadConfigActivity extends AppCompatActivity {
     private List<ImageSource> imageSources = new ArrayList<>();
     String[][] uriInfo;
     private static final float DEFAULT_LATITUDE = 37.81713298488588f;
-    private static final float DEFAULT_LONGITUDE = -12.47837630605842f; // Test Position im Meer: -12.47837630605842f
+    private static final float DEFAULT_LONGITUDE = -12.47837630605842f;
 
     private ImageButton infoButton;
 
@@ -65,7 +64,6 @@ public class UploadConfigActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerModelSelector.setAdapter(adapter);
 
-        // URIs laden
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null && extras.get("size") != null) {
@@ -83,7 +81,6 @@ public class UploadConfigActivity extends AppCompatActivity {
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-                // Read coordinates, logic in imageMetaData
                 imageMetaData metaData = new imageMetaData(inputMetaData);
                 uriInfo[i][0] = images[i].toString();
                 if (metaData.hasCoordinates()) {
@@ -95,7 +92,6 @@ public class UploadConfigActivity extends AppCompatActivity {
             }
         }
 
-        // URLs laden
         ArrayList<ImageSource> urls = intent.getParcelableArrayListExtra("URL");
         if (urls != null && !urls.isEmpty()) {
             imageSources.addAll(urls);
@@ -123,7 +119,6 @@ public class UploadConfigActivity extends AppCompatActivity {
         ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this, imageSources);
         viewPager.setAdapter(bildAdapter);
 
-        // viewPager konfigurieren, korrekte anzeige mehrere Bilder
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
         viewPager.setOffscreenPageLimit(3);
@@ -139,13 +134,11 @@ public class UploadConfigActivity extends AppCompatActivity {
         });
         viewPager.setPageTransformer(compositePageTransformer);
 
-        // dynamisch korrekte koordinaten anzeigen
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 ImageSource imageSource = imageSources.get(position);
-                // Format coordinates to 4 decimal places
                 DecimalFormat df = new DecimalFormat("#.####");
                 try {
                     InputStream inputMetaData = getContentResolver().openInputStream(imageSource.getUri());
@@ -154,7 +147,6 @@ public class UploadConfigActivity extends AppCompatActivity {
                         viewLatitude.setText("Latitude: " + df.format(Double.parseDouble(uriInfo[position][1])));
                         viewLongitude.setText("Longitude: " + df.format(Double.parseDouble(uriInfo[position][2])));
                     } else {
-                        // Use default coordinates if actual coordinates are not available
                         viewLatitude.setText("Latitude: " + df.format(DEFAULT_LATITUDE));
                         viewLongitude.setText("Longitude: " + df.format(DEFAULT_LONGITUDE));
                     }
