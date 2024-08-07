@@ -24,9 +24,8 @@
             android:layout_height="190dp"
             android:layout_margin="8dp"
             android:text="Das Objekt ist mit x% unterfahrbar. Somit kann es (nicht) unterfahren werden."
-            android:textAlignment="center" />
-
-
+            android:textAlignment="center"
+            android:textIsSelectable="true" />
 
         <TextView
             android:id="@+id/textViewInfoPopUp"
@@ -35,7 +34,8 @@
             android:layout_margin="8dp"
             android:text="Das Objekt ist mit x% unterfahrbar. Somit kann es (nicht) unterfahren werden."
             android:textAlignment="center"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:textIsSelectable="true" />
 
         <TextView
             android:id="@+id/textViewReasoningPopUp"
@@ -44,7 +44,8 @@
             android:layout_margin="8dp"
             android:text="Die Begruendung dafuer lautet: Reasoning"
             android:textAlignment="center"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:textIsSelectable="true" />
 
         <TextView
             android:id="@+id/textViewSanityCheckPopUp"
@@ -53,7 +54,8 @@
             android:layout_margin="8dp"
             android:text="Auch der Sanity Check blabla"
             android:textAlignment="center"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:textIsSelectable="true" />
 
         <TextView
             android:id="@+id/textViewImageQualityPopUp"
@@ -63,8 +65,8 @@
             android:textColor="@color/clickBlue"
             android:text="@string/test"
             android:textAlignment="center"
-            android:visibility="gone"/>
-
+            android:visibility="gone"
+            android:textIsSelectable="true" />
 
     </LinearLayout>
 </LinearLayout>

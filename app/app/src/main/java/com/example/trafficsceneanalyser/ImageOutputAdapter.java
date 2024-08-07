@@ -174,25 +174,25 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                     imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER); // Ensure scaleType is set to fitCenter
                 }
 
-                textViewInfoPopUp.setText(imageOutput.getInfoText());
-                textViewReasoningPopUp.setText(imageOutput.getReasoningText());
-                textViewSanityCheckPopUp.setText(imageOutput.getSanityCheckText());
+                textViewInfoPopUp.setText(Html.fromHtml(imageOutput.getInfoText(), Html.FROM_HTML_MODE_COMPACT));
+                textViewReasoningPopUp.setText(Html.fromHtml(imageOutput.getReasoningText(), Html.FROM_HTML_MODE_COMPACT));
+                textViewSanityCheckPopUp.setText(Html.fromHtml(imageOutput.getSanityCheckText(), Html.FROM_HTML_MODE_COMPACT));
                 // TODO: Image Quality output logic
                 // If problems initialize else do nothing with it
                 textViewImageQualityPopUp.setText(imageOutput.getImageQuality());
                 // Test
-                String popUpStr = imageOutput.getInfoText() + "\n\n"
-                                    + imageOutput.getReasoningText() + "\n\n"
-                                    + imageOutput.getSanityCheckText();
-                textViewPopUp.setText(popUpStr);
+                String popUpStr = imageOutput.getInfoText() + "<br/><br/>"
+                        + imageOutput.getReasoningText() + "<br/><br/>"
+                        + imageOutput.getSanityCheckText();
+                textViewPopUp.setText(Html.fromHtml(popUpStr, Html.FROM_HTML_MODE_COMPACT));
 
-                // TODO: Connect with the right intent
+                // Show the image quality problem text if it exists
                 if (imageOutput.hasImageQualityIssues()) {
                     textViewImageQualityPopUp.setVisibility(View.VISIBLE);
-                    Spanned underLinedText = Html.fromHtml(imageOutput.getImageQualityText(), 0);
+                    Spanned underLinedText = Html.fromHtml(imageOutput.getImageQualityText(), Html.FROM_HTML_MODE_COMPACT);
                     textViewImageQualityPopUp.setText(underLinedText);
                     textViewImageQualityPopUp.setOnClickListener(view -> {
-                        Intent intent = new Intent(view.getContext(), MainActivity.class);
+                        Intent intent = new Intent(view.getContext(), QualityTutActivity.class);
                         view.getContext().startActivity(intent);
                     });
                 }
