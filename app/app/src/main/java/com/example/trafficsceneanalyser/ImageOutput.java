@@ -138,7 +138,7 @@ public class ImageOutput {
         if (getSanityCheck().equals("Keine Probleme")) {
             return "<b>Sanity Check:</b> Keine Probleme.";
         } else {
-            return "<b>Sanity Check:</b> Es gab Probleme.";
+            return "<b>Sanity Check: </b>" + getSanityCheck();
         }
     }
 
