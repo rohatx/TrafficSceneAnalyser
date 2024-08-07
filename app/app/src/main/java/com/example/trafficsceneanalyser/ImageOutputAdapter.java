@@ -186,13 +186,13 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                                     + imageOutput.getSanityCheckText();
                 textViewPopUp.setText(popUpStr);
 
-                // TODO: Connect with the right intent
+                // Show the image quality problem text if it exists
                 if (imageOutput.hasImageQualityIssues()) {
                     textViewImageQualityPopUp.setVisibility(View.VISIBLE);
                     Spanned underLinedText = Html.fromHtml(imageOutput.getImageQualityText(), 0);
                     textViewImageQualityPopUp.setText(underLinedText);
                     textViewImageQualityPopUp.setOnClickListener(view -> {
-                        Intent intent = new Intent(view.getContext(), MainActivity.class);
+                        Intent intent = new Intent(view.getContext(), BilderTutActivity.class);
                         view.getContext().startActivity(intent);
                     });
                 }
