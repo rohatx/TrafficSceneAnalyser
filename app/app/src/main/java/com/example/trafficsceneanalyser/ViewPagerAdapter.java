@@ -1,7 +1,6 @@
 package com.example.trafficsceneanalyser;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.trafficsceneanalyser.ImageSource;
 
 import java.util.List;
 
@@ -37,10 +35,14 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ImageSource imageSource = imageSources.get(position);
         if (imageSource.isUri()) {
-            holder.imageView.setImageURI(imageSource.getUri());
+            Glide.with(context)
+                    .load(imageSource.getUri())
+                    .fitCenter()
+                    .into(holder.imageView);
         } else if (imageSource.isUrl()) {
             Glide.with(context)
                     .load(imageSource.getUrl())
+                    .fitCenter()
                     .into(holder.imageView);
         }
     }
