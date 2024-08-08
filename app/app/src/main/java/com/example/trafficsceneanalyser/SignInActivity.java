@@ -77,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
                     try {
                         String token = response.getString("token");
                         tokenManager.saveToken(token);
-                        goToProfile(view);
+                        goToHome(view);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(this, "Anmeldefehler: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -116,12 +116,10 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void goToProfile(View view) {
-        Intent i = new Intent(this, ProfileActivity.class);
-        startActivity(i);
+        goToHome(view);  // Changed this line to call goToHome
     }
 
     public void goToStandardProfile(View view) {
-        Intent i = new Intent(this, ProfileActivity.class);
-        startActivity(i);
+        goToHome(view);  // Changed this line to call goToHome
     }
 }
