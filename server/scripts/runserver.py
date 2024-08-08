@@ -17,7 +17,7 @@ def run_tests():
 
 def start_server():
     process = subprocess.Popen([
-        'python3', 'manage.py', 'runserver_plus',
+        'python3', 'scripts/manage.py', 'runserver_plus',
         '--cert-file', 'certificates/django-selfsigned.crt',
         '--key-file', 'certificates/django-selfsigned.key', '0.0.0.0:8000'
     ], preexec_fn=os.setsid)
