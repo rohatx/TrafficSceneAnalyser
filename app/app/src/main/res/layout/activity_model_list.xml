@@ -7,6 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".ModelListActivity">
 
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="54dp"
+        android:layout_height="68dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="goToHome"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
+
     <ImageView
         android:id="@+id/backg"
         android:layout_width="904dp"

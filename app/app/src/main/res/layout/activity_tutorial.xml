@@ -7,11 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".TutorialActivity">
 
+    <ImageButton
+        android:id="@+id/hbutton"
+        android:layout_width="64dp"
+        android:layout_height="73dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="goToHome"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/backg"
+        android:layout_width="904dp"
+        android:layout_height="897dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.12"
+        app:srcCompat="@drawable/background" />
+
     <Button
         android:id="@+id/btnAccount"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginBottom="30dp"
+        android:backgroundTint="#BC0404"
         android:text="Account"
         android:textAlignment="center"
         android:textSize="40sp"
@@ -23,6 +50,7 @@
         android:id="@+id/btnBilder"
         android:layout_width="300dp"
         android:layout_height="80dp"
+        android:backgroundTint="#BC0404"
         android:text="Bilder"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,6 +63,7 @@
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
+        android:backgroundTint="#BC0404"
         android:text="URL"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +75,7 @@
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
+        android:backgroundTint="#BC0404"
         android:text="Image Quality"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,13 +95,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="goToHome"
-        android:text="HOME"
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="484dp"
+        android:layout_height="773dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.643"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/perfectlayout2" />
+
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="54dp"
+        android:layout_height="68dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="goToHome"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

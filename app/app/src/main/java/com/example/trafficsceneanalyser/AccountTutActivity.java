@@ -3,6 +3,7 @@ package com.example.trafficsceneanalyser;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -35,7 +36,7 @@ public class AccountTutActivity extends AppCompatActivity {
         mediaController.setAnchorView(videoView);
         videoView.start();
 
-        Button btnHome = findViewById(R.id.btnHome);
+        ImageButton btnHome = findViewById(R.id.btnHome);
         btnHome.setOnClickListener(view -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

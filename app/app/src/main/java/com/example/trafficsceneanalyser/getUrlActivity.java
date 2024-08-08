@@ -3,7 +3,6 @@ package com.example.trafficsceneanalyser;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +36,7 @@ public class getUrlActivity extends AppCompatActivity {
             return insets;
         });
 
-        ImageButton homebutton = findViewById(R.id.homeButton);
+        ImageButton homebutton = findViewById(R.id.btnHome);
         homebutton.setOnClickListener(view -> {
             Intent homeIntent = new Intent(getUrlActivity.this, MainActivity.class);
             startActivity(homeIntent);
