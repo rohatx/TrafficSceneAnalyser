@@ -6,7 +6,11 @@ import base64
 import sys
 
 def fetch_data(calculated_probability_threshold, model, llm_output, image_dir):
-    conn = sqlite3.connect('db.sqlite3')
+    # Change to the project root directory
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    db_path = os.path.join(project_root, 'db.sqlite3')
+
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     query = """

@@ -97,7 +97,7 @@ So verwenden Sie das Skript:
 2. Führen Sie das Skript mit den gewünschten Parametern aus:
 
 ```bash
-python export_to_csv.py -o output.csv -i images/ -c 0.5 -m "gpt-4o" -l 1
+python scripts/export_to_csv.py -o output.csv -i images/ -c 0.5 -m "gpt-4o" -l 1
 ```
 
 Dieser Befehl exportiert alle Datensätze, bei denen die calculated_probability größer als 0.5 ist, das Modell gpt-4o verwendet wurde und der LLM-Ausgang 1 ist, in eine Datei namens output.csv. Die base64-codierten Bilder werden im Verzeichnis images/ gespeichert und in der CSV-Datei als Pfade referenziert.

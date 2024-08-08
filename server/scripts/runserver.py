@@ -1,8 +1,12 @@
-# runserver.py
+# scripts/runserver.py
 import subprocess
 import sys
 import signal
 import os
+
+# Change to the root directory of the project
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+os.chdir(project_root)
 
 def run_tests():
     result = subprocess.run(['pytest'], capture_output=True, text=True)
@@ -12,7 +16,11 @@ def run_tests():
         sys.exit(result.returncode)
 
 def start_server():
-    process = subprocess.Popen(['python3', 'manage.py', 'runserver_plus', '--cert-file', 'certificates/django-selfsigned.crt', '--key-file', 'certificates/django-selfsigned.key', '0.0.0.0:8000'], preexec_fn=os.setsid)
+    process = subprocess.Popen([
+        'python3', 'manage.py', 'runserver_plus',
+        '--cert-file', 'certificates/django-selfsigned.crt',
+        '--key-file', 'certificates/django-selfsigned.key', '0.0.0.0:8000'
+    ], preexec_fn=os.setsid)
     return process
 
 def stop_server(process):
