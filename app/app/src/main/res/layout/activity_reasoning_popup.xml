@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:textColor="@color/clickBlue"
+            android:textColor="@drawable/clickable_text_view_selector"
             android:text="@string/test"
             android:textAlignment="center"
             android:visibility="gone"

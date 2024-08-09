@@ -17,7 +17,7 @@ venv/
 
 # .DS_Store on macOS
 .DS_Store
-yolov8n.pt
+api/models/yolov8n.pt
 
 # Certificates
 certificates/*

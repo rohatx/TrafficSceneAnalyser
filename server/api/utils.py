@@ -267,8 +267,8 @@ def calculate_probability(C_LLM, road_detected, I_QS, H_ACC):
     }
 
 # Load both models
-model_standard = YOLO("yolov8n.pt")
-model_custom = YOLO("yolov8n_custom.pt")
+model_standard = YOLO("api/models/yolov8n.pt")
+model_custom = YOLO("api/models/yolov8n_custom.pt")
 
 def predict_and_draw(image, model, color, label, target_class=None):
     results = model.predict(source=image, conf=0.5, save=False)
