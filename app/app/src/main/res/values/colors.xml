@@ -11,5 +11,4 @@
     <color name="link_color_pressed">#FF4500</color> <!-- Farbe beim Drücken -->
     <color name="link_color_focused">#104E8B</color> <!-- Farbe beim Fokussieren -->
 
-    <color name="clickBlue"> #0000EE </color>
 </resources>
