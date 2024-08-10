@@ -1,6 +1,0 @@
-package com.example.trafficsceneanalyser;
-
-public interface UploadImageCallback {
-    void onSuccess(String output, String markedImage);
-    void onError(String error);
-}

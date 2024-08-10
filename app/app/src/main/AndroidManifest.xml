@@ -30,72 +30,72 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".QualityTutActivity"
+            android:name=".activities.tutorials.QualityTutActivity"
             android:exported="false" />
         <activity
-            android:name=".UrlTutActivity"
+            android:name=".activities.tutorials.UrlTutActivity"
             android:exported="false" />
         <activity
-            android:name=".BilderTutActivity"
+            android:name=".activities.tutorials.BilderTutActivity"
             android:exported="false" />
         <activity
-            android:name=".AccountTutActivity"
+            android:name=".activities.tutorials.AccountTutActivity"
             android:exported="false" />
         <activity
-            android:name=".TutorialActivity"
+            android:name=".activities.tutorials.TutorialActivity"
             android:exported="false" />
         <activity
-            android:name=".getUrlActivity"
+            android:name=".activities.analysis.getUrlActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".analysisInfoPage"
+            android:name=".activities.analysis.analysisInfoPage"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ModelListActivity"
+            android:name=".activities.models.ModelListActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HistoryActivity"
+            android:name=".activities.analysis.HistoryActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.auth.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".activities.auth.SignInActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileLoggedInActivity"
+            android:name=".activities.profile.ProfileLoggedInActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AnalysisInfoActivity"
+            android:name=".activities.analysis.AnalysisInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CameraActivity"
+            android:name=".activities.analysis.CameraActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UploadConfigActivity"
+            android:name=".activities.analysis.UploadConfigActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.profile.ProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.settings.SettingsActivity"
             android:exported="false"
             android:label="Settings"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.home.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.home.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
