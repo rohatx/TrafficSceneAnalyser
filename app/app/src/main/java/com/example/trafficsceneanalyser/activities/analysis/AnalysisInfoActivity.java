@@ -34,53 +34,63 @@ import java.util.List;
 
 public class AnalysisInfoActivity extends AppCompatActivity implements UploadImageCallback {
 
+    // Variablen zur Speicherung von Modell- und URI-Informationen
     private String[][] uriInfo;
     private String selectedModel;
-    private com.example.trafficsceneanalyser.utils.imageProcessing imageProcessing;
+
+    // UI-Komponenten
     private RecyclerView recyclerView;
     private ImageOutputAdapter adapter;
-    private List<ImageOutput> imageOutputList = new ArrayList<>();
-    private int currentImageIndex = 0;
     private TextView viewErwarteteZeit;
     private TextView viewModell;
     private TextView viewAccuracy;
     private ImageButton btnInfo;
-    LottieAnimationView animationView;
-    LottieAnimationView animationDone;
+    private LottieAnimationView animationView;
+    private LottieAnimationView animationDone;
+
+    // Bildverarbeitung und aktuelle Analyseposition
+    private com.example.trafficsceneanalyser.utils.imageProcessing imageProcessing;
+    private List<ImageOutput> imageOutputList = new ArrayList<>();
+    private int currentImageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this);  // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_analysis_info);
+
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Initialisierung der UI-Komponenten
         animationView = findViewById(R.id.animation);
         animationDone = findViewById(R.id.animationdone);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ImageOutputAdapter(imageOutputList, this, null, R.layout.item_image_output); // Use the original layout
+        adapter = new ImageOutputAdapter(imageOutputList, this, null, R.layout.item_image_output);
         recyclerView.setAdapter(adapter);
 
+        // Extrahiert die übergebenen Daten aus dem Intent
         Intent intent = getIntent();
         uriInfo = (String[][]) intent.getSerializableExtra("uriInfo");
         selectedModel = intent.getStringExtra("selectedModel");
 
-        // Modell, erwartete Zeit, Accuracy und Info anzeigen
+        // Anzeige der Modellinformationen wie erwartete Zeit und Genauigkeit
         viewModell = findViewById(R.id.viewModell);
         viewAccuracy = findViewById(R.id.viewAccuracy);
         viewErwarteteZeit = findViewById(R.id.viewErwarteteZeit);
         viewModell.setText(selectedModel);
+
+        // Berechnet die geschätzte Verarbeitungszeit basierend auf dem Modell
         int zeit = 0;
         switch (selectedModel) {
             case "LLaVA":
                 viewAccuracy.setText("68%");
                 zeit = uriInfo.length * 30;
-
                 break;
             case "Claude":
                 viewAccuracy.setText("90%");
@@ -111,6 +121,7 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         }
         viewErwarteteZeit.setText(zeit + "s");
 
+        // Button zur Anzeige weiterer Modellinformationen
         btnInfo = findViewById(R.id.btnInfo);
         btnInfo.setOnClickListener(v -> {
             Intent infoIntent = new Intent(this, analysisInfoPage.class);
@@ -118,19 +129,24 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             startActivity(infoIntent);
         });
 
-        // Ladeanimation Starten
+        // Startet die Ladeanimation
         animationView.setVisibility(View.VISIBLE);
         animationView.playAnimation();
 
-        // Add home button listener
+        // Fügt den Listener für den Home-Button hinzu, um zur Startseite zurückzukehren
         findViewById(R.id.btnHome).setOnClickListener(view -> {
             Intent homeIntent = new Intent(AnalysisInfoActivity.this, MainActivity.class);
             startActivity(homeIntent);
         });
 
+        // Startet die Verarbeitung des ersten Bildes
         processNextImage();
     }
 
+    /**
+     * Prozessiert das nächste Bild in der Liste, sendet es zur Analyse und verarbeitet die Antwort.
+     * Falls ein Bild nicht geladen werden kann, wird es übersprungen.
+     */
     private void processNextImage() {
         if (currentImageIndex < uriInfo.length) {
             Uri imageUri = Uri.parse(uriInfo[currentImageIndex][0]);
@@ -138,25 +154,28 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
             String longitude = uriInfo[currentImageIndex][2];
 
             try {
+                // Öffnet den Bild-Stream und dekodiert das Bild
                 InputStream inputProcessing = getContentResolver().openInputStream(imageUri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputProcessing);
                 if (bitmap != null) {
-                    // Display image immediately
+                    // Zeigt das Bild sofort an und bereitet den Upload vor
                     imageOutputList.add(new ImageOutput(null, inputProcessing, "Waiting for server response...", imageUri, null));
                     adapter.notifyItemInserted(imageOutputList.size() - 1);
 
-                    // Reopen the InputStream for processing
+                    // Öffnet den Bild-Stream erneut für die Verarbeitung
                     inputProcessing = getContentResolver().openInputStream(imageUri);
                     String url = getResources().getString(R.string.server_url) + "/api/v1/picture-explain/";
                     imageProcessing = new imageProcessing(inputProcessing, imageUri, selectedModel, url, this, this, latitude, longitude);
                     imageProcessing.uploadImage();
                 } else {
+                    // Falls das Bild nicht geladen werden konnte, wird es übersprungen
                     imageOutputList.add(new ImageOutput(null, null, "Failed to load image", imageUri, null));
                     adapter.notifyItemInserted(imageOutputList.size() - 1);
                     currentImageIndex++;
                     processNextImage();
                 }
             } catch (FileNotFoundException e) {
+                // Fehlerbehandlung bei nicht gefundenem Bild
                 imageOutputList.add(new ImageOutput(null, null, "Image not found", imageUri, null));
                 adapter.notifyItemInserted(imageOutputList.size() - 1);
                 e.printStackTrace();
@@ -164,13 +183,13 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
                 processNextImage();
             }
         } else {
-            // Ladeanimation beenden
+            // Stoppt die Ladeanimation und startet die Abschlussanimation
             animationView.pauseAnimation();
             animationView.setVisibility(View.GONE);
-            // Abgeschlossen Animation ausführen
             animationDone.setVisibility(View.VISIBLE);
             animationDone.playAnimation();
-            // benachrichtigung, dass alle Bilder fertig analysiert wurden, wenn app geschlossen
+
+            // Benachrichtigung bei abgeschlossener Analyse, falls die App geschlossen wurde
             AppLifecycleObserver lifecycleObserver = new AppLifecycleObserver(this);
             getLifecycle().addObserver(lifecycleObserver);
             if (!lifecycleObserver.AppOpen){
@@ -179,6 +198,10 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         }
     }
 
+    /**
+     * Callback-Funktion bei erfolgreicher Bildverarbeitung.
+     * Aktualisiert das aktuelle Bild mit den Analyseergebnissen und lädt das nächste Bild.
+     */
     @Override
     public void onSuccess(String output, String markedImage) {
         byte[] decodedString = Base64.decode(markedImage, Base64.DEFAULT);
@@ -193,6 +216,10 @@ public class AnalysisInfoActivity extends AppCompatActivity implements UploadIma
         processNextImage();
     }
 
+    /**
+     * Callback-Funktion bei einem Fehler während der Bildverarbeitung.
+     * Markiert das aktuelle Bild als fehlgeschlagen und lädt das nächste Bild.
+     */
     @Override
     public void onError(String error) {
         ImageOutput imageOutput = imageOutputList.get(currentImageIndex);

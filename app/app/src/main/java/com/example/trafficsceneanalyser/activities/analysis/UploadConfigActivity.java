@@ -35,29 +35,35 @@ import java.util.List;
 
 public class UploadConfigActivity extends AppCompatActivity {
 
+    // UI-Komponenten für die Ansicht und Auswahl
     private ViewPager2 viewPager;
     private TextView viewLongitude;
     private TextView viewLatitude;
+    private ImageButton infoButton;
+
+    // Liste der Bildquellen
     private List<ImageSource> imageSources = new ArrayList<>();
-    String[][] uriInfo;
+    private String[][] uriInfo;
+
+    // Standardkoordinaten, falls keine vorhanden sind
     private static final float DEFAULT_LATITUDE = 37.81713298488588f;
     private static final float DEFAULT_LONGITUDE = -122.47837630605842f;
-
-    private ImageButton infoButton;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this);  // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_upload_config);
 
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Initialisierung der UI-Komponenten
         viewPager = findViewById(R.id.viewPager);
         Spinner spinnerModelSelector = findViewById(R.id.spinner_model_selector);
         ImageButton buttonUpload = findViewById(R.id.button_upload);
@@ -65,11 +71,13 @@ public class UploadConfigActivity extends AppCompatActivity {
         viewLongitude = findViewById(R.id.longitude);
         infoButton = findViewById(R.id.infoButtonTest);
 
+        // Adapter für das Model-Spinner-Element
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.lmm_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerModelSelector.setAdapter(adapter);
 
+        // Daten aus dem Intent extrahieren (Bilder und URLs)
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null && extras.get("size") != null) {
@@ -93,11 +101,12 @@ public class UploadConfigActivity extends AppCompatActivity {
                     uriInfo[i][1] = String.valueOf(metaData.getLatitude());
                     uriInfo[i][2] = String.valueOf(metaData.getLongitude());
                 } else {
-                    bspKoordinaten(i);
+                    bspKoordinaten(i);  // Setzt Standardkoordinaten, wenn keine vorhanden sind
                 }
             }
         }
 
+        // Behandlung von URLs aus dem Intent
         ArrayList<ImageSource> urls = intent.getParcelableArrayListExtra("URL");
         if (urls != null && !urls.isEmpty()) {
             imageSources.addAll(urls);
@@ -113,18 +122,20 @@ public class UploadConfigActivity extends AppCompatActivity {
                         uriInfo[i][1] = String.valueOf(metaData.getLatitude());
                         uriInfo[i][2] = String.valueOf(metaData.getLongitude());
                     } else {
-                        bspKoordinaten(i);
+                        bspKoordinaten(i);  // Setzt Standardkoordinaten, wenn keine vorhanden sind
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    bspKoordinaten(i);
+                    bspKoordinaten(i);  // Setzt Standardkoordinaten im Fehlerfall
                 }
             }
         }
 
+        // Initialisierung des ViewPager-Adapters für die Bildanzeige
         ViewPagerAdapter bildAdapter = new ViewPagerAdapter(this, imageSources);
         viewPager.setAdapter(bildAdapter);
 
+        // Konfiguration des ViewPagers für eine bessere Benutzererfahrung
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
         viewPager.setOffscreenPageLimit(3);
@@ -140,6 +151,7 @@ public class UploadConfigActivity extends AppCompatActivity {
         });
         viewPager.setPageTransformer(compositePageTransformer);
 
+        // Listener für die Änderung der angezeigten Seite im ViewPager
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -162,6 +174,7 @@ public class UploadConfigActivity extends AppCompatActivity {
             }
         });
 
+        // Listener für den Button, um die Analyse zu starten
         buttonUpload.setOnClickListener(v -> {
             Intent analysisIntent = new Intent(UploadConfigActivity.this, AnalysisInfoActivity.class);
             analysisIntent.putExtra("uriInfo", uriInfo);
@@ -169,6 +182,7 @@ public class UploadConfigActivity extends AppCompatActivity {
             startActivity(analysisIntent);
         });
 
+        // Listener für den Info-Button, um zusätzliche Modellinformationen anzuzeigen
         infoButton.setOnClickListener(v -> {
             Intent infoIntent = new Intent(this, analysisInfoPage.class);
             infoIntent.putExtra("selectedModel", spinnerModelSelector.getSelectedItem().toString());
@@ -176,11 +190,18 @@ public class UploadConfigActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Wechselt zur Startseite der App.
+     */
     public void goToHome(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
-    public void bspKoordinaten(int i){
+
+    /**
+     * Setzt Standardkoordinaten, wenn keine exakten Koordinaten für ein Bild verfügbar sind.
+     */
+    public void bspKoordinaten(int i) {
         uriInfo[i][1] = String.valueOf(DEFAULT_LATITUDE);
         uriInfo[i][2] = String.valueOf(DEFAULT_LONGITUDE);
     }

@@ -20,24 +20,28 @@ public class AccountTutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_account_tut);
+
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Initialisierung und Konfiguration des VideoViews zur Anzeige des Tutorials
         VideoView videoView = findViewById(R.id.videoView);
         String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.acctut;
-
         videoView.setVideoPath(videoPath);
 
+        // Konfiguration der MediaController für die Videosteuerung
         MediaController mediaController = new MediaController(this);
         videoView.setMediaController(mediaController);
         mediaController.setAnchorView(videoView);
-        videoView.start();
+        videoView.start(); // Startet das Video
 
+        // Button zum Zurückkehren zur Startseite
         ImageButton btnHome = findViewById(R.id.btnHome);
         btnHome.setOnClickListener(view -> {
             Intent intent = new Intent(this, MainActivity.class);

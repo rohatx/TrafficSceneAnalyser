@@ -18,9 +18,10 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_settings);
 
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -28,6 +29,9 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Zurück zur Startseite.
+     */
     public void goToHome(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);

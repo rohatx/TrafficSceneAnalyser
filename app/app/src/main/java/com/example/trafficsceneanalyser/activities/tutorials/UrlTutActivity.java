@@ -20,24 +20,31 @@ public class UrlTutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_url_tut);
+
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Initialisierung und Konfiguration des VideoViews zur Anzeige des Tutorials
         VideoView videoView = findViewById(R.id.videoView);
         String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.urltut;
-
         videoView.setVideoPath(videoPath);
 
+        // Konfiguration der MediaController für die Videosteuerung
         MediaController mediaController = new MediaController(this);
         videoView.setMediaController(mediaController);
         mediaController.setAnchorView(videoView);
-        videoView.start();
+        videoView.start(); // Startet das Video
     }
+
+    /**
+     * Zurück zur Startseite.
+     */
     public void goToHome(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);

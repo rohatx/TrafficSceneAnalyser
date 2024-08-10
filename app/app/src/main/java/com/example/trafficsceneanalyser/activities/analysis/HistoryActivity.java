@@ -37,9 +37,12 @@ import java.util.Map;
 
 public class HistoryActivity extends AppCompatActivity implements MultiSelectSpinner.MultiSelectSpinnerListener, ImageOutputAdapter.OnDeleteClickListener {
 
+    // UI-Komponenten und Adapter zur Anzeige der Bildhistorie
     private RecyclerView recyclerView;
     private ImageOutputAdapter adapter;
     private List<ImageOutput> imageOutputList = new ArrayList<>();
+
+    // Verwaltungstoken und Filteroptionen
     private TokenManager tokenManager;
     private CheckBox filterCheckbox;
     private MultiSelectSpinner modelSpinner;
@@ -47,21 +50,23 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this);  // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_history);
 
+        // Initialisierung der Token-Verwaltung
         tokenManager = new TokenManager(this);
 
+        // Initialisierung der RecyclerView und des Adapters
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ImageOutputAdapter(imageOutputList, this, this, R.layout.item_image_output_history); // Use the new layout
+        adapter = new ImageOutputAdapter(imageOutputList, this, this, R.layout.item_image_output_history);
         recyclerView.setAdapter(adapter);
 
-
+        // Rückkehrbutton zur vorherigen Seite
         AppCompatImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
 
-
+        // Filteroptionen für die Bildhistorie
         filterCheckbox = findViewById(R.id.filterCheckbox);
         filterCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> loadHistory());
 
@@ -69,15 +74,19 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
         modelSpinner.setItems(getResources().getStringArray(R.array.lmm_array));
         modelSpinner.setListener(this);
 
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        loadHistory();
+        loadHistory();  // Lädt die Historie der Bilder
     }
 
+    /**
+     * Lädt die Historie der analysierten Bilder basierend auf den aktuellen Filteroptionen.
+     */
     private void loadHistory() {
         String baseUrl = getResources().getString(R.string.server_url) + "/api/v1/picture-explain/";
         boolean isUnderridableChecked = filterCheckbox.isChecked();
@@ -106,30 +115,29 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
         String url = urlBuilder.toString();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
+        // Anfrage zur Server API, um die Bildhistorie zu laden
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
-                    imageOutputList.clear(); // Ensure the list is clear before adding new data
+                    imageOutputList.clear();  // Leert die Liste vor dem Hinzufügen neuer Daten
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
                             String id = jsonObject.getString("id");
                             String marked_image = jsonObject.getString("marked_image");
-                            String output = jsonObject.getString("_output"); // Check json
+                            String output = jsonObject.getString("_output");
 
                             byte[] decodedString = Base64.decode(marked_image, Base64.DEFAULT);
                             InputStream inputStream = new ByteArrayInputStream(decodedString);
 
-
-                            // Parse the json values before the imageOutput gets added to the list
                             ImageOutput imageOutput = new ImageOutput(id, inputStream, output, null, marked_image);
                             imageOutput.setOutputJSON();
 
-                            imageOutputList.add(0, imageOutput); // Add images to the list
+                            imageOutputList.add(0, imageOutput);  // Fügt die Bilder zur Liste hinzu
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    adapter.notifyDataSetChanged(); // Notify the adapter of data changes
+                    adapter.notifyDataSetChanged();  // Benachrichtigt den Adapter über Datenänderungen
                 },
                 error -> {
                     Log.e("Volley Error", error.toString());
@@ -154,22 +162,25 @@ public class HistoryActivity extends AppCompatActivity implements MultiSelectSpi
 
     @Override
     public void onItemsSelected(List<String> selectedItems) {
-        loadHistory();
+        loadHistory();  // Aktualisiert die Historie basierend auf den ausgewählten Modellen
     }
 
     @Override
     public void onDeleteClick(int position) {
         ImageOutput imageOutput = imageOutputList.get(position);
-        deleteImage(imageOutput.getId(), position);
+        deleteImage(imageOutput.getId(), position);  // Löscht das ausgewählte Bild
     }
 
+    /**
+     * Löscht ein Bild aus der Historie.
+     */
     private void deleteImage(String id, int position) {
         String url = getResources().getString(R.string.server_url) + "/api/v1/picture-explain/?id=" + id;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
                 response -> {
-                    imageOutputList.remove(position);
+                    imageOutputList.remove(position);  // Entfernt das Bild aus der Liste
                     adapter.notifyItemRemoved(position);
                     Toast.makeText(this, "Bild erfolgreich gelöscht", Toast.LENGTH_SHORT).show();
                 },

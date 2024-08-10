@@ -20,8 +20,10 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_profile);
+
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -29,16 +31,25 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Zurück zur Startseite.
+     */
     public void goToHome(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Zur Anmeldeseite wechseln.
+     */
     public void goToLogin(View view) {
         Intent i = new Intent(this, SignInActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Zur Registrierungsseite wechseln.
+     */
     public void goToRegister(View view) {
         Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);

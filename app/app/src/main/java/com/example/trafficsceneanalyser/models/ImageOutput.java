@@ -10,24 +10,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ImageOutput {
+    // Variablen für Bilddaten und JSON-Parsing-Schlüssel
     private String id;
     private InputStream imageStream;
     private String outputText;
     private Uri imageUri;
     private String markedImage;
-    // Keys for the json Parcing
+
+    // Keys for JSON Parsing
     private String lmmOutputKey = "Ausgabe LLM";
     private String probabilityKey = "Berechnete Wahrscheinlichkeit";
     private String reasoningKey = "Begründung";
     private String sanityCheckKey = "Sanity Check";
     private String imageQualityKey = "Bild Qualität";
-    // Strings for the json Outputs
+
+    // Variablen für die aus dem JSON geparsten Werte
     private String lmmOutput = "Waiting for server response...";
     private String probability;
     private String reasoning;
     private String sanityCheck;
     private String imageQuality;
 
+    // Konstruktor zum Initialisieren der ImageOutput-Objekte
     public ImageOutput(String id, InputStream imageStream, String outputText, Uri imageUri, String markedImage) {
         this.id = id;
         this.imageStream = imageStream;
@@ -36,6 +40,7 @@ public class ImageOutput {
         this.markedImage = markedImage;
     }
 
+    // Getter-Methoden für die verschiedenen Eigenschaften
     public String getId() {
         return id;
     }
@@ -72,20 +77,28 @@ public class ImageOutput {
         this.imageStream = imageStream;
     }
 
-    //Getter for all the json values
+    // Getter für die aus dem JSON geparsten Werte
     public String getLmmOutput() {
         return lmmOutput;
     }
+
     public String getProbability() {
         return probability;
     }
-    public String getReasoning() { return reasoning; }
+
+    public String getReasoning() {
+        return reasoning;
+    }
+
     public String getSanityCheck() {
         return sanityCheck;
     }
+
     public String getImageQuality() {
         return imageQuality;
     }
+
+    // Methode zur Überprüfung, ob das Objekt unterfahrbar ist
     public int isUnderrideable() {
         if (lmmOutput.equals("false")) {
             return 0;
@@ -96,9 +109,9 @@ public class ImageOutput {
         }
     }
 
-    // if the output returns the json then begin parsing
+    // Methode zum Parsen der JSON-Daten
     public void setOutputJSON() {
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(outputText);
             lmmOutput = jsonObject.getString(lmmOutputKey);
             probability = jsonObject.getString(probabilityKey);
@@ -109,9 +122,10 @@ public class ImageOutput {
             Log.e("ImageOutput", "Error parsing JSON: " + e.getMessage());
         }
 
+        // Wahrscheinlichkeit in Prozent umrechnen
         try {
             float floatValue = Float.parseFloat(probability);
-            floatValue = floatValue*100;
+            floatValue = floatValue * 100;
             int intValue = (int) floatValue;
             probability = intValue + "%";
         } catch (NumberFormatException e) {
@@ -119,8 +133,7 @@ public class ImageOutput {
         }
     }
 
-    // TODO: Set string values in xml
-
+    // Methoden zur Erstellung von Texten für die Anzeige
     public String getInfoText() {
         return "<b>Berechnung:</b> Das Objekt ist mit " + getProbability() + " unterfahrbar.";
     }
@@ -132,7 +145,7 @@ public class ImageOutput {
         }
         String boilerplate = "<b>Laut LMM:</b> Das Objekt kann" + underride + "unterfahren werden.<br/><br/>";
         return boilerplate + "<b>LMM Begründung:</b> " + reasoning;
-    } // add isUnderrideable ?
+    }
 
     public String getSanityCheckText() {
         if (getSanityCheck().equals("Keine Probleme")) {
@@ -150,9 +163,8 @@ public class ImageOutput {
         }
     }
 
+    // Überprüfung, ob es Bildqualitätsprobleme gibt
     public boolean hasImageQualityIssues() {
-        if (getImageQualityText().equals("")) {
-            return false;
-        } else { return true;}
+        return !getImageQualityText().equals("");
     }
 }

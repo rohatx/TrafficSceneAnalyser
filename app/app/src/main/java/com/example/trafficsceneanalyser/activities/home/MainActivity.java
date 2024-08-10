@@ -43,22 +43,23 @@ import java.security.cert.X509Certificate;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton btnBildHochladen;
-    ImageButton btnBildAufnehmen;
-    ImageButton btnBildInternet;
+    // UI-Komponenten für die Hauptseite
+    private ImageButton btnBildHochladen;
+    private ImageButton btnBildAufnehmen;
+    private ImageButton btnBildInternet;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private FloatingActionButton mainFab, fab1, fab2; // Menu bar funktion
+    private FloatingActionButton mainFab, fab1, fab2; // Schwebende Aktionsknöpfe für das Menü
     private TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        trustAllCertificates();
-        EdgeToEdge.enable(this);
+        trustAllCertificates(); // Vertrauen auf alle Zertifikate (nur zu Testzwecken!)
+        EdgeToEdge.enable(this); // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_main);
 
-        // Ab Android 13 Berechtigung für Benachrichtigungen holen
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+        // Ab Android 13 Berechtigung für Benachrichtigungen anfordern
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
             }
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         tokenManager = new TokenManager(this);
 
-        // menubar
+        // Initialisierung der Menükomponenten
         mainFab = findViewById(R.id.main_fab);
         fab1 = findViewById(R.id.historyicon);
         fab2 = findViewById(R.id.fab2);
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.v("Pfad", "Aktueller Pfad: " + getPackageName());
 
+        // Initialisierung der Bild-Buttons
         btnBildHochladen = findViewById(R.id.btnBildHochladen);
         btnBildHochladen.setOnClickListener(view -> openImagePicker());
         btnBildAufnehmen = findViewById(R.id.btnBildAufnehmen);
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         btnBildInternet = findViewById(R.id.btnBildInternet);
         btnBildInternet.setOnClickListener(view -> openUrlPage());
 
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -104,19 +107,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Öffnet den Bildauswähler, um ein Bild hochzuladen.
+     */
     private void openImagePicker() {
         if (tokenManager.isLoggedIn()) {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
         } else {
-            showLoginPrompt();
+            showLoginPrompt(); // Zeigt eine Aufforderung zur Anmeldung an, wenn der Benutzer nicht eingeloggt ist
         }
     }
 
+    /**
+     * Öffnet die Kamera, um ein Bild aufzunehmen.
+     */
     private void openImageTaker() {
         if (tokenManager.isLoggedIn()) {
-            // open cameraPage
             Intent i = new Intent(MainActivity.this, CameraActivity.class);
             startActivity(i);
         } else {
@@ -124,7 +132,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openUrlPage(){
+    /**
+     * Öffnet die Seite, um eine Bild-URL hinzuzufügen.
+     */
+    private void openUrlPage() {
         if (tokenManager.isLoggedIn()) {
             Intent i = new Intent(MainActivity.this, getUrlActivity.class);
             startActivity(i);
@@ -149,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Zeigt eine Aufforderung zur Anmeldung an, wenn der Benutzer nicht eingeloggt ist.
+     */
     private void showLoginPrompt() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Sie müssen sich anmelden, um Bilder hochzuladen.")
@@ -160,11 +174,17 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    /**
+     * Wechseln zu den Einstellungen.
+     */
     public void goToSettings(View view) {
         Intent i = new Intent(this, SettingsActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Wechseln zur Profilseite, abhängig davon, ob der Benutzer eingeloggt ist.
+     */
     public void goToProfile(View view) {
         if (tokenManager.isLoggedIn()) {
             Intent i = new Intent(this, ProfileLoggedInActivity.class);
@@ -174,6 +194,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
+
+    /**
+     * Vertrauen auf alle Zertifikate (nur zu Testzwecken!).
+     */
     @SuppressLint("TrustAllX509TrustManager")
     private void trustAllCertificates() {
         try {
@@ -201,4 +225,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-

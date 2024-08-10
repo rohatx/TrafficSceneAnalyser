@@ -9,14 +9,15 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+// Diese Klasse implementiert einen Spinner (Dropdown), der mehrere Auswahlmöglichkeiten erlaubt
 public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinner implements
         DialogInterface.OnMultiChoiceClickListener {
 
-    private String[] _items = null;
-    private boolean[] _selection = null;
-    private ArrayAdapter<String> _proxyAdapter;
-    private String _defaultText = "Select Models";
-    private MultiSelectSpinnerListener _listener;
+    private String[] _items = null; // Liste der auswählbaren Elemente
+    private boolean[] _selection = null; // Auswahlinformationen
+    private ArrayAdapter<String> _proxyAdapter; // Adapter für die Anzeige im Spinner
+    private String _defaultText = "Select Models"; // Standardtext, wenn keine Auswahl getroffen wurde
+    private MultiSelectSpinnerListener _listener; // Listener, der über Änderungen benachrichtigt wird
 
     public MultiSelectSpinner(Context context) {
         super(context);
@@ -32,20 +33,23 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         super.setAdapter(_proxyAdapter);
     }
 
+    // Methode zum Setzen der Elemente im Spinner
     public void setItems(String[] items) {
         _items = items;
         _selection = new boolean[_items.length];
         _proxyAdapter.clear();
         _proxyAdapter.add(_defaultText);
-        Arrays.fill(_selection, false);
+        Arrays.fill(_selection, false); // Initialisieren aller Auswahlen mit false
     }
 
+    // Methode zum Setzen des Listeners
     public void setListener(MultiSelectSpinnerListener listener) {
         _listener = listener;
     }
 
     @Override
     public boolean performClick() {
+        // Erstellen und Anzeigen eines Dialogs zur Auswahl mehrerer Elemente
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Select Models");
         builder.setMultiChoiceItems(_items, _selection, this);
@@ -61,13 +65,14 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
     @Override
     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
         if (_selection != null && which < _selection.length) {
-            _selection[which] = isChecked;
+            _selection[which] = isChecked; // Auswahl entsprechend setzen
         } else {
             throw new IllegalArgumentException(
                     "Argument 'which' is out of bounds.");
         }
     }
 
+    // Methode zum Abrufen der ausgewählten Elemente
     public List<String> getSelectedItems() {
         List<String> selectedItems = new LinkedList<>();
         for (int i = 0; i < _items.length; ++i) {
@@ -78,6 +83,7 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         return selectedItems;
     }
 
+    // Schnittstelle für den Listener, der benachrichtigt wird, wenn Elemente ausgewählt wurden
     public interface MultiSelectSpinnerListener {
         void onItemsSelected(List<String> selectedItems);
     }

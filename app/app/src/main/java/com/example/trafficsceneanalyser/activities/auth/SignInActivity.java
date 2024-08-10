@@ -34,21 +34,24 @@ import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
 
+    // UI-Komponenten für die Anmeldung
     private EditText usernameEditText;
     private EditText passwordEditText;
-    private TokenManager tokenManager;
+    private TokenManager tokenManager; // TokenManager zur Verwaltung der Sitzung
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_sign_in);
 
         tokenManager = new TokenManager(this);
 
+        // Initialisierung der UI-Komponenten
         usernameEditText = findViewById(R.id.userUsername);
         passwordEditText = findViewById(R.id.userPassword);
 
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -56,15 +59,21 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Methode zur Anmeldung eines Benutzers.
+     */
     public void signIn(View view) {
+        // Extrahieren der Benutzereingaben
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
+        // Überprüfen, ob die Felder ausgefüllt sind
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Username und Passwort dürfen nicht leer sein", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Erstellen des JSON-Körpers für die Anmeldung
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("username", username);
@@ -75,14 +84,17 @@ public class SignInActivity extends AppCompatActivity {
 
         String url = getResources().getString(R.string.server_url) + "/api/v1/tokens/";
 
+        // Erstellung der Request-Queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
+        // Erstellen der Anfrage für die Benutzeranmeldung
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
                     try {
+                        // Token aus der Antwort extrahieren und speichern
                         String token = response.getString("token");
                         tokenManager.saveToken(token);
-                        goToProfileLoggedIn(view);
+                        goToProfileLoggedIn(view); // Nach erfolgreicher Anmeldung zum Profil weiterleiten
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(this, "Anmeldefehler: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -107,24 +119,35 @@ public class SignInActivity extends AppCompatActivity {
             }
         };
 
+        // Einstellen der Retry-Policy
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
+        // Anfrage zur Warteschlange hinzufügen
         requestQueue.add(jsonObjectRequest);
     }
 
+    /**
+     * Wechseln zur Startseite der App.
+     */
     public void goToHome(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Wechseln zur eingeloggten Profilseite nach erfolgreicher Anmeldung.
+     */
     public void goToProfileLoggedIn(View view) {
         Intent i = new Intent(this, ProfileLoggedInActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Wechseln zur Profilseite.
+     */
     public void goToProfile(View view) {
         Intent i = new Intent(this, ProfileActivity.class);
         startActivity(i);

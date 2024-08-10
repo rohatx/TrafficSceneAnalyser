@@ -20,6 +20,7 @@ import com.example.trafficsceneanalyser.activities.home.MainActivity;
 
 public class analysisInfoPage extends AppCompatActivity {
 
+    // UI-Komponenten zur Anzeige von Modellinformationen
     private String selectedModel;
     private TextView headline;
     private TextView description;
@@ -31,20 +32,21 @@ public class analysisInfoPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this);  // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_model_info);
+
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-
-        // Erhalte das ausgewaehlte Model
+        // Erhalte das ausgewählte Modell aus dem Intent
         Intent intent = getIntent();
         selectedModel = intent.getStringExtra("selectedModel");
 
-        // Initialisiere UI Komponenten
+        // Initialisiere UI-Komponenten
         headline = findViewById(R.id.modelInfoHeadlineTextview);
         description = findViewById(R.id.modelInfoDescTextView);
         costs = findViewById(R.id.modelInfoCostsTextView);
@@ -52,10 +54,7 @@ public class analysisInfoPage extends AppCompatActivity {
         logo = findViewById(R.id.modelInfoLogoImageView);
         benchmark = findViewById(R.id.modelInfoBenchmarkImageView);
 
-        // Switch Case fuer Model Infoausgabe
-        // Erst wird der Text initialisiert
-        // Dann wird mit der Funktion der notwendige Text clickable
-
+        // Zeigt Informationen basierend auf dem ausgewählten Modell
         switch (selectedModel) {
             case "LLaVA":
                 headline.setText(selectedModel);
@@ -176,13 +175,13 @@ public class analysisInfoPage extends AppCompatActivity {
                     startActivity(openLink);
                 });
                 break;
-            // TODO: Add strings for default case to make it translateable
             default:
                 headline.setText("No model found");
                 description.setText("No description found.");
                 break;
         }
     }
+
     public void goToHome(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);

@@ -17,6 +17,7 @@ import com.example.trafficsceneanalyser.activities.home.MainActivity;
 
 public class ModelListActivity extends AppCompatActivity {
 
+    // UI-Komponenten zur Darstellung der verfügbaren Modelle
     private TextView llava;
     private TextView claude;
     private TextView gpt4o;
@@ -29,84 +30,82 @@ public class ModelListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_model_list);
+
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Initialize every textview and make the text clickable
-        // After the click the selected model is sent to the next activity
+        // Initialisierung der TextView-Elemente für jedes Modell
+        // Bei Klick auf ein Modell wird dieses ausgewählt und die nächste Activity gestartet
 
         llava = findViewById(R.id.LLaVATextView);
         llava.setText(R.string.modelInfoNameLLaVA);
         llava.setOnClickListener(view -> {
-            Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "LLaVA";
-            i.putExtra("selectedModel", selectedModel);
-            startActivity(i);
+            startAnalysisInfoPage(selectedModel);
         });
 
         claude = findViewById(R.id.CLAUDETextView);
         claude.setText(R.string.modelInfoNameCLAUDE);
         claude.setOnClickListener(view -> {
-            Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "Claude";
-            i.putExtra("selectedModel", selectedModel);
-            startActivity(i);
+            startAnalysisInfoPage(selectedModel);
         });
 
         gpt4o = findViewById(R.id.Gpt4oTextView);
         gpt4o.setText(R.string.modelInfoNameGPT4o);
         gpt4o.setOnClickListener(view -> {
-            Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "gpt-4o";
-            i.putExtra("selectedModel", selectedModel);
-            startActivity(i);
+            startAnalysisInfoPage(selectedModel);
         });
 
         fireLlava = findViewById(R.id.FireLLaVATextView);
         fireLlava.setText(R.string.modelInfoNameFIRELLaVA);
         fireLlava.setOnClickListener(view -> {
-            Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "FireLLaVA";
-            i.putExtra("selectedModel", selectedModel);
-            startActivity(i);
+            startAnalysisInfoPage(selectedModel);
         });
 
         geminiPro1_5 = findViewById(R.id.GeminiPro1_5TextView);
         geminiPro1_5.setText(R.string.modelInfoNameGeminiPro1_5);
         geminiPro1_5.setOnClickListener(view -> {
-            Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "Gemini Pro 1.5";
-            i.putExtra("selectedModel", selectedModel);
-            startActivity(i);
+            startAnalysisInfoPage(selectedModel);
         });
 
         geminiProVision1_0 = findViewById(R.id.GeminiProVision1_0TextView);
         geminiProVision1_0.setText(R.string.modelInfoNameGeminiProVision1_0);
         geminiProVision1_0.setOnClickListener(view -> {
-            Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "Gemini Pro Vision 1.0";
-            i.putExtra("selectedModel", selectedModel);
-            startActivity(i);
+            startAnalysisInfoPage(selectedModel);
         });
 
         geminiFlash1_5 = findViewById(R.id.GeminiFlash1_5TextView);
         geminiFlash1_5.setText(R.string.modelInfoNameGeminiFlash1_5);
         geminiFlash1_5.setOnClickListener(view -> {
-            Intent i = new Intent(this, analysisInfoPage.class);
             selectedModel = "Gemini Flash 1.5";
-            i.putExtra("selectedModel", selectedModel);
-            startActivity(i);
+            startAnalysisInfoPage(selectedModel);
         });
-
     }
 
+    /**
+     * Startet die Analyse-Info-Seite mit dem ausgewählten Modell.
+     */
+    private void startAnalysisInfoPage(String modelName) {
+        Intent i = new Intent(this, analysisInfoPage.class);
+        i.putExtra("selectedModel", modelName);
+        startActivity(i);
+    }
+
+    /**
+     * Zurück zur Startseite.
+     */
     public void goToHome(View view) {
-        // Intent to go back to the home activity
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

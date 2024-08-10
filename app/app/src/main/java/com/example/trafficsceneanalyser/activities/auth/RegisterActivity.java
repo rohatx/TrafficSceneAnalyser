@@ -32,6 +32,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    // UI-Komponenten für die Registrierung
     private EditText usernameEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -39,13 +40,15 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Aktiviert die Edge-to-Edge-Darstellung
         setContentView(R.layout.activity_register);
 
+        // Initialisierung der UI-Komponenten
         usernameEditText = findViewById(R.id.userUsername);
         emailEditText = findViewById(R.id.userEmail);
         passwordEditText = findViewById(R.id.userPassword);
 
+        // Setzt die korrekten Fenster-Insets, um die Systemleisten korrekt zu handhaben
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -53,16 +56,22 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Methode zum Registrieren eines neuen Benutzers.
+     */
     public void register(View view) {
+        // Extrahieren der Benutzereingaben
         String username = usernameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
+        // Überprüfen, ob alle Felder ausgefüllt sind
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Alle Felder müssen ausgefüllt werden", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Erstellen des JSON-Körpers für die Registrierung
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("username", username);
@@ -74,12 +83,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         String url = getResources().getString(R.string.server_url) + "/api/v1/users/";
 
+        // Erstellung der Request-Queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
+        // Erstellen der Anfrage für die Benutzerregistrierung
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
                     try {
-                        // Registrierungs-Response verarbeiten
+                        // Verarbeiten der Registrierungsantwort
                         String userId = response.getString("id");
                         String registeredUsername = response.getString("username");
                         String registeredEmail = response.getString("email");
@@ -111,24 +122,35 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
 
+        // Einstellen der Retry-Policy
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
+        // Anfrage zur Warteschlange hinzufügen
         requestQueue.add(jsonObjectRequest);
     }
 
+    /**
+     * Wechseln zur Startseite der App.
+     */
     public void goToHome(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Wechseln zur Anmeldeseite nach erfolgreicher Registrierung.
+     */
     private void goToLogin() {
         Intent i = new Intent(this, SignInActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Wechseln zur Profilseite.
+     */
     public void goToProfile(View view) {
         Intent i = new Intent(this, ProfileActivity.class);
         startActivity(i);

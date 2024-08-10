@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+// Diese Klasse übernimmt die Verarbeitung und das Hochladen von Bildern
 public class imageProcessing {
     private String selectedModel;
     private String latitude;
@@ -34,6 +35,7 @@ public class imageProcessing {
     private UploadImageCallback callback;
     private TokenManager tokenManager;
 
+    // Konstruktor zum Initialisieren der benötigten Parameter
     public imageProcessing(InputStream inputStream, Uri image, String selectedModel, String url, Context context, UploadImageCallback callback, String latitude, String longitude) {
         this.inputStream = inputStream;
         this.image = image;
@@ -46,9 +48,10 @@ public class imageProcessing {
         this.longitude = longitude;
     }
 
+    // Methode zum Hochladen des Bildes
     public void uploadImage() {
         try {
-            String imageBase64 = encodeImageToBase64();
+            String imageBase64 = encodeImageToBase64(); // Bild in Base64 kodieren
 
             if (imageBase64 == null) {
                 callback.onError("Failed to encode image");
@@ -63,6 +66,7 @@ public class imageProcessing {
 
             RequestQueue requestQueue = Volley.newRequestQueue(context);
 
+            // JSON-Objekt-Request zum Hochladen des Bildes
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                     response -> {
                         try {
@@ -112,6 +116,7 @@ public class imageProcessing {
         }
     }
 
+    // Methode zum Kodieren des Bildes in Base64
     private String encodeImageToBase64() {
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
         if (bitmap == null) {
