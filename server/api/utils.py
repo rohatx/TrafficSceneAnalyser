@@ -11,7 +11,7 @@ import numpy as np
 import cv2
 from ultralytics import YOLO
 
-# Define the global prompt template
+# Globale Prompt-Vorlage, die in den Modellen verwendet wird
 IMAGE_QUALITY_CATEGORIES = ["Helligkeit", "Kontrast", "Schärfe", "ganze Objekt zu sehen", "Nähe zum Objekt"]
 GLOBAL_PROMPT = (
     "Ist das auf dem Bild erkennbare Objekt unterfahrbar (Brücke/Ampeln/weitere Metallische Objekte über der Straße)? "
@@ -21,6 +21,7 @@ GLOBAL_PROMPT = (
     "genaue Angabe z.B. " + ", ".join(IMAGE_QUALITY_CATEGORIES) + "]'."
 )
 
+# Historische Genauigkeitswerte für verschiedene Modelle
 H_ACC_VALUES = {
     "gpt-4o": 0.94,
     "Claude": 0.90,
@@ -31,6 +32,7 @@ H_ACC_VALUES = {
     "FireLLaVA": 0.80
 }
 
+# Wählt das passende Modell für die Bildanalyse basierend auf dem angegebenen Modellnamen
 def analyze_image_with_lmm(base64_image, model):
     if model == "LLaVA":
         return analyze_image_with_llava(base64_image)
@@ -47,7 +49,7 @@ def analyze_image_with_lmm(base64_image, model):
     elif model == "gpt-4o":
         return analyze_image_with_openai(base64_image)
 
-# Using Openai API directly
+# Verwendung der OpenAI API, um Bilder zu analysieren
 def analyze_image_with_openai(base64_image):
     api_key = settings.OPENAI_APIKEY
     headers = {
@@ -55,6 +57,7 @@ def analyze_image_with_openai(base64_image):
         "Authorization": f"Bearer {api_key}"
     }
 
+    # Erstellen der Anfrage-Payload
     payload = {
         "model": "gpt-4o",
         "messages": [
@@ -77,13 +80,14 @@ def analyze_image_with_openai(base64_image):
         "max_tokens": 300
     }
 
+    # Senden der Anfrage an die OpenAI API
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
     if response.status_code == 200:
         response_json = response.json()
         message_content = response_json['choices'][0]['message']['content']
         
-        # Remove code block formatting if present
+        # Entfernen von Codeblock-Formatierungen, falls vorhanden
         if message_content.startswith("```json"):
             message_content = re.sub(r"^```json|```$", "", message_content).strip()
 
@@ -91,30 +95,31 @@ def analyze_image_with_openai(base64_image):
     else:
         return f"Error: Unable to analyze image. Status Code: {response.status_code}, Response: {response.text}"
 
-# Using local LMM (LLaVa), extendable via Ollama
+# Verwendung eines lokalen LMM (LLaVA) zur Bildanalyse, erweiterbar über Ollama
 def analyze_image_with_llava(base64_image):
     image_bytes = base64.b64decode(base64_image)
     img = Image.open(BytesIO(image_bytes))
     
+    # Konvertieren des Bildes in Byte-Format
     with BytesIO() as buffer:
         img.save(buffer, format='PNG')
         image_bytes = buffer.getvalue()
 
     full_response = ''
-    # Generate a description of the image
+    # Erzeugen einer Bildbeschreibung
     for response in generate(model='llava:7b-v1.6', 
                              prompt=GLOBAL_PROMPT, 
                              images=[image_bytes], 
                              stream=True):
         full_response += response['response']
     
-    # Remove code block formatting if present
+    # Entfernen von Codeblock-Formatierungen, falls vorhanden
     if full_response.startswith("```json"):
         full_response = re.sub(r"^```json|```$", "", full_response).strip()
 
     return full_response
 
-# Using OpenRouter to Access almost all APIs at once
+# Verwendung von OpenRouter zur Nutzung mehrerer APIs gleichzeitig
 def analyze_image_with_openRouter(base64_image, model):
     OPENROUTER_API_KEY = settings.OPENROUTER_APIKEY
     response = requests.post(
@@ -149,7 +154,7 @@ def analyze_image_with_openRouter(base64_image, model):
         response_data = response.json()
         message_content = response_data['choices'][0]['message']['content']
         
-        # Remove code block formatting if present
+        # Entfernen von Codeblock-Formatierungen, falls vorhanden
         if message_content.startswith("```json"):
             message_content = re.sub(r"^```json|```$", "", message_content).strip()
 
@@ -157,14 +162,14 @@ def analyze_image_with_openRouter(base64_image, model):
     else:
         return f"Request failed with status code: {response.status_code}\n{response.text}"
 
-### Sanity Check functions ###
+### Sanity-Check-Funktionen ###
 
-## Bridge nearby
+## Überprüft, ob sich in der Nähe Brücken befinden
 def query_bridges_nearby(latitude, longitude):
     radius = 100
     api = overpy.Overpass()
 
-    # Query to find bridges that are underridable, excluding certain types
+    # Abfrage zur Suche nach Brücken, die unterfahrbar sind
     query = f"""
     [out:json];
     (
@@ -181,12 +186,12 @@ def query_bridges_nearby(latitude, longitude):
         return False
     return True
 
-## Street nearby
+## Überprüft, ob sich Straßen in der Nähe befinden
 def check_way(latitude, longitude):
     radius = 100
     api = overpy.Overpass()
 
-    # Query to find roads, excluding certain types that aren't passable for vehicles
+    # Abfrage zur Suche nach Straßen, die für Fahrzeuge befahrbar sind
     query = f"""
     [out:json];
     (
@@ -212,14 +217,14 @@ def check_way(latitude, longitude):
         return False
     return True
 
+## Überprüft, ob sich in der Nähe Tunnel befinden
 def query_tunnels_nearby(latitude, longitude):
     radius = 100
     
-    # Api is Overpass von OpenStreetMaps
+    # Verwendet die Overpass-API von OpenStreetMaps
     api = overpy.Overpass()
 
-    # Query Anfrage an Overpass Server 
-    # Look for tag "tunnel", excluding the tags that won't be underridable
+    # Abfrage an den Overpass-Server zur Suche nach "tunnel"-Tags
     query = f"""
         [out:json];
         (
@@ -235,7 +240,7 @@ def query_tunnels_nearby(latitude, longitude):
         /*end of auto repair*/
         out;
         """
-    # Checke ob im Result tunnel tags vorhanden sind
+    # Überprüft, ob im Ergebnis Tunnel-Tags vorhanden sind
     result = api.query(query)
 
     if not result.ways:
@@ -243,22 +248,23 @@ def query_tunnels_nearby(latitude, longitude):
     if result.ways:
         return True
 
+# Berechnet die Wahrscheinlichkeit basierend auf verschiedenen Faktoren wie Modellvertrauen und Bildqualität
 def calculate_probability(C_LLM, road_detected, I_QS, H_ACC):
-    # Image Quality Adjustment
+    # Anpassung der Wahrscheinlichkeit basierend auf der Bildqualität
     IQS_Adjustment = round((1 - I_QS) * 0.05, 2)
     
-    # Historical Accuracy Adjustment
+    # Anpassung der Wahrscheinlichkeit basierend auf der historischen Genauigkeit
     HA_Adjustment = round(1 - H_ACC, 2)
     
-    # Total Adjustment
+    # Gesamtanpassung
     Adjustment = round(IQS_Adjustment + HA_Adjustment, 2)
     
     C_LLM_adjusted = C_LLM
-    # If no road detected, reduce the probability by 50%
+    # Wenn keine Straße erkannt wird, wird die Wahrscheinlichkeit um 50% reduziert
     if not road_detected:
         C_LLM_adjusted = round(C_LLM * 0.5, 2)
     
-    # Final Probability
+    # Finale Wahrscheinlichkeit
     probability = round(C_LLM_adjusted * (1 - Adjustment), 2)
     
     return probability, {
@@ -266,10 +272,11 @@ def calculate_probability(C_LLM, road_detected, I_QS, H_ACC):
         "calculation": f"P_final = {C_LLM} * {'0.5' if not road_detected else '1'} * (1 - ({IQS_Adjustment} + {HA_Adjustment}))"
     }
 
-# Load both models
+# Lädt beide YOLO-Modelle
 model_standard = YOLO("api/models/yolov8n.pt")
 model_custom = YOLO("api/models/yolov8n_custom.pt")
 
+# Führt Vorhersagen mit den Modellen durch und zeichnet die Erkennungsergebnisse in das Bild
 def predict_and_draw(image, model, color, label, target_class=None):
     results = model.predict(source=image, conf=0.5, save=False)
     
@@ -277,25 +284,26 @@ def predict_and_draw(image, model, color, label, target_class=None):
         bb = result.xyxy.numpy()[0].astype(int)
         cls_id = int(result.cls.numpy()[0])
         
-        # Only draw the bounding box if the class matches the target class (if specified)
+        # Zeichnet das Begrenzungsrechteck nur, wenn die Klasse mit der Zielklasse übereinstimmt (falls angegeben)
         if target_class is None or cls_id == target_class:
-            cv2.rectangle(image, (bb[0], bb[1]), (bb[2], bb[3]), color, 3)  # Thicker line
-            cv2.putText(image, label, (bb[0] + 5, bb[1] + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2)  # Text inside the box
+            cv2.rectangle(image, (bb[0], bb[1]), (bb[2], bb[3]), color, 3)  # Dickere Linie
+            cv2.putText(image, label, (bb[0] + 5, bb[1] + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2)  # Text innerhalb des Rahmens
     
     return image
 
+# Erkennt Objekte im Bild mithilfe der geladenen YOLO-Modelle und kombiniert die Ergebnisse
 def detect_objects(base64_image):
     image_bytes = base64.b64decode(base64_image)
     np_image = np.frombuffer(image_bytes, np.uint8)
     img = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
     
-    # Predict with the standard model for traffic lights
-    img_with_traffic_lights = predict_and_draw(img.copy(), model_standard, (255, 0, 0), "traffic_light", target_class=9)  # Blue for traffic lights (class 9)
+    # Vorhersage mit dem Standardmodell für Ampeln
+    img_with_traffic_lights = predict_and_draw(img.copy(), model_standard, (255, 0, 0), "traffic_light", target_class=9)  # Blau für Ampeln (Klasse 9)
     
-    # Predict with the custom model for other objects
-    img_with_custom_model = predict_and_draw(img.copy(), model_custom, (0, 255, 0), "bridge")  # Green for custom model
+    # Vorhersage mit dem benutzerdefinierten Modell für andere Objekte
+    img_with_custom_model = predict_and_draw(img.copy(), model_custom, (0, 255, 0), "bridge")  # Grün für das benutzerdefinierte Modell
 
-    # Combine the images
+    # Kombinieren der Bilder
     combined_img = cv2.addWeighted(img_with_traffic_lights, 0.5, img_with_custom_model, 0.5, 0)
     
     _, buffer = cv2.imencode('.png', combined_img)
@@ -303,6 +311,7 @@ def detect_objects(base64_image):
     
     return marked_image_base64
 
+# Führt die Analyse des Bildes durch und überprüft die Ergebnisse mit Sanity Checks
 def analyze_and_check(base64_image, latitude, longitude, model):
     lmm_response = analyze_image_with_lmm(base64_image, model)
     
@@ -328,7 +337,7 @@ def analyze_and_check(base64_image, latitude, longitude, model):
 
     road_detected = check_way(latitude, longitude)
     
-    # Get the historical accuracy for the chosen model
+    # Abrufen der historischen Genauigkeit für das gewählte Modell
     H_ACC = H_ACC_VALUES.get(model, 0.90)
 
     probability, adjustment_details = calculate_probability(C_LLM, road_detected, I_QS, H_ACC)

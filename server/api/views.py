@@ -9,15 +9,17 @@ from api.serializers import PictureExplainSerializer, UserSerializer, TokenSeria
 from api.models import CodeExplainer
 from api.permissions import AllowAnyForRegistration
 
+# APIView für die Bildanalyse, ermöglicht GET, POST und DELETE Anfragen
 class PictureExplainView(views.APIView):
     serializer_class = PictureExplainSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     
+    # GET-Methode zum Abrufen der Bildanalysen eines Benutzers
     def get(self, request, format=None):
         qs = CodeExplainer.objects.filter(user=request.user)
         
-        # Apply filters
+        # Filteranwendung basierend auf LLM-Ausgabe und Modelltyp
         llm_output = request.query_params.get('llm_output', None)
         models = request.query_params.get('model', None)
         
@@ -31,6 +33,7 @@ class PictureExplainView(views.APIView):
         serializer = self.serializer_class(qs, many=True)
         return Response(serializer.data)
     
+    # POST-Methode zum Erstellen einer neuen Bildanalyse
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         if serializer.is_valid():
@@ -38,6 +41,7 @@ class PictureExplainView(views.APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    # DELETE-Methode zum Löschen einer Bildanalyse
     def delete(self, request, format=None):
         image_id = request.query_params.get('id')
         if not image_id:
@@ -50,6 +54,7 @@ class PictureExplainView(views.APIView):
         except CodeExplainer.DoesNotExist:
             return Response({"error": "Image not found"}, status=status.HTTP_404_NOT_FOUND)
 
+# ViewSet für Benutzer, ermöglicht CRUD-Operationen
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -73,9 +78,11 @@ class UserView(viewsets.ModelViewSet):
     def perform_destroy(self, instance):
         instance.delete()
 
+# APIView zur Erstellung von Token für die Authentifizierung
 class TokenView(ObtainAuthToken):
     serializer_class = TokenSerializer
 
+# APIView zum Löschen eines Benutzers
 class DeleteUserView(views.APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

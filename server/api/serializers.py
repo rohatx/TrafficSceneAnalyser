@@ -7,6 +7,7 @@ import json
 from api.models import CodeExplainer
 from api.utils import analyze_and_check
 
+# Serializer für das Bildanalyse-Modell, enthält Felder für die Eingabe und Ausgabe der Analyse
 class PictureExplainSerializer(serializers.ModelSerializer):
     latitude = serializers.FloatField(write_only=True)
     longitude = serializers.FloatField(write_only=True)
@@ -22,6 +23,7 @@ class PictureExplainSerializer(serializers.ModelSerializer):
             "marked_image": {"read_only": True}  # Read-only
         }
 
+    # Überschreibt die create-Methode, um eine Analyse durchzuführen und die Ergebnisse zu speichern
     def create(self, validated_data):
         request = self.context.get('request')
         validated_data['user'] = request.user
@@ -37,6 +39,7 @@ class PictureExplainSerializer(serializers.ModelSerializer):
         ce.save()
         return ce
 
+# Serializer für Benutzer, behandelt die Erstellung und das Speichern von Benutzerdaten
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -48,13 +51,15 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         password = validated_data.pop("password")
         user = User.objects.create(**validated_data)
-        # to save the password as hashed and crypted
+        # Das Passwort wird verschlüsselt gespeichert
         user.set_password(password)
         user.save()
 
+        # Erzeugt ein Authentifizierungstoken für den neuen Benutzer
         Token.objects.create(user=user)
         return user
 
+# Serializer zur Authentifizierung von Benutzern, validiert die eingegebenen Anmeldedaten
 class TokenSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(style = {"input_type":"password"}, trim_whitespace = False) 
