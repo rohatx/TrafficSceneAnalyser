@@ -27,13 +27,13 @@ import java.util.List;
 
 public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.ViewHolder> {
 
-    // Variablen für die Liste der Bildausgaben, den Kontext, das DeleteListener-Interface und das Layout
+    // Liste von ImageOutput-Objekten und Kontext
     private List<ImageOutput> imageOutputList;
     private Context context;
     private OnDeleteClickListener onDeleteClickListener;
     private int layoutResId;
 
-    // Konstruktor zur Initialisierung der Adapterklasse
+    // Konstruktor für den Adapter, um die Liste, den Kontext, den OnDeleteClickListener und das Layout-Resource-Id zu initialisieren
     public ImageOutputAdapter(List<ImageOutput> imageOutputList, Context context, OnDeleteClickListener onDeleteClickListener, int layoutResId) {
         this.imageOutputList = imageOutputList;
         this.context = context;
@@ -41,12 +41,12 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
         this.layoutResId = layoutResId;
     }
 
-    // Interface für das Löschen von Elementen
+    // Schnittstelle für den Lösch-Button, der eine Löschaktion durchführt, wenn darauf geklickt wird
     public interface OnDeleteClickListener {
         void onDeleteClick(int position);
     }
 
-    // ViewHolder-Klasse zur Verwaltung der UI-Elemente jedes Listenelements
+    // ViewHolder-Klasse, die die Ansichtselemente hält und initialisiert
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public ImageView imageViewOutputIcon;
@@ -57,7 +57,7 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
         public TextView textViewLoading;
         public View viewBar;
 
-        // ViewHolder-Konstruktor, der die UI-Elemente initialisiert
+        // Konstruktor für ViewHolder, um die Ansichtselemente zu referenzieren
         public ViewHolder(View view, OnDeleteClickListener onDeleteClickListener, int layoutResId) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
@@ -68,7 +68,7 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             textViewLoading = view.findViewById(R.id.textViewLoading);
             viewBar = view.findViewById(R.id.ViewBar);
 
-            // Wenn das Layout das History-Layout ist, wird der Delete-Button initialisiert
+            // Initialisierung und Setzen des OnClickListeners für den Lösch-Button, falls das Layout die History-Ansicht ist
             if (layoutResId == R.layout.item_image_output_history) {
                 deleteButton = view.findViewById(R.id.deleteButton);
                 deleteButton.setOnClickListener(v -> {
@@ -83,26 +83,28 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
         }
     }
 
+    // Inflating der Ansicht und Erstellen des ViewHolders
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflating des Layouts und Erstellung des ViewHolders
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutResId, parent, false);
         return new ViewHolder(view, onDeleteClickListener, layoutResId);
     }
 
+    // Binden der Daten an die Ansichtselemente in der RecyclerView
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Daten aus der Liste auf die UI-Elemente binden
         ImageOutput imageOutput = imageOutputList.get(position);
 
-        // Anzeigen des Bildes aus dem ImageOutput-Objekt
+        // Wenn ein Base64-codiertes Bild vorhanden ist, dekodieren und setzen
         if (imageOutput.getMarkedImage() != null) {
             byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             holder.imageView.setImageBitmap(bitmap);
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        } else if (imageOutput.getImageUri() != null) {
+        }
+        // Wenn eine Bild-URI vorhanden ist, öffnen und setzen
+        else if (imageOutput.getImageUri() != null) {
             try {
                 InputStream inputStream = context.getContentResolver().openInputStream(imageOutput.getImageUri());
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
@@ -113,17 +115,22 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                 holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 e.printStackTrace();
             }
-        } else if (imageOutput.getImageStream() != null) {
+        }
+        // Wenn ein Bildstream vorhanden ist, setzen
+        else if (imageOutput.getImageStream() != null) {
             Bitmap bitmap = BitmapFactory.decodeStream(imageOutput.getImageStream());
             holder.imageView.setImageBitmap(bitmap);
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        } else {
+        }
+        // Platzhalterbild setzen, falls kein Bild vorhanden ist
+        else {
             holder.imageView.setImageResource(R.drawable.placeholder_image);
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
 
-        // Anzeige zusätzlicher Informationen, falls vorhanden
+        // Überprüfen, ob das Bild analysiert wurde
         if(imageOutput.isUnderrideable() != -1) {
+            // Ausblenden des Lade-Textes und Anzeigen der Analyseergebnisse
             holder.textViewLoading.setVisibility(View.GONE);
             holder.imageViewOutputIcon.setVisibility(View.VISIBLE);
             holder.imageViewOutput.setVisibility(View.VISIBLE);
@@ -131,6 +138,7 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             holder.textViewAccuracy.setVisibility(View.VISIBLE);
             holder.viewBar.setVisibility(View.VISIBLE);
 
+            // Setzen der Analyse-Icons basierend auf den Ergebnissen
             holder.imageViewOutputIcon.setImageResource(R.drawable.tunnel_freepik);
             if (imageOutput.isUnderrideable() == 0) {
                 holder.imageViewOutput.setImageResource(R.drawable.icons8_crossmark);
@@ -140,13 +148,13 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
             holder.imageViewAccuracy.setImageResource(R.drawable.accuracy_freepik);
             holder.textViewAccuracy.setText(imageOutput.getProbability());
 
-            // Öffnen des Pop-ups zur Anzeige detaillierter Bildinformationen
+            // Öffnen eines Popup-Fensters mit zusätzlichen Informationen, wenn auf das Bild geklickt wird
             holder.imageView.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
                 LayoutInflater inflater = LayoutInflater.from(holder.itemView.getContext());
                 View dialogView = inflater.inflate(R.layout.activity_reasoning_popup, null);
 
-                // Initialisierung der Popup-UI-Elemente
+                // Initialisierung der Ansichtselemente im Popup-Fenster
                 ImageView imageViewPopup = dialogView.findViewById(R.id.imageViewPopup);
                 TextView textViewInfoPopUp = dialogView.findViewById(R.id.textViewInfoPopUp);
                 TextView textViewReasoningPopUp = dialogView.findViewById(R.id.textViewReasoningPopUp);
@@ -154,7 +162,7 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                 TextView textViewImageQualityPopUp = dialogView.findViewById(R.id.textViewImageQualityPopUp);
                 TextView textViewPopUp = dialogView.findViewById(R.id.textViewPopUp);
 
-                // Anzeigen des Bildes im Popup
+                // Setzen des Bildes im Popup basierend auf der verfügbaren Quelle
                 if (imageOutput.getMarkedImage() != null) {
                     byte[] decodedString = Base64.decode(imageOutput.getMarkedImage(), Base64.DEFAULT);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -180,13 +188,18 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                     imageViewPopup.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 }
 
-                // Setzen der Textfelder im Popup mit den Bildinformationen
+                // Setzen der Texte im Popup mit HTML-Inhalt
                 textViewInfoPopUp.setText(Html.fromHtml(imageOutput.getInfoText(), Html.FROM_HTML_MODE_COMPACT));
                 textViewReasoningPopUp.setText(Html.fromHtml(imageOutput.getReasoningText(), Html.FROM_HTML_MODE_COMPACT));
                 textViewSanityCheckPopUp.setText(Html.fromHtml(imageOutput.getSanityCheckText(), Html.FROM_HTML_MODE_COMPACT));
-                textViewImageQualityPopUp.setText(imageOutput.getImageQuality());
 
-                // Anzeige von Bildqualitätsproblemen, falls vorhanden
+                // Anzeigen von Bildqualitätsproblemen, wenn vorhanden
+                textViewImageQualityPopUp.setText(imageOutput.getImageQuality());
+                String popUpStr = imageOutput.getInfoText() + "<br/><br/>"
+                        + imageOutput.getReasoningText() + "<br/><br/>"
+                        + imageOutput.getSanityCheckText();
+                textViewPopUp.setText(Html.fromHtml(popUpStr, Html.FROM_HTML_MODE_COMPACT));
+
                 if (imageOutput.hasImageQualityIssues()) {
                     textViewImageQualityPopUp.setVisibility(View.VISIBLE);
                     Spanned underLinedText = Html.fromHtml(imageOutput.getImageQualityText(), Html.FROM_HTML_MODE_COMPACT);
@@ -197,7 +210,7 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
                     });
                 }
 
-                // Anzeige des Pop-ups
+                // Anzeigen des Popup-Fensters mit allen gesetzten Inhalten
                 builder.setView(dialogView)
                         .setTitle("Bildbeschreibung")
                         .setPositiveButton("Ok", null)
@@ -206,8 +219,9 @@ public class ImageOutputAdapter extends RecyclerView.Adapter<ImageOutputAdapter.
         }
     }
 
+    // Gibt die Anzahl der Elemente in der Liste zurück
     @Override
     public int getItemCount() {
-        return imageOutputList.size(); // Gibt die Größe der Bildausgabe-Liste zurück
+        return imageOutputList.size();
     }
 }
