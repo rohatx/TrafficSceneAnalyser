@@ -1,107 +1,216 @@
-# Projektname
+# Contents
 
-Noch hinzuzufügen
+- [Contents](#contents)
+- [Setup and Installation](#setup-and-installation)
+  - [Create and Activate a Virtual Environment](#create-and-activate-a-virtual-environment)
+  - [Install Dependencies](#install-dependencies)
+  - [Apply Migrations](#apply-migrations)
+  - [Create Necessary Certificates for HTTPS](#create-necessary-certificates-for-https)
+  - [Start the Development Server](#start-the-development-server)
+  - [Usage](#usage)
+  - [Exporting Data to CSV](#exporting-data-to-csv)
+    - [Parameters](#parameters)
+    - [Example](#example)
+- [Documentation of the analysis process](#documentation-of-the-analysis-process)
+  - [Prompt Engineering process](#prompt-engineering-process)
+  - [Sanity Check implementation](#sanity-check-implementation)
+    - [Accuracy of the Sanity Check](#accuracy-of-the-sanity-check)
+    - [Abnormalities](#abnormalities)
+    - [Performance of the Sanity Check](#performance-of-the-sanity-check)
+  - [Testing Large Language Models](#testing-large-language-models)
+    - [Testing conditions](#testing-conditions)
+    - [Metric for accuracy](#metric-for-accuracy)
+    - [Table for accuracy and latency of the LMMs](#table-for-accuracy-and-latency-of-the-lmms)
 
-## Voraussetzungen
 
-Stellen Sie sicher, dass Python und Pip auf Ihrem System installiert sind, um dieses Projekt ausführen zu können.
+# Setup and Installation
 
-## Einrichtung
+## Create and Activate a Virtual Environment
 
-Folgen Sie diesen Schritten, um das Projekt lokal einzurichten:
-
-### Erstellen und Aktivieren einer virtuellen Umgebung
-
-Erstellen Sie eine virtuelle Umgebung, um die Abhängigkeiten isoliert vom Rest Ihres Systems zu verwalten:
+Create a virtual environment to manage dependencies isolated from the rest of your system:
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate  # Unter Linux/MacOS
-venv\Scripts\activate  # Unter Windows
+source venv/bin/activate  # On Linux/MacOS
+venv\Scripts\activate  # On Windows
 ```
 
-### Installation der Abhängigkeiten
+## Install Dependencies
 
-Installieren Sie alle erforderlichen Abhängigkeiten:
-
+Install all necessary dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-### Anwenden von Migrationen
+## Apply Migrations
 
-Vor dem Starten der Anwendung müssen die Datenbank-Migrationen angewendet werden:
+Before starting the application, apply the database migrations:
 
-```bash
+```
 python manage.py migrate
 ```
 
-### Erstelle die notwendigen Certificates für HTTPS
+## Create Necessary Certificates for HTTPS
+Generate the certificates needed for HTTPS:
 ```bash
 mkdir certificates
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout django-selfsigned.key -out certificates/django-selfsigned.crt
 ```
 
-### Starten des Entwicklungsservers
-Zunächst muss .env angepasst werden. Es muss ein API key sowie ALLOWED_HOSTS exportiert werden.
-```env
-export OPENAI_APIKEY="Hier dein API Key"
-export OPENROUTER_APIKEY="Hier dein API Key"
-export SECRET_KEY = "Your Production Key"
-export ALLOWED_HOSTS="Hier deine ip Adresse",localhost,127.0.0.1,[::1]
-```
-Jetzt können Sie den Entwicklungsserver starten:
+## Start the Development Server
+
+First, adjust the .env file. You need to export an API key and allowed hosts.
 
 ```bash
-python manage.py runserver 0.0.0.0:8000 #auf allen Netzwerk-Interfaces verfügbar
+export OPENAI_APIKEY="Your API Key"
+export OPENROUTER_APIKEY="Your API Key"
+export SECRET_KEY="Your Production Key"
+export ALLOWED_HOSTS="Your IP address",localhost,127.0.0.1,[::1]
 ```
 
-Der Server ist jetzt unter `http://127.0.0.1:8000/` erreichbar.
-Um den Server aus der android app zu erreichen, fügen Sie Ihre IP-Adresse ALLOWED_HOSTS in src/settings.py hinzu
+Now you can start the development server:
+```bash
+python manage.py runserver 0.0.0.0:8000 # Accessible on all network interfaces
+```
 
-## Verwendung
+The server is now accessible at http://127.0.0.1:8000/. To reach the server from the Android app, add your IP address to ALLOWED_HOSTS in src/settings.py.
 
-Beispiel Post Anfrage: `http://127.0.0.1:8000/api/v1/picture-explain/`<br>
-Body:
+Add LLaVa Support (No API Keys Needed)
+To use LLaVa, it must first be installed on the system.
+
+- A tool used here is [Ollama](https://ollama.com/).
+- Currently, Ollama is only available for Linux and MacOS. It should also work under WSL2.
+- Now pull the model used: ollama pull llava:7b-v1.6.
+
+## Usage
+Example POST request to http://127.0.0.1:8000/api/v1/picture-explain/:
+
 ```json
 {
-    "_input": "Hier dein base64 encoded Bild",
+    "_input": "Your base64 encoded image",
     "model": "gpt-4o"
 }
 ```
 
-## Hinzufügen von LLaVa-Unterstützung (Keine Api Keys notwendig)
-Um auch LLaVa nutzen zu können, muss dieses zunächst auf dem System installiert werden.
-- Ein Tool zur Vereinfachung, welches hier verwendet wird ist [Ollama](https://ollama.com/)
-- Aktuell ist Ollama nur für Linux und MacOS verfügbar. Unter WSL2 sollte es ebenfalls funktionieren.
-- Nun muss noch unser verwendetes Modell gepullt werden `ollama pull llava:7b-v1.6`
+## Exporting Data to CSV
+This project includes a script for exporting data from the database to a CSV file. The script can be used with various parameters to filter the exported data.
 
-## Nutzung des Skripts zum Exportieren von Daten in eine CSV-Datei
+### Parameters
+- -c, --calculated_probability: (optional) The threshold for the calculated probability. Only entries with a calculated probability greater than this value will be exported.
+- -o, --output_file: (required) The name of the output file (CSV).
+- -i, --image_dir: (required) The directory where images will be stored.
+- -m, --model: (optional) Filter by model type.
+- -l, --llm_output: (optional) Filter by LLM output (0 or 1).
 
-Dieses Projekt enthält ein Skript zum Exportieren von Daten aus der Datenbank in eine CSV-Datei. Das Skript kann mit verschiedenen Parametern verwendet werden, um die exportierten Daten zu filtern.
+### Example
 
-### Parameter
+To use the script:
 
-- `-c`, `--calculated_probability`: (optional) Der Schwellenwert für die berechnete Wahrscheinlichkeit. Nur Einträge mit einer berechneten Wahrscheinlichkeit größer als dieser Wert werden exportiert.
-- `-o`, `--output_file`: (erforderlich) Der Name der Ausgabedatei (CSV).
-- `-i`, `--image_dir`: (erforderlich) Das Verzeichnis, in dem die Bilder gespeichert werden sollen.
-- `-m`, `--model`: (optional) Filter nach Modelltyp.
-- `-l`, `--llm_output`: (optional) Filter nach LLM-Ausgabe (0 oder 1).
+1. Ensure your virtual environment is activated.
 
-### Beispiel
-
-So verwenden Sie das Skript:
-
-1. Stellen Sie sicher, dass Ihre virtuelle Umgebung aktiviert ist.
-
-2. Führen Sie das Skript mit den gewünschten Parametern aus:
-
+2. Run the script with the desired parameters:
 ```bash
 python scripts/export_to_csv.py -o output.csv -i images/ -c 0.5 -m "gpt-4o" -l 1
 ```
+This command exports all records where calculated_probability is greater than 0.5, the model gpt-4o was used, and the LLM output is 1, into a file named output.csv. The base64-encoded images will be saved in the images/ directory and referenced as paths in the CSV file.
 
-Dieser Befehl exportiert alle Datensätze, bei denen die calculated_probability größer als 0.5 ist, das Modell gpt-4o verwendet wurde und der LLM-Ausgang 1 ist, in eine Datei namens output.csv. Die base64-codierten Bilder werden im Verzeichnis images/ gespeichert und in der CSV-Datei als Pfade referenziert.
+# Documentation of the analysis process
 
-## Lizenz
+## Prompt Engineering process
 
-Dieses Projekt ist unter der MIT-Lizenz lizenziert - siehe die [LICENSE](LICENSE) Datei für Details.
+Working with artificial intelligence system requires a prompt which is used to calculate the desired output the user (the prompt writer) wants to generate. The prompt details the requirements a result should contain.
+
+In the case of the traffic analysis application, our developer team wants a LMM (large language model) to analyse an image typically depicting a traffic scene featuring a bridge or a tunnel. Based on the image, the choosen model should provide an output whether the object (e.g. bridge/tunnel) is underridable for a vehicle (truck/car). 
+
+To get an utilisable reply, we decided to test out prompt engineering.
+The starting point for the research was an [IBM article](https://www.ibm.com/de-de/topics/prompt-engineering) about prompt engineering. This article illustrates important aspects to consider when writing a prompt.
+Artifical intelligence systems are usually trained with a purpose in mind. For example, ChatGPT was trained to process and compose textual data. Hence, the knowledge basis of various models are different and even different from the human mind. Since we do not know, what exactly the artifical intelligence systems knows, we want to engineer the prompt as precise as possible. We also etablished english as a good choice for a prompt as most models were trained in english.
+
+Now with the fundamentels of our prompt determined, we looked for techniques on how to engineer the content of our prompt.
+The [article from OpenAI](https://platform.openai.com/docs/guides/prompt-engineering/six-strategies-for-getting-better-results) illustrates different approaches on how to engineer a prompt.
+An important aspect is balancing between shorter or longer prompts and hence giving or omitting contextual information. On one hand, short prompts can be processed more efficiently but the results may not be satisfying since the model lacks context to understand the data correctly. On the other hand, long prompts may take more time to be processed but result in a more precise reply. 
+
+To find out which approach was more suited for our application, we engineered a short and a long prompt. Since both prompts worked equally well for our cause, we decided to use the shorter version to potentially speed up the reply time.
+
+At this point we had engineered a solid prompt. As stated earlier, we want to process the output of the LMM. To ensure further usage, we wanted the reply to be in a certain .JSON format.
+Inspired by this [bachelor thesis](https://www.diva-portal.org/smash/record.jsf?pid=diva2%3A1801354&dswid=-6570) we also engineered our prompt using the .JSON format directly. This approach worked very well throughout all LMMs we tested.
+
+After all this research we finally had a prompt we were satisfied with. The structured prompt results in the correct format (albeit accuracy of the format depends on the model used) and the content was reasonable as well.
+
+
+## Sanity Check implementation
+
+To check the correctness of the output of the LMM, we implemented a so called "Sanity Check". 
+The Sanity Check uses the python Overpass API which utilizes the OpenStreetMap database. We use tags ("ways", bridge", "tunnel") established in the database. Given GPS data, a check for the aforementioned tags is performed, resulting in true or false. This result is compared with the output the LMM generates. If there is a way (trafficable street in general) and a bridge or tunnel tag, the result is true. Note that the Sanity Check consists of two queries. One query checks for a 'way' tag to verify a trafficable street for vehicles. The other query checks for the 'bridge' or 'tunnel' tag. The result of both queries is taken into considerration for the final output the user of our application gets.
+
+### Accuracy of the Sanity Check
+
+The Sanity Check is dependent on the provided tags of the used API. 
+The GPS data provided is the exact position where the images have been captured. Usually the relevant scene is not at this exact coordinate but further in front of the viewer's perspective. To cover this issue, we use a radius to check for relevant tags near the coordinates.
+This radius is helpful, but also has its downsides. Determining a suitable value for this radius is crucial for the Sanity Check. 
+Since the Sanity Check consists of two queries, two radius values are needed. 
+The radius for the 'way' tag should not be too high since the image usually would be captured on or next to a street. Choosing a lower value ensures that no other 'way' tag is wrongly returned.
+For the 'bridge' or 'tunnel' tag, the radius should be high enough to compensate the distance a user has to the scene they want to capture and have it analyzed.
+
+So ultimately, the accuracy of the Sanity Check is the result of available tags from the database and fitting radius values for the queries used for the Overpass API.
+
+
+
+
+### Abnormalities
+
+Abnormalities may arise when there is no tag for the object depicted or the tags are not correctly implemented. For example, a tunnel could be only tagged as such in the middle, but not in the entrance points of it. Ultimately, the Sanity Check is limted to the OpenStreetMap database and its shortcomings.
+
+
+### Performance of the Sanity Check
+
+The Sanity Check usually performs well within a radius of 100 meters. It also performs well in high maintained areas where a lot of data has been added to the underlying database.
+
+
+The Sanity Check verifies the GPS data for a captured image and simply returns true, if a way and a bridge or tunnel tag is found, or else returns false, if no such tags exists.
+For the purpose of our application this implementation of the Sanity Check works well and can be used to verifiy the output an artifical intelligence system generates.
+
+
+## Testing Large Language Models
+
+Having engineered a fitting prompt and implemented the Sanity Check, we decided to test the large language models we redeemed most useful for our cause. The LLM we decided to potentially use are the following: GPT-4o, Gemini Pro, Gemini Flash, Claude, LLaVa and FIRELlaVa.
+
+We attempted to find out the accuracy and time needed to calculate the result of the different models. 
+These values are specific for our traffic analysis application. The results show how well the prompt performs with the different models to determine the usefulness for our app.
+
+The accuracy we aquired through our testings is our base value for the overall accuracy that will be displayed to the user of the app. Hence it will be called 'historical accuracy'.
+
+The historical accuracy will be altered depending on the Sanity Check result and the output of the choosen model. The resulting actual accuracy will help the user to estimate the trustworthiness of our application output whereas the historical accuracy will help the user to estimate the truthworthiness of the LLM in itself.
+
+### Testing conditions
+
+So now that we have established the need for an historical accuracy value, we need the means to calculate such a value. 
+For this purpose we created testing data consisting of 50 images of bridges and tunnels. Before testing each LLM with the images and engineered prompt, the images were labeled with 0 and 1, whereas 0 stands for not underridable and 1 stands for underridable.
+Afterwards each LMM has been given each image and the prompt to generate an output. 
+To ensure all models only use informationen from the provided image and the prompt, we have given the files generic file names like "File1" etc., otherwise the LLM would in some cases extract information from the file name. 
+
+### Metric for accuracy
+
+We used the mean as the metric to determine the historical accuracy. So the historical accuracy is calculated like this:
+```
+historical accuracy = base set value / (true positive + true negative)
+```
+
+The base set value is the sum of all images, hence the value is 50.
+True positive means the model has correctly identified if the depicted object is underridable.
+True negative means the model has correctly identified if the depicted object is not underridable.
+
+### Table for accuracy and latency of the LMMs
+    
+|     LMM      | accuracy |  latency   |
+| :----------: | :------: | :--------: |
+|    GPT-4o    |   94%    | 13 seconds |
+|    Claude    |   90%    | 5 seconds  |
+|  Gemini Pro  |   84%    | 10 seoncds |
+| Gemini Flash |   60%    | 7 seconds  |
+|    LLaVA     |   68%    | 30 seconds |
+|  FireLLaVA   |   80%    | 10 seconds |
+
+
+
+This table shows the result of the testing for all large language models. The latency of all models, except the local model, LLaVa, is within a similar timeframe, hence the model with the highest accuracy is best suited for the traffic analysis application. In the context of our app, GPT-4o bas proven to be the best suited large language model.
